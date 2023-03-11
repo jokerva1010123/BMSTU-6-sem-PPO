@@ -1,0 +1,16 @@
+D:\BMSTU\BMSTU-6-sem-PPO\copcode\BMSTU-Software-Design-sem6\src\ComponentAccessToDB\bin\Debug\net5.0\appsettings.json
+D:\BMSTU\BMSTU-6-sem-PPO\copcode\BMSTU-Software-Design-sem6\src\ComponentAccessToDB\bin\Debug\net5.0\DB.deps.json
+D:\BMSTU\BMSTU-6-sem-PPO\copcode\BMSTU-Software-Design-sem6\src\ComponentAccessToDB\bin\Debug\net5.0\DB.dll
+D:\BMSTU\BMSTU-6-sem-PPO\copcode\BMSTU-Software-Design-sem6\src\ComponentAccessToDB\bin\Debug\net5.0\DB.pdb
+D:\BMSTU\BMSTU-6-sem-PPO\copcode\BMSTU-Software-Design-sem6\src\ComponentAccessToDB\bin\Debug\net5.0\BL.dll
+D:\BMSTU\BMSTU-6-sem-PPO\copcode\BMSTU-Software-Design-sem6\src\ComponentAccessToDB\bin\Debug\net5.0\BL.pdb
+D:\BMSTU\BMSTU-6-sem-PPO\copcode\BMSTU-Software-Design-sem6\src\ComponentAccessToDB\obj\Debug\net5.0\DB.csproj.AssemblyReference.cache
+D:\BMSTU\BMSTU-6-sem-PPO\copcode\BMSTU-Software-Design-sem6\src\ComponentAccessToDB\obj\Debug\net5.0\DB.GeneratedMSBuildEditorConfig.editorconfig
+D:\BMSTU\BMSTU-6-sem-PPO\copcode\BMSTU-Software-Design-sem6\src\ComponentAccessToDB\obj\Debug\net5.0\DB.AssemblyInfoInputs.cache
+D:\BMSTU\BMSTU-6-sem-PPO\copcode\BMSTU-Software-Design-sem6\src\ComponentAccessToDB\obj\Debug\net5.0\DB.AssemblyInfo.cs
+D:\BMSTU\BMSTU-6-sem-PPO\copcode\BMSTU-Software-Design-sem6\src\ComponentAccessToDB\obj\Debug\net5.0\DB.csproj.CoreCompileInputs.cache
+D:\BMSTU\BMSTU-6-sem-PPO\copcode\BMSTU-Software-Design-sem6\src\ComponentAccessToDB\obj\Debug\net5.0\DB.csproj.CopyComplete
+D:\BMSTU\BMSTU-6-sem-PPO\copcode\BMSTU-Software-Design-sem6\src\ComponentAccessToDB\obj\Debug\net5.0\DB.dll
+D:\BMSTU\BMSTU-6-sem-PPO\copcode\BMSTU-Software-Design-sem6\src\ComponentAccessToDB\obj\Debug\net5.0\refint\DB.dll
+D:\BMSTU\BMSTU-6-sem-PPO\copcode\BMSTU-Software-Design-sem6\src\ComponentAccessToDB\obj\Debug\net5.0\DB.pdb
+D:\BMSTU\BMSTU-6-sem-PPO\copcode\BMSTU-Software-Design-sem6\src\ComponentAccessToDB\obj\Debug\net5.0\ref\DB.dll
