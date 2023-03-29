@@ -19,6 +19,7 @@ namespace TestBL
             IManagementRepository managementRep = new ManagementRepository();
             IInterestVisitorsRepository interestVisitorRep = new InterestVisitorsRepository();
             IStatisticsRepository statRep = new StatisticsRepository();
+            IHotelStarsRepository hotelstars = new IHotelStarsRepository();
 
 
             UserController rep = new UserController(user, funcRep, visitorRep, hotelRep, managementRep, interestVisitorRep, statRep);
