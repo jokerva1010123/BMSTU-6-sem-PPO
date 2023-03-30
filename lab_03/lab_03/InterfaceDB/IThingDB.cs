@@ -1,12 +1,4 @@
-﻿using lab_03;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-
-namespace lab_03
+﻿namespace lab_03
 {
     public interface IThingDB
     {

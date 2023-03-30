@@ -39,6 +39,18 @@ namespace lab_03.Tests
     public class UserServicesTests
     {
         [TestMethod()]
+        public void getUserTest()
+        {
+            List<User> users = new List<User>();
+            users.Add(new User(1, "abc", "abc"));
+
+            TestUserServices testUser = new TestUserServices(users);
+            UserServices userServices = new UserServices(testUser);
+
+            User user = userServices.getUser(1);
+            Assert.AreEqual("abc", user.Login);
+        }
+        [TestMethod()]
         public void addUserTest()
         {
             List <User> users = new List<User>();
@@ -51,18 +63,6 @@ namespace lab_03.Tests
 
             User user = userServices.getUser(2);
             Assert.AreEqual(2, user.Id);
-        }
-        [TestMethod()]
-        public void getUserTest()
-        {
-            List<User> users = new List<User>();
-            users.Add(new User(1, "abc", "abc"));
-
-            TestUserServices testUser = new TestUserServices(users);
-            UserServices userServices = new UserServices(testUser);
-
-            User user = userServices.getUser(1);
-            Assert.AreEqual("abc", user.Login);
         }
         [TestMethod()]
         public void getIdUserTest()

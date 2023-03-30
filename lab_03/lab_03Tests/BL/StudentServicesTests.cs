@@ -87,115 +87,131 @@ namespace lab_03.Tests
     public class StudentServicesTests
     {
         [TestMethod()]
-        public void addStudentTest()
-        {
-            List<Student> students = new List<Student>();
-            students.Add(new Student(1, "Alex", "IU7-64", 1, DateTime.Parse("06-02-2023")));
-            students.Add(new Student(2, "Anton", "IU7-63", 2, DateTime.Parse("07-02-2023")));
-            students.Add(new Student(3, "Makxim", "IU7-62", 2, DateTime.Parse("05-02-2023")));
-
-            TestStudentServices testStudent = new TestStudentServices(students);
-            StudentServices studentServices = new StudentServices(testStudent);
-
-            studentServices.addStudent("Sasha", "IU7-61", 1, DateTime.Parse("10-02-2023"));
-
-            Student student = studentServices.getStudent(4);
-            Assert.AreEqual(student.Name, "Sasha");
-            Assert.AreEqual(student.Group, "IU7-61");
-            Assert.AreEqual(student.DataIn, DateTime.Parse("10-02-2023"));
-        }
-        [TestMethod()]
         public void getStudentTest()
         {
-            List<Student> students = new List<Student>();
-            students.Add(new Student(1, "Alex", "IU7-64", 1, DateTime.Parse("06-02-2023")));
-            students.Add(new Student(2, "Anton", "IU7-63", 2, DateTime.Parse("07-02-2023")));
-            students.Add(new Student(3, "Makxim", "IU7-62", 2, DateTime.Parse("05-02-2023")));
-
+            List<Student> students = new List<Student>
+            {
+                new Student(1, "Alex", "IU7-64", 1, DateTime.Parse("06-02-2023")),
+                new Student(2, "Anton", "IU7-63", 2, DateTime.Parse("07-02-2023")),
+                new Student(3, "Makxim", "IU7-62", 2, DateTime.Parse("05-02-2023"))
+            };
             TestStudentServices testStudent = new TestStudentServices(students);
-            StudentServices studentServices = new StudentServices(testStudent);
+            TestRoomServices testRoom = new TestRoomServices(Obj.rooms);
+            StudentServices studentServices = new StudentServices(testStudent, testRoom);
 
             Student student = studentServices.getStudent(1);
+
             Assert.AreEqual(student.Name, "Alex");
             Assert.AreEqual(student.Group, "IU7-64");
             Assert.AreEqual(student.DataIn, DateTime.Parse("06-02-2023"));
         }
         [TestMethod()]
+        public void addStudentTest()
+        {
+            List<Student> students = new List<Student>
+            {
+                new Student(1, "Alex", "IU7-64", 1, DateTime.Parse("06-02-2023")),
+                new Student(2, "Anton", "IU7-63", 2, DateTime.Parse("07-02-2023")),
+                new Student(3, "Makxim", "IU7-62", 2, DateTime.Parse("05-02-2023"))
+            };
+            TestStudentServices testStudent = new TestStudentServices(students);
+            TestRoomServices testRoom = new TestRoomServices(Obj.rooms);
+            StudentServices studentServices = new StudentServices(testStudent, testRoom);
+
+            studentServices.addStudent("Sasha", "IU7-61", 1, DateTime.Parse("10-02-2023"));
+            Student student = testStudent.getStudent(4);
+
+            Assert.AreEqual(student.Name, "Sasha");
+            Assert.AreEqual(student.Group, "IU7-61");
+            Assert.AreEqual(student.DataIn, DateTime.Parse("10-02-2023"));
+        }
+        [TestMethod()]
         public void getAllStudentTest()
         {
-            List<Student> students = new List<Student>();
-            students.Add(new Student(1, "Alex", "IU7-64", 1, DateTime.Parse("06-02-2023")));
-            students.Add(new Student(2, "Anton", "IU7-63", 2, DateTime.Parse("07-02-2023")));
-            students.Add(new Student(3, "Makxim", "IU7-62", 2, DateTime.Parse("05-02-2023")));
-
+            List<Student> students = new List<Student>
+            {
+                new Student(1, "Alex", "IU7-64", 1, DateTime.Parse("06-02-2023")),
+                new Student(2, "Anton", "IU7-63", 2, DateTime.Parse("07-02-2023")),
+                new Student(3, "Makxim", "IU7-62", 2, DateTime.Parse("05-02-2023"))
+            };
             TestStudentServices testStudent = new TestStudentServices(students);
-            StudentServices studentServices = new StudentServices(testStudent);
+            TestRoomServices testRoom = new TestRoomServices(Obj.rooms);
+            StudentServices studentServices = new StudentServices(testStudent, testRoom);
 
             List<Student> allStudent = studentServices.getAllStudent();
+            
             Assert.AreEqual(allStudent.Count, 3);
         }
         [TestMethod()]
         public void deleteStudentTest()
         {
-            List<Student> students = new List<Student>();
-            students.Add(new Student(1, "Alex", "IU7-64", 1, DateTime.Parse("06-02-2023")));
-            students.Add(new Student(2, "Anton", "IU7-63", 2, DateTime.Parse("07-02-2023")));
-            students.Add(new Student(3, "Makxim", "IU7-62", 2, DateTime.Parse("05-02-2023")));
-
+            List<Student> students = new List<Student>
+            {
+                new Student(1, "Alex", "IU7-64", 1, DateTime.Parse("06-02-2023")),
+                new Student(2, "Anton", "IU7-63", 2, DateTime.Parse("07-02-2023")),
+                new Student(3, "Makxim", "IU7-62", 2, DateTime.Parse("05-02-2023"))
+            };
             TestStudentServices testStudent = new TestStudentServices(students);
-            StudentServices studentServices = new StudentServices(testStudent);
+            TestRoomServices testRoom = new TestRoomServices(Obj.rooms);
+            StudentServices studentServices = new StudentServices(testStudent, testRoom);
 
             studentServices.deleteStudent(1);
+            Student student = testStudent.getStudent(1);
 
-            Student student = studentServices.getStudent(1);
             Assert.AreEqual(student.Id_room, -1);
         }
         [TestMethod()]
         public void changeRoomStudentTest()
         {
-            List<Student> students = new List<Student>();
-            students.Add(new Student(1, "Alex", "IU7-64", 1, DateTime.Parse("06-02-2023")));
-            students.Add(new Student(2, "Anton", "IU7-63", 2, DateTime.Parse("07-02-2023")));
-            students.Add(new Student(3, "Makxim", "IU7-62", 2, DateTime.Parse("05-02-2023")));
-
+            List<Student> students = new List<Student>
+            {
+                new Student(1, "Alex", "IU7-64", 1, DateTime.Parse("06-02-2023")),
+                new Student(2, "Anton", "IU7-63", 2, DateTime.Parse("07-02-2023")),
+                new Student(3, "Makxim", "IU7-62", 2, DateTime.Parse("05-02-2023"))
+            };
             TestStudentServices testStudent = new TestStudentServices(students);
-            StudentServices studentServices = new StudentServices(testStudent);
+            TestRoomServices testRoom = new TestRoomServices(Obj.rooms);
+            StudentServices studentServices = new StudentServices(testStudent, testRoom);
 
             studentServices.changeRoomStudent(1, 2);
+            Student student = testStudent.getStudent(1);
 
-            Student student = studentServices.getStudent(1);
             Assert.AreEqual(student.Id_room, 2);
         }
         [TestMethod()]
         public void  changeStudentNameTest()
         {
-            List<Student> students = new List<Student>();
-            students.Add(new Student(1, "Alex", "IU7-64", 1, DateTime.Parse("06-02-2023")));
-            students.Add(new Student(2, "Anton", "IU7-63", 2, DateTime.Parse("07-02-2023")));
-            students.Add(new Student(3, "Makxim", "IU7-62", 2, DateTime.Parse("05-02-2023")));
-
+            List<Student> students = new List<Student>
+            {
+                new Student(1, "Alex", "IU7-64", 1, DateTime.Parse("06-02-2023")),
+                new Student(2, "Anton", "IU7-63", 2, DateTime.Parse("07-02-2023")),
+                new Student(3, "Makxim", "IU7-62", 2, DateTime.Parse("05-02-2023"))
+            };
             TestStudentServices testStudent = new TestStudentServices(students);
-            StudentServices studentServices = new StudentServices(testStudent);
+            TestRoomServices testRoom = new TestRoomServices(Obj.rooms);
+            StudentServices studentServices = new StudentServices(testStudent, testRoom);
 
             studentServices.changeStudentName(1, "Alexa");
+            Student student = testStudent.getStudent(1);
 
-            Student student = studentServices.getStudent(1);
             Assert.AreEqual(student.Name, "Alexa");
         }
         [TestMethod()]
         public void changeStudentGroupTest()
         {
-            List<Student> students = new List<Student>();
-            students.Add(new Student(1, "Alex", "IU7-64", 1, DateTime.Parse("06-02-2023")));
-            students.Add(new Student(2, "Anton", "IU7-63", 2, DateTime.Parse("07-02-2023")));
-            students.Add(new Student(3, "Makxim", "IU7-62", 2, DateTime.Parse("05-02-2023")));
-
+            List<Student> students = new List<Student>
+            {
+                new Student(1, "Alex", "IU7-64", 1, DateTime.Parse("06-02-2023")),
+                new Student(2, "Anton", "IU7-63", 2, DateTime.Parse("07-02-2023")),
+                new Student(3, "Makxim", "IU7-62", 2, DateTime.Parse("05-02-2023"))
+            };
             TestStudentServices testStudent = new TestStudentServices(students);
-            StudentServices studentServices = new StudentServices(testStudent);
+            TestRoomServices testRoom = new TestRoomServices(Obj.rooms);
+            StudentServices studentServices = new StudentServices(testStudent, testRoom);
 
             studentServices.changeStudentGroup(1, "IU7-66");
+            Student student = testStudent.getStudent(1);
 
-            Student student = studentServices.getStudent(1);
             Assert.AreEqual(student.Group, "IU7-66");
         }
     }

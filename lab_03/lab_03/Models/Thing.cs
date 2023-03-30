@@ -12,29 +12,27 @@ namespace lab_03
         private int code;
         private string type;
         private int id_room;
-        private int id_student;
-
+        private int? id_student;
         public int Id_thing { get => id_thing; set => id_thing = value; }
         public int Code { get => code; set => code = value; }
         public string Type { get => type; set => type = value; }
         public int Id_room { get => id_room; set => id_room = value; }
-        public int Id_student { get => id_student; set => id_student = value; }
-
+        public int? Id_student { get => id_student; set => id_student = value; }
         public Thing()
         {
             this.id_thing = -1;
             this.code = -1;
             this.type = String.Empty;
             this.id_room = -1;
-            this.id_student = -1;
+            this.id_student = null;
         }
-        public Thing(int code, string type, int id_room, int id_student)
+        public Thing(int code, string type, int id_room, int? id_student)
         {
             this.code = code;
             this.type = type;
             this.id_student = id_student;
         }
-        public Thing(int id_thing, int code, string type, int id_room, int id_student)
+        public Thing(int id_thing, int code, string type, int id_room, int? id_student)
         {
             this.id_thing = id_thing;
             this.code = code;

@@ -10,7 +10,7 @@ namespace lab_03.Tests
 {
     public class TestRoomServices : IRoomDB
     {
-        private List<Room> rooms;
+        public List<Room> rooms;
         public TestRoomServices(List<Room> rooms)
         {
             this.rooms = rooms;
@@ -18,7 +18,7 @@ namespace lab_03.Tests
         public void addRoom(Room room)
         {
             int N = this.rooms.Count;
-            this.rooms.Add(new Room(N + 1, room.Number, room.RoomType));
+            this.rooms.Add(new Room(N + 1, room.Number, room.RoomTypes));
         }
         public void deleteRoom(int id_room)
         {
@@ -43,70 +43,72 @@ namespace lab_03.Tests
     [TestClass()]
     public class RoomServicesTests
     {
-
-        [TestMethod()]
-        public void addRoomTest()
-        {
-            List<Room> rooms = new List<Room>();
-            rooms.Add(new Room(1, 528, "StudenRoom"));
-            rooms.Add(new Room(2, 428, "StudenRoom"));
-            rooms.Add(new Room(3, 1, "Storage"));
-            TestRoomServices testRoom = new TestRoomServices(rooms);
-            RoomServices roomServices = new RoomServices(testRoom);
-
-            roomServices.addRoom(new Room(312, "StudentRoom"));
-            Room room = roomServices.getRoom(4);
-
-            Assert.AreEqual(room.Id_room, 4);
-            Assert.AreEqual(room.Number, 312);
-            Assert.AreEqual(room.RoomType, "StudentRoom");
-        }
-
         [TestMethod()]
         public void getRoomTest()
         {
-            List<Room> rooms = new List<Room>();
-            rooms.Add(new Room(1, 528, "StudenRoom"));
-            rooms.Add(new Room(2, 428, "StudenRoom"));
-            rooms.Add(new Room(3, 1, "Storage"));
+            List<Room> rooms = new List<Room>
+            {
+                new Room(1, 528, RoomType.StudentRoom),
+                new Room(2, 428, RoomType.StudentRoom),
+                new Room(3, 101, RoomType.Storage)
+            };
             TestRoomServices testRoom = new TestRoomServices(rooms);
             RoomServices roomServices = new RoomServices(testRoom);
 
             Room room = roomServices.getRoom(1);
-
             Assert.AreEqual(room.Id_room, 1);
             Assert.AreEqual(room.Number, 528);
-            Assert.AreEqual(room.RoomType, "StudenRoom");
+            Assert.AreEqual(room.RoomTypes, RoomType.StudentRoom);
+        }
+        [TestMethod()]
+        public void addRoomTest()
+        {
+            List<Room> rooms = new List<Room>
+            {
+                new Room(1, 528, RoomType.StudentRoom),
+                new Room(2, 428, RoomType.StudentRoom),
+                new Room(3, 101, RoomType.Storage)
+            };
+            TestRoomServices testRoom = new TestRoomServices(rooms);
+            RoomServices roomServices = new RoomServices(testRoom);
+
+            roomServices.addRoom(new Room(312, RoomType.StudentRoom));
+            Room room = testRoom.getRoom(4);
+            Assert.AreEqual(room.Id_room, 4);
+            Assert.AreEqual(room.Number, 312);
+            Assert.AreEqual(room.RoomTypes, RoomType.StudentRoom);
         }
 
         [TestMethod()]
         public void deleteRoomTest()
         {
-            List<Room> rooms = new List<Room>();
-            rooms.Add(new Room(1, 528, "StudenRoom"));
-            rooms.Add(new Room(2, 428, "StudenRoom"));
-            rooms.Add(new Room(3, 1, "Storage"));
+            List<Room> rooms = new List<Room>
+            {
+                new Room(1, 528, RoomType.StudentRoom),
+                new Room(2, 428, RoomType.StudentRoom),
+                new Room(3, 101, RoomType.Storage)
+            };
             TestRoomServices testRoom = new TestRoomServices(rooms);
             RoomServices roomServices = new RoomServices(testRoom);
 
             roomServices.deleteRoom(2);
-            Room room = roomServices.getRoom(2);
+            Room room = testRoom.getRoom(2);
 
-            Assert.AreEqual(room.Id_room, -1);
+            Assert.AreEqual(room.Id_room, null);
         }
-
         [TestMethod()]
         public void getAllRoomTest()
         {
-            List<Room> rooms = new List<Room>();
-            rooms.Add(new Room(1, 528, "StudenRoom"));
-            rooms.Add(new Room(2, 428, "StudenRoom"));
-            rooms.Add(new Room(3, 1, "Storage"));
+            List<Room> rooms = new List<Room>
+            {
+                new Room(1, 528, RoomType.StudentRoom),
+                new Room(2, 428, RoomType.StudentRoom),
+                new Room(3, 101, RoomType.Storage)
+            };
             TestRoomServices testRoom = new TestRoomServices(rooms);
             RoomServices roomServices = new RoomServices(testRoom);
 
             List <Room> allRooms = roomServices.getAllRoom();
-
             Assert.AreEqual(allRooms.Count, 3);
         }
     }
