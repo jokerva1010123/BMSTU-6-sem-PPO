@@ -43,10 +43,10 @@ namespace lab_03
                 //error
             }
         }
-        public void changeRoomStudent(int id_student, int id_room)
+        public void setRoomStudent(int id_student, int id_room)
         {
             if (istudentDB.getStudent(id_student).Id_student != -1 && roomDB.getRoom(id_room).Id_room != null)
-                this.IstudentDB.changeRoomStudent(id_student, id_room);
+                this.IstudentDB.setRoomStudent(id_student, id_room);
             else
             {
                 //error

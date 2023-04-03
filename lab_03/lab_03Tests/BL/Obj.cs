@@ -21,5 +21,11 @@ namespace lab_03.Tests
             new Thing(2, 1234, "Table", 2, 2),
             new Thing(3, 321, "Chair", 3, -1)
         };
+        public static List<Student> students = new List<Student>
+        {
+            new Student(1, "Alex", "IU7-64", 1, DateTime.Parse("06-02-2023")),
+            new Student(2, "Anton", "IU7-63", 2, DateTime.Parse("07-02-2023")),
+            new Student(3, "Makxim", "IU7-62", 2, DateTime.Parse("05-02-2023"))
+        };
     }
 }

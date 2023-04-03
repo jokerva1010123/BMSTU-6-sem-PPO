@@ -9,6 +9,6 @@
         int getRoomStudent(int id_student);
         Student getStudent(int id_student);
         List<Student> getAllStudent();
-        void changeRoomStudent(int id_student, int id_room);
+        void setRoomStudent(int id_student, int id_room);
     }
 }

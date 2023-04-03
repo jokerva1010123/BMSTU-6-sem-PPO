@@ -71,7 +71,7 @@ namespace lab_03.Tests
         {
             return this.students;
         }
-        public void changeRoomStudent(int id_student, int id_room)
+        public void setRoomStudent(int id_student, int id_room)
         {
             List <Student> newStudent = new List<Student>();
             foreach (Student student in this.students)
@@ -161,7 +161,7 @@ namespace lab_03.Tests
             Assert.AreEqual(student.Id_room, -1);
         }
         [TestMethod()]
-        public void changeRoomStudentTest()
+        public void setRoomStudentTest()
         {
             List<Student> students = new List<Student>
             {
@@ -173,7 +173,7 @@ namespace lab_03.Tests
             TestRoomServices testRoom = new TestRoomServices(Obj.rooms);
             StudentServices studentServices = new StudentServices(testStudent, testRoom);
 
-            studentServices.changeRoomStudent(1, 2);
+            studentServices.setRoomStudent(1, 2);
             Student student = testStudent.getStudent(1);
 
             Assert.AreEqual(student.Id_room, 2);
