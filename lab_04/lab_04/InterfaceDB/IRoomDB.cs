@@ -1,4 +1,4 @@
-﻿namespace lab_03
+﻿namespace lab_04
 {
     public interface IRoomDB
     {

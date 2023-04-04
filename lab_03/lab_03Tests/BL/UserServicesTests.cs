@@ -25,7 +25,7 @@ namespace lab_03.Tests
             foreach(User user in this.users)
                 if(user.Id == id)
                     return user;
-            return new User();
+            return new User(-1, string.Empty, string.Empty);
         }
         public int getIdUser(string login)
         {

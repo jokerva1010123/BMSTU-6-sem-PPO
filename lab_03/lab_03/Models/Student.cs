@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace lab_03
+﻿namespace lab_03
 {
     public class Student
     {
@@ -17,15 +11,7 @@ namespace lab_03
         public string Name { get => name; set => name = value; }
         public string Group { get => group; set => group = value; }
         public int Id_room { get => id_room; set => id_room = value; }
-        public DateTime DataIn { get => dataIn; set => dataIn = value; }
-        public Student()
-        {
-            this.id_student = -1;
-            this.name = String.Empty;
-            this.group = String.Empty;
-            this.id_room = -1;
-            this.dataIn = DateTime.Parse("");
-        }
+        public DateTime DataIn { get => dataIn; set => dataIn = value; } 
         public Student(string name, string group, int id_room, DateTime dataIn)
         {
             this.name = name;

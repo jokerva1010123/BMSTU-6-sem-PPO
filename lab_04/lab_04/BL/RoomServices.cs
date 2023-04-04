@@ -5,7 +5,7 @@ using System.Runtime.ExceptionServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace lab_03
+namespace lab_04
 {
     public class RoomServices
     {
@@ -17,24 +17,31 @@ namespace lab_03
         }
         public void addRoom(Room room)
         {
-            if (this.iroomDB.getRoom(room.Id_room.Value).Id_room == null)
-                this.iroomDB.addRoom(room);
-            else
-            {
-                //error
-            }
+            List<Room> allRoom = this.iroomDB.getAllRoom();
+            foreach (Room tmproom in allRoom)
+                if (tmproom.Number == room.Number)
+                    throw new RoomExistsException();
+            this.iroomDB.addRoom(room);
         }
         public Room getRoom(int id_room)
         {
-            return this.IroomDB.getRoom(id_room);
+            Room room = this.IroomDB.getRoom(id_room);
+            if (room.Id_room == null)
+                throw new RoomNotFoundException();
+            else
+                return room;
         }
         public void deleteRoom(int id_room)
         {
-            if (this.IroomDB.getRoom(id_room).Id_room != null)
-                this.IroomDB.deleteRoom(id_room);
+            Room room = this.IroomDB.getRoom(id_room);
+            if (room.Id_room == null)
+                throw new RoomNotFoundException();
             else
             {
-                //error
+                this.IroomDB.deleteRoom(id_room);
+                room = this.iroomDB.getRoom(id_room);
+                if (room.Id_room != null)
+                    throw new DeleteRoomErrorException();
             }
         }
         public List<Room> getAllRoom()

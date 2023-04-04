@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,52 +19,60 @@ namespace lab_03
         }
         public void addStudent(string name, string group, int id_room, DateTime dateTime)
         {
-            if (roomDB.getRoom(id_room).Id_room != null)
-                this.IstudentDB.addStudent(new Student(name, group, id_room, dateTime));
-            else
-            {
-                // error
-            }
+            if (name.Length < 1 || group.Length < 1)
+                throw new AddStudentErrorException();
+            this.istudentDB.addStudent(new Student(name, group, id_room, dateTime));
         }
         public void changeStudentGroup(int id_student, string newGroup)
         {
-            if (istudentDB.getStudent(id_student).Id_student != -1)
-                this.istudentDB.changeStudentGroup(id_student, newGroup);
-            else
-            {
-                //error
-            }
-        }
+            Student student = this.istudentDB.getStudent(id_student);
+            if (student.Id_student == -1)
+                throw new StudentNotFoundException();
+            this.istudentDB.changeStudentGroup(id_student, newGroup);
+        }    
         public void changeStudentName(int id_student, string newName)
         {
-            if (istudentDB.getStudent(id_student).Id_student != -1)
-                this.IstudentDB.changeStudetName(id_student, newName);
-            else
-            {
-                //error
-            }
+            Student student = this.istudentDB.getStudent(id_student);
+            if (student.Id_student == -1)
+                throw new StudentNotFoundException();
+            this.istudentDB.changeStudetName(id_student, newName);
         }
         public void deleteStudent(int id_student)
         {
-            if (this.IstudentDB.getStudent(id_student).Id_student != -1)
-                this.IstudentDB.deleteStudent(id_student);
+            if (id_student < 1)
+                throw new StudentNotFoundException();
+            if (this.IstudentDB.getStudent(id_student).Id_student == -1)
+            {
+                throw new StudentNotFoundException();
+                            }
             else
             {
-                //error
+                this.IstudentDB.deleteStudent(id_student);
             }
         }
         public void setRoomStudent(int id_student, int id_room)
         {
-            if (istudentDB.getStudent(id_student).Id_student != -1 && roomDB.getRoom(id_room).Id_room != null)
-                this.IstudentDB.setRoomStudent(id_student, id_room);
-            else
-            {
-                //error
-            }
+            if (istudentDB.getStudent(id_student).Id_student == -1)
+                throw new StudentNotFoundException();
+            else 
+                if (roomDB.getRoom(id_room).Id_room == null)
+                    throw new RoomNotFoundException();
+                else 
+                    this.IstudentDB.setRoomStudent(id_student, id_room);
         }
         public Student getStudent(int id_student)
         {
-            return this.IstudentDB.getStudent(id_student);
+            if (id_student < 1)
+                throw new StudentNotFoundException();
+            Student student = this.istudentDB.getStudent(id_student);
+           // Console.WriteLine(student.Id_student);
+            if (student.Id_student != -1)
+                return student;
+
+            else
+            { throw new StudentNotFoundException();
+              
+            }
         }
         public List<Student> getAllStudent()
         {

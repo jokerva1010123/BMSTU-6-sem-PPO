@@ -58,7 +58,7 @@ namespace lab_03.Tests
             foreach (Student student in this.students)
                 if(student.Id_student == id_student)
                     return student;
-            return new Student();
+            return new Student(-1, String.Empty, string.Empty, -1, DateTime.Parse("01-01-1000"));
         }
         public List<Student> getAllStudent()
         {
@@ -97,6 +97,21 @@ namespace lab_03.Tests
             Assert.AreEqual(student.Name, "Alex");
             Assert.AreEqual(student.Group, "IU7-64");
             Assert.AreEqual(student.DataIn, DateTime.Parse("06-02-2023"));
+        }
+        [TestMethod()]
+        public void getStudentFailTest()
+        {
+            List<Student> students = new List<Student>
+            {
+                new Student(1, "Alex", "IU7-64", 1, DateTime.Parse("06-02-2023")),
+                new Student(2, "Anton", "IU7-63", 2, DateTime.Parse("07-02-2023")),
+                new Student(3, "Makxim", "IU7-62", 2, DateTime.Parse("05-02-2023"))
+            };
+            TestStudentServices testStudent = new TestStudentServices(students);
+            TestRoomServices testRoom = new TestRoomServices(Obj.rooms);
+            StudentServices studentServices = new StudentServices(testStudent, testRoom);
+            
+            Assert.ThrowsException<StudentNotFoundException>(() => studentServices.getStudent(4));
         }
         [TestMethod()]
         public void addStudentTest()
@@ -154,6 +169,21 @@ namespace lab_03.Tests
             Assert.AreEqual(student.Id_room, -1);
         }
         [TestMethod()]
+        public void deleteStudentFailTest()
+        {
+            List<Student> students = new List<Student>
+            {
+                new Student(1, "Alex", "IU7-64", 1, DateTime.Parse("06-02-2023")),
+                new Student(2, "Anton", "IU7-63", 2, DateTime.Parse("07-02-2023")),
+                new Student(3, "Makxim", "IU7-62", 2, DateTime.Parse("05-02-2023"))
+            };
+            TestStudentServices testStudent = new TestStudentServices(students);
+            TestRoomServices testRoom = new TestRoomServices(Obj.rooms);
+            StudentServices studentServices = new StudentServices(testStudent, testRoom);
+
+            Assert.ThrowsException<StudentNotFoundException>(() => studentServices.deleteStudent(4));
+        }
+        [TestMethod()]
         public void setRoomStudentTest()
         {
             List<Student> students = new List<Student>
@@ -190,6 +220,22 @@ namespace lab_03.Tests
             Assert.AreEqual(student.Name, "Alexa");
         }
         [TestMethod()]
+        public void  changeStudentNameFailTest()
+        {
+            List<Student> students = new List<Student>
+            {
+                new Student(1, "Alex", "IU7-64", 1, DateTime.Parse("06-02-2023")),
+                new Student(2, "Anton", "IU7-63", 2, DateTime.Parse("07-02-2023")),
+                new Student(3, "Makxim", "IU7-62", 2, DateTime.Parse("05-02-2023"))
+            };
+            TestStudentServices testStudent = new TestStudentServices(students);
+            TestRoomServices testRoom = new TestRoomServices(Obj.rooms);
+            StudentServices studentServices = new StudentServices(testStudent, testRoom);
+
+            Assert.ThrowsException<StudentNotFoundException>(() => studentServices.changeStudentName(4, "Alexa"));
+            
+        }
+        [TestMethod()]
         public void changeStudentGroupTest()
         {
             List<Student> students = new List<Student>
@@ -206,6 +252,22 @@ namespace lab_03.Tests
             Student student = testStudent.getStudent(1);
 
             Assert.AreEqual(student.Group, "IU7-66");
+        }
+        [TestMethod()]
+        public void changeStudentGroupFailTest()
+        {
+            List<Student> students = new List<Student>
+            {
+                new Student(1, "Alex", "IU7-64", 1, DateTime.Parse("06-02-2023")),
+                new Student(2, "Anton", "IU7-63", 2, DateTime.Parse("07-02-2023")),
+                new Student(3, "Makxim", "IU7-62", 2, DateTime.Parse("05-02-2023"))
+            };
+            TestStudentServices testStudent = new TestStudentServices(students);
+            TestRoomServices testRoom = new TestRoomServices(Obj.rooms);
+            StudentServices studentServices = new StudentServices(testStudent, testRoom);
+
+            
+            Assert.ThrowsException<StudentNotFoundException>(()=> studentServices.changeStudentGroup(4, "IU7-66"));
         }
     }
 }

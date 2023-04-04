@@ -1,8 +1,10 @@
-﻿namespace lab_03
+﻿namespace lab_04
 {
     public interface IStudentDB
     {
         void addStudent(Student student);
+        int getIdStudentFromCode(string code);
+        int getRoomStudent(int id_student);
         void changeStudentGroup(int id_student, string newGroup);
         void changeStudetName(int id_student, string newName);
         void deleteStudent(int id_student);

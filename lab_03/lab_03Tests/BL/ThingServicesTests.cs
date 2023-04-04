@@ -39,7 +39,7 @@ namespace lab_03.Tests
             foreach (Thing thing in this.things)
                 if (thing.Id_thing == id_thing)
                     return thing;
-            return new Thing();
+            return new Thing(-1, -1, string.Empty, -1, null);
         }
         public void changeRoomThing(int id_thing, int id_from, int id_to)
         {
@@ -79,6 +79,22 @@ namespace lab_03.Tests
             Assert.AreEqual(thing.Id_student, 1);
         }
         [TestMethod()]
+        public void getThingFailTest()
+        {
+            List<Thing> things = new List<Thing>
+            {
+                new Thing(1, 228, "Chair", 1, 1),
+                new Thing(2, 1234, "Table", 2, 2),
+                new Thing(3, 321, "Chair", 3, null)
+            };
+            TestThingServices testThing = new TestThingServices(things);
+            TestRoomServices testRoom = new TestRoomServices(Obj.rooms);
+            TestStudentServices testStudent = new TestStudentServices(Obj.students);
+            ThingServices thingServices = new ThingServices(testThing, testRoom, testStudent);
+
+            Assert.ThrowsException<ThingNotFoundException>(() => thingServices.getThing(4));            
+        }
+        [TestMethod()]
         public void addThingTest()
         {
             List<Thing> things = new List<Thing>
@@ -100,6 +116,23 @@ namespace lab_03.Tests
             Assert.AreEqual(thing.Type, "Table");   
         }
         [TestMethod()]
+        public void addThingFailTest()
+        {
+            List<Thing> things = new List<Thing>
+            {
+                new Thing(1, 228, "Chair", 1, 1),
+                new Thing(2, 1234, "Table", 2, 2),
+                new Thing(3, 321, "Chair", 3, null)
+            };
+            TestThingServices testThing = new TestThingServices(things);
+            TestRoomServices testRoom = new TestRoomServices(Obj.rooms);
+            TestStudentServices testStudent = new TestStudentServices(Obj.students);
+            ThingServices thingServices = new ThingServices(testThing, testRoom, testStudent);
+
+           Assert.ThrowsException<RoomNotFoundException>(() => thingServices.addThing(1234, "Table", 4, 1));
+              
+        }
+        [TestMethod()]
         public void deleteThingTest()
         {
             List<Thing> things = new List<Thing>
@@ -117,6 +150,23 @@ namespace lab_03.Tests
             Thing thing = testThing.getThing(1);
 
             Assert.AreEqual(thing.Id_thing, -1);        
+        }
+        [TestMethod()]
+        public void deleteThingFailTest()
+        {
+            List<Thing> things = new List<Thing>
+            {
+                new Thing(1, 228, "Chair", 1, 1),
+                new Thing(2, 1234, "Table", 2, 2),
+                new Thing(3, 321, "Chair", 3, null)
+            };
+            TestThingServices testThing = new TestThingServices(things);
+            TestRoomServices testRoom = new TestRoomServices(Obj.rooms);
+            TestStudentServices testStudent = new TestStudentServices(Obj.students);
+            ThingServices thingServices = new ThingServices(testThing, testRoom, testStudent);
+
+            Assert.ThrowsException<ThingNotFoundException>(() => thingServices.deleteThing(4));
+                  
         }
         [TestMethod()]
         public void getAllThingTest()
@@ -154,6 +204,23 @@ namespace lab_03.Tests
             Thing thing = testThing.getThing(2);
 
             Assert.AreEqual(thing.Id_room, 2);
+        }
+        [TestMethod()]
+        public void changeRoomThingFailTest()
+        {
+            List<Thing> things = new List<Thing>
+            {
+                new Thing(1, 228, "Chair", 1, 1),
+                new Thing(2, 1234, "Table", 2, 2),
+                new Thing(3, 321, "Chair", 3, null)
+            };
+            TestThingServices testThing = new TestThingServices(things);
+            TestRoomServices testRoom = new TestRoomServices(Obj.rooms);
+            TestStudentServices testStudent = new TestStudentServices(Obj.students);
+            ThingServices thingServices = new ThingServices(testThing, testRoom, testStudent);
+
+            Assert.ThrowsException<ThingNotInRoomException>(() => thingServices.changeRoomThing(1, 4, 2));
+            
         }
         [TestMethod()]
         public void getFreeThingTest()

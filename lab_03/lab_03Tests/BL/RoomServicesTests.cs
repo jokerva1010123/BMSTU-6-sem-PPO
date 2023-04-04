@@ -33,7 +33,7 @@ namespace lab_03.Tests
             foreach (Room tmpRoom in this.rooms)
                 if (tmpRoom.Id_room == id_room)
                     return tmpRoom;
-            return new Room();
+            return new Room(null, -1, RoomType.None);
         }
         public List<Room> getAllRoom()
         {
@@ -61,6 +61,20 @@ namespace lab_03.Tests
             Assert.AreEqual(room.RoomTypes, RoomType.StudentRoom);
         }
         [TestMethod()]
+        public void getRoomFailTest()
+        {
+            List<Room> rooms = new List<Room>
+            {
+                new Room(1, 528, RoomType.StudentRoom),
+                new Room(2, 428, RoomType.StudentRoom),
+                new Room(3, 101, RoomType.Storage)
+            };
+            TestRoomServices testRoom = new TestRoomServices(rooms);
+            RoomServices roomServices = new RoomServices(testRoom);
+
+            Assert.ThrowsException<RoomNotFoundException>(() => roomServices.getRoom(4));
+        }
+        [TestMethod()]
         public void addRoomTest()
         {
             List<Room> rooms = new List<Room>
@@ -79,6 +93,20 @@ namespace lab_03.Tests
             Assert.AreEqual(room.RoomTypes, RoomType.StudentRoom);
         }
         [TestMethod()]
+        public void addRoomFailTest()
+        {
+            List<Room> rooms = new List<Room>
+            {
+                new Room(1, 528, RoomType.StudentRoom),
+                new Room(2, 428, RoomType.StudentRoom),
+                new Room(3, 101, RoomType.Storage)
+            };
+            TestRoomServices testRoom = new TestRoomServices(rooms);
+            RoomServices roomServices = new RoomServices(testRoom);
+
+            Assert.ThrowsException<RoomExistsException>(() => roomServices.addRoom(new Room(428, RoomType.StudentRoom)));
+        }
+        [TestMethod()]
         public void deleteRoomTest()
         {
             List<Room> rooms = new List<Room>
@@ -94,6 +122,20 @@ namespace lab_03.Tests
             Room room = testRoom.getRoom(2);
 
             Assert.AreEqual(room.Id_room, null);
+        }
+        [TestMethod()]
+        public void deleteRoomFailTest()
+        {
+            List<Room> rooms = new List<Room>
+            {
+                new Room(1, 528, RoomType.StudentRoom),
+                new Room(2, 428, RoomType.StudentRoom),
+                new Room(3, 101, RoomType.Storage)
+            };
+            TestRoomServices testRoom = new TestRoomServices(rooms);
+            RoomServices roomServices = new RoomServices(testRoom);
+
+            Assert.ThrowsException<RoomNotFoundException> (() =>roomServices.deleteRoom(4));
         }
         [TestMethod()]
         public void getAllRoomTest()

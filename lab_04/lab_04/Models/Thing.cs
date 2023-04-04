@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace lab_03
+namespace lab_04
 {
     public class Thing
     {

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace lab_03
+﻿namespace lab_03
 {
     public class Thing
     {
@@ -18,18 +12,11 @@ namespace lab_03
         public string Type { get => type; set => type = value; }
         public int Id_room { get => id_room; set => id_room = value; }
         public int? Id_student { get => id_student; set => id_student = value; }
-        public Thing()
-        {
-            this.id_thing = -1;
-            this.code = -1;
-            this.type = String.Empty;
-            this.id_room = -1;
-            this.id_student = null;
-        }
         public Thing(int code, string type, int id_room, int? id_student)
         {
             this.code = code;
             this.type = type;
+            this.id_room = id_room;
             this.id_student = id_student;
         }
         public Thing(int id_thing, int code, string type, int id_room, int? id_student)

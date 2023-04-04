@@ -1,4 +1,4 @@
-﻿namespace lab_03
+﻿namespace lab_04
 {
     public interface IThingDB
     {
@@ -7,6 +7,7 @@
         Thing getThing(int id_thing);
         List<Thing> getAllThing();
         void changeRoomThing(int id_thing, int id_from, int id_to);
+        int getIdThingFromCode(int code);
     }
 }
 

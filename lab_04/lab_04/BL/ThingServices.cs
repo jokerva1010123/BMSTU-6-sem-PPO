@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace lab_03
+namespace lab_04
 {
     public class ThingServices
     {
@@ -20,25 +20,38 @@ namespace lab_03
         }
         public void addThing(int code, string name, int id_room, int id_student)
         {
-            if (istudentDB.getStudent(id_student).Id_student != -1 && iroomDB.getRoom(id_room).Id_room != null) 
-                this.ithingDB.addThing(new Thing(code, name, id_room, id_student));
+            if (istudentDB.getStudent(id_student).Id_student == -1)
+                throw new StudentNotFoundException();
             else
-            {
-                //error
-            }
+                if (iroomDB.getRoom(id_room).Id_room == null)
+                    throw new RoomNotFoundException();
+                else
+                {
+                    List<Thing> allThing = this.ithingDB.getAllThing();
+                    foreach (Thing thing in allThing)
+                        if (thing.Code == code)
+                            throw new CodeThingExistsException();
+                    this.ithingDB.addThing(new Thing(code, name, id_room, id_student));
+                    int id_thing = this.ithingDB.getIdThingFromCode(code);
+                    if (id_thing == -1)
+                        throw new AddThingErrorException();
+                }
         }
         public void deleteThing(int id_thing)
         {
-            if (this.ithingDB.getThing(id_thing).Id_thing != -1)
+            Thing thing = this.getThing(id_thing);
+            if (thing.Id_thing != -1)
                 this.ithingDB.deleteThing(id_thing);
             else
-            {
-                //error
-            }
+                throw new ThingNotFoundException();
         }
         public Thing getThing(int id_thing)
         {
-            return this.ithingDB.getThing(id_thing);
+            Thing thing = this.ithingDB.getThing(id_thing);
+            if (thing.Id_thing != -1)
+                return thing;
+            else
+                throw new ThingNotFoundException();
         }
         public List<Thing> getAllThing()
         {
@@ -46,12 +59,33 @@ namespace lab_03
         }
         public void changeRoomThing(int id_thing, int id_from, int id_to)
         {
-            if (iroomDB.getRoom(id_from).Id_room != null && iroomDB.getRoom(id_to).Id_room != null && ithingDB.getThing(id_thing).Id_thing != -1)
-                this.ithingDB.changeRoomThing(id_thing, id_from, id_to);
+            Thing thing = this.ithingDB.getThing(id_thing);
+            if (thing.Id_thing == -1)
+                throw new ThingNotFoundException();
             else
-            {
-                //error
-            }
+                if (thing.Id_room != id_from)
+                    throw new ThingNotInRoomException();
+                else
+                {
+                    Room room = this.iroomDB.getRoom(id_to);
+                    if (room.Id_room == -1)
+                        throw new RoomNotFoundException();
+                    else
+                    {
+                        this.IthingDB.changeRoomThing(id_thing, id_from, id_to);
+                        thing = this.ithingDB.getThing(id_thing);
+                        if (thing.Id_room != id_to)
+                            throw new ChangeRoomThingErrorException();
+                    }
+                }
+        }
+        public int getIdThingFromCode(int code)
+        {
+            int id_thing = this.ithingDB.getIdThingFromCode(code);
+            if (id_thing == -1)
+                throw new ThingNotFoundException();
+            else
+                return id_thing;
         }
         public List<Thing> getFreeThing() => ithingDB.getAllThing().Where(x => !x.Id_student.HasValue).ToList();
     }
