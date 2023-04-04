@@ -4,12 +4,8 @@
     {
         void addStudent(Student student);
         int getIdStudentFromCode(string code);
-        int getRoomStudent(int id_student);
-        void changeStudentGroup(int id_student, string newGroup);
-        void changeStudetName(int id_student, string newName);
-        void deleteStudent(int id_student);
+        void changeStudent(int id_student, Student newStudent);
         Student getStudent(int id_student);
         List<Student> getAllStudent();
-        void setRoomStudent(int id_student, int id_room);
     }
 }

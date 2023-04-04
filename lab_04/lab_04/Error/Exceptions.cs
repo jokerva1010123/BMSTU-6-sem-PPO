@@ -104,10 +104,18 @@ namespace lab_04
         public AddUserErrorException(string information = "Пользователя не удалось добавить!\n") : base(information) { }
         public AddUserErrorException(Exception inner, string information = "Пользователя не удалось добавить!\n") : base(information, inner) { }
     }
+    [Serializable]
     public class UserExistsException : Exception
     {
         public UserExistsException() { }
         public UserExistsException(string information = "Пользователя уже существует\n") : base(information) { }
         public UserExistsException(Exception inner, string information = "Пользователя уже существует\n") : base(information, inner) { }
+    }
+    [Serializable]
+    public class DataBaseConnectException : Exception
+    {
+        public DataBaseConnectException() { }
+        public DataBaseConnectException(string information = "Не получилось подключиться к Базе данных!\n") : base(information) { }
+        public DataBaseConnectException(Exception inner, string information = "Не получилось подключиться к Базе данных!\n") : base(information, inner) { }
     }
 }
