@@ -53,13 +53,6 @@ namespace lab_03.Tests
             }
             this.students = newStudent;
         }
-        public int getRoomStudent(int id_student)
-        {
-            foreach (Student student in this.students)
-                if (student.Id_student == id_student)
-                    return student.Id_room;
-            return -1;
-        }
         public Student getStudent(int id_student)
         {
             foreach (Student student in this.students)

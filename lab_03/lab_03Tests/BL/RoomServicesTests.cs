@@ -78,7 +78,6 @@ namespace lab_03.Tests
             Assert.AreEqual(room.Number, 312);
             Assert.AreEqual(room.RoomTypes, RoomType.StudentRoom);
         }
-
         [TestMethod()]
         public void deleteRoomTest()
         {

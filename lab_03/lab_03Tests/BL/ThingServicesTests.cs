@@ -93,7 +93,7 @@ namespace lab_03.Tests
             ThingServices thingServices = new ThingServices(testThing, testRoom, testStudent);
 
             thingServices.addThing(2134, "Table", 1, 1);
-            Thing thing = thingServices.getThing(4);
+            Thing thing = testThing.getThing(4);
 
             Assert.AreEqual(thing.Id_thing, 4);
             Assert.AreEqual(thing.Code, 2134);
@@ -114,7 +114,7 @@ namespace lab_03.Tests
             ThingServices thingServices = new ThingServices(testThing, testRoom, testStudent);
 
             thingServices.deleteThing(1);
-            Thing thing = thingServices.getThing(1);
+            Thing thing = testThing.getThing(1);
 
             Assert.AreEqual(thing.Id_thing, -1);        
         }
@@ -151,7 +151,7 @@ namespace lab_03.Tests
             ThingServices thingServices = new ThingServices(testThing, testRoom, testStudent);
 
             thingServices.changeRoomThing(1, 1, 2);
-            Thing thing = thingServices.getThing(2);
+            Thing thing = testThing.getThing(2);
 
             Assert.AreEqual(thing.Id_room, 2);
         }
