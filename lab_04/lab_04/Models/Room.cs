@@ -20,12 +20,6 @@ namespace lab_04
         public int? Id_room { get => id_room; set => id_room = value; }
         public int Number { get => number; set => number = value; }
         public RoomType RoomTypes { get => roomType; set => roomType = value; }
-        public Room()
-        {
-            this.id_room = null;
-            this.number = -1;
-            this.RoomTypes = RoomType.None;
-        }
         public Room(int? id_room, int number, RoomType roomType)
         {
             this.id_room = id_room;

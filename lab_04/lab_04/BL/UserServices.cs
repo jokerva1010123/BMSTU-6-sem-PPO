@@ -19,9 +19,6 @@ namespace lab_04
             if (this.iuserDB.getIdUser(login) != -1)
                 throw new UserExistsException();
             this.iuserDB.addUser(login, password, levels);
-            int id = this.iuserDB.getIdUser(login);
-            if (id == -1)
-                throw new AddUserErrorException();
         }
         public int getIdUser(string login)
         {

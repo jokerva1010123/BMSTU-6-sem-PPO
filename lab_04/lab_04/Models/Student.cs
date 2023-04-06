@@ -20,16 +20,6 @@ namespace lab_04
         public int Id_room { get => id_room; set => id_room = value; }
         public DateTime DataIn { get => dataIn; set => dataIn = value; }
         public string StudentCode { get => studentCode; set => studentCode = value; }
-
-        public Student()
-        {
-            this.id_student = -1;
-            this.name = String.Empty;
-            this.group = String.Empty;
-            this.studentCode = String.Empty;
-            this.id_room = -1;
-            this.dataIn = DateTime.Parse("");
-        }
         public Student(string name, string group, string studentCode, int id_room, DateTime dataIn)
         {
             this.name = name;

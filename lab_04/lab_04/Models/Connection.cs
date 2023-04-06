@@ -14,8 +14,6 @@ namespace lab_04
         public string Host { get => host; set => host = value; }
         public string Database { get => database; set => database = value; }
         public int Port { get => port; set => port = value; }
-
-        public ConnectionArgs(){ }
         public ConnectionArgs(string user, string host, string database, string password, int port) 
         { 
             this.user = user;
@@ -42,11 +40,8 @@ namespace lab_04
     {
         private ConnectionArgs args;
         private NpgsqlConnection connnector;
-
-
         public ConnectionArgs Args { get => args; set => args = value; }
         public NpgsqlConnection Connnector { get => connnector; set => connnector = value; }
-
         public Connection(ConnectionArgs args)
         {
             this.args = args;

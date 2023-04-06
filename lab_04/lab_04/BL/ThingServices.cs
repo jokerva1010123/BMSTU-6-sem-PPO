@@ -23,6 +23,7 @@ namespace lab_04
             if (istudentDB.getStudent(id_student).Id_student == -1)
                 throw new StudentNotFoundException();
             else
+            {
                 if (iroomDB.getRoom(id_room).Id_room == null)
                     throw new RoomNotFoundException();
                 else
@@ -32,10 +33,8 @@ namespace lab_04
                         if (thing.Code == code)
                             throw new CodeThingExistsException();
                     this.ithingDB.addThing(new Thing(code, name, id_room, id_student));
-                    int id_thing = this.ithingDB.getIdThingFromCode(code);
-                    if (id_thing == -1)
-                        throw new AddThingErrorException();
                 }
+            }
         }
         public void deleteThing(int id_thing)
         {

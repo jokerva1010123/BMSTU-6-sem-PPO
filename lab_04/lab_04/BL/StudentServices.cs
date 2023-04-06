@@ -21,9 +21,6 @@ namespace lab_04
             if (name.Length < 1 || group.Length < 1 || studentCode.Length < 1)
                 throw new AddStudentErrorException();
             this.istudentDB.addStudent(new Student(name, group, studentCode, id_room, dateTime));
-            int id_student = this.istudentDB.getIdStudentFromCode(studentCode);
-            if (id_student == -1)
-                throw new AddStudentErrorException();
         }
         public int getIdStudentFromCode(string studentCode)
         {
@@ -75,15 +72,6 @@ namespace lab_04
             if (student.Name != newName)
                 throw new ChangeStudentNameErrorException();
         }
-        public void deleteStudent(int id_student)
-        {
-            if (this.IstudentDB.getStudent(id_student).Id_student != -1)
-                this.IstudentDB.deleteStudent(id_student);
-            else
-            {
-                //error
-            }
-        }
         public void setRoomStudent(int id_student, int id_room)
         {
             Student student = this.istudentDB.getStudent(id_student);
@@ -92,7 +80,7 @@ namespace lab_04
             Room room = this.iroomDB.getRoom(id_room);
             if (room.Id_room == -1)
                 throw new RoomNotFoundException();
-            student.Id_room = id_room;
+            this.istudentDB.transferStudent(id_student, id_room);
         }
         public Student getStudent(int id_student)
         {

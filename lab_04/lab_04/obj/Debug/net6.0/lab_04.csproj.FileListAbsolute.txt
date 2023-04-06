@@ -1,0 +1,12 @@
+D:\BMSTU\BMSTU-6-sem-PPO\lab_04\lab_04\bin\Debug\net6.0\lab_04.deps.json
+D:\BMSTU\BMSTU-6-sem-PPO\lab_04\lab_04\bin\Debug\net6.0\lab_04.dll
+D:\BMSTU\BMSTU-6-sem-PPO\lab_04\lab_04\bin\Debug\net6.0\lab_04.pdb
+D:\BMSTU\BMSTU-6-sem-PPO\lab_04\lab_04\obj\Debug\net6.0\lab_04.csproj.AssemblyReference.cache
+D:\BMSTU\BMSTU-6-sem-PPO\lab_04\lab_04\obj\Debug\net6.0\lab_04.GeneratedMSBuildEditorConfig.editorconfig
+D:\BMSTU\BMSTU-6-sem-PPO\lab_04\lab_04\obj\Debug\net6.0\lab_04.AssemblyInfoInputs.cache
+D:\BMSTU\BMSTU-6-sem-PPO\lab_04\lab_04\obj\Debug\net6.0\lab_04.AssemblyInfo.cs
+D:\BMSTU\BMSTU-6-sem-PPO\lab_04\lab_04\obj\Debug\net6.0\lab_04.csproj.CoreCompileInputs.cache
+D:\BMSTU\BMSTU-6-sem-PPO\lab_04\lab_04\obj\Debug\net6.0\lab_04.dll
+D:\BMSTU\BMSTU-6-sem-PPO\lab_04\lab_04\obj\Debug\net6.0\refint\lab_04.dll
+D:\BMSTU\BMSTU-6-sem-PPO\lab_04\lab_04\obj\Debug\net6.0\lab_04.pdb
+D:\BMSTU\BMSTU-6-sem-PPO\lab_04\lab_04\obj\Debug\net6.0\ref\lab_04.dll

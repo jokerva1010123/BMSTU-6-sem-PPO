@@ -15,12 +15,12 @@ namespace lab_04
             if (this.connector == null)
                 throw new DataBaseConnectException();
             this.connector.Open();
-            if (this.connector.State == ConnectionState.Closed)
+            if (this.connector.State != ConnectionState.Open)
                 throw new DataBaseConnectException();
         }
         public void addRoom(Room room)
         {
-            if (this.connector == null || this.connector.State == ConnectionState.Closed)
+            if (this.connector == null || this.connector.State != ConnectionState.Open)
                 throw new DataBaseConnectException();
             string sql = SqlStr.getStrAddRoom(room);
             NpgsqlCommand command = new NpgsqlCommand(sql, this.connector);
@@ -28,21 +28,23 @@ namespace lab_04
         }
         public Room getRoom(int id_room)
         {
-            Room room;
-            if (this.connector == null || this.connector.State == ConnectionState.Closed)
+            Room room = new Room(null, -1, RoomType.None);
+            if (this.connector == null || this.connector.State != ConnectionState.Open)
                 throw new DataBaseConnectException();
             string sql = SqlStr.getStrGetRoom(id_room);
             NpgsqlCommand command = new NpgsqlCommand(sql, this.connector);
             NpgsqlDataReader reader = command.ExecuteReader();
-            if(reader.FieldCount != 1)
-                throw new DataBaseConnectException();
-            reader.Read();
-            room = new Room(reader.GetInt32(0), reader.GetInt32(1), (RoomType)reader.GetInt32(2));
+            if (reader.HasRows)
+            {
+                reader.Read();
+                room = new Room(reader.GetInt32(0), reader.GetInt32(1), (RoomType)reader.GetInt32(2));
+            }
+            reader.Close();
             return room;
         }
         public void deleteRoom(int id_room)
         {
-            if (this.connector == null || this.connector.State == ConnectionState.Closed)
+            if (this.connector == null || this.connector.State != ConnectionState.Open)
                 throw new DataBaseConnectException();
             string sql = SqlStr.getStrDeleteRoom(id_room);
             NpgsqlCommand command = new NpgsqlCommand(sql, this.connector);
@@ -50,15 +52,16 @@ namespace lab_04
         }
         public List<Room> getAllRoom()
         {
+            if (this.connector == null || this.connector.State != ConnectionState.Open)
+                throw new DataBaseConnectException();
             List<Room> allRoom = new List<Room>();
             string sql = SqlStr.getStrGetAllRoom();
             NpgsqlCommand command = new NpgsqlCommand(sql, this.connector);
             NpgsqlDataReader reader = command.ExecuteReader();
-            for (int i = 0; i < reader.FieldCount; i++)
-            {
-                reader.Read();
-                allRoom.Add(new Room(reader.GetInt32(0), reader.GetInt32(1), (RoomType)reader.GetInt32(2)));
-            }
+            if (reader.HasRows)
+                while (reader.Read()) 
+                    allRoom.Add(new Room(reader.GetInt32(0), reader.GetInt32(1), (RoomType)reader.GetInt32(2)));
+            reader.Close();
             return allRoom;
         }
     }

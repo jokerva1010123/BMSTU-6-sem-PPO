@@ -24,20 +24,12 @@ namespace lab_04
         public string Login { get { return login; } set { login = value; } }
         public string Password { get { return password; } set { password = value; } }
         public Levels UserLevel { get => userLevel; set => userLevel = value; }
-
-        public User()
-        {
-            this.id = -1;
-            this.login = String.Empty;
-            this.password = String.Empty;   
-            this.userLevel = Levels.NONE;
-        }
-        public User(string login, string password)
+        public User(string login, string password, Levels userLevel)
         {
             this.id = -1;
             this.login = login;
             this.password = password;
-            this.userLevel = Levels.NONE;
+            this.userLevel = userLevel;
         }
         public User(int id, string login, string password, Levels userLevel)
         {

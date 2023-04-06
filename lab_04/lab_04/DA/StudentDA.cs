@@ -7,7 +7,6 @@ namespace lab_04
     {
         private string connectString;
         private NpgsqlConnection connector;
-
         public StudentDA(ConnectionArgs args)
         {
             this.connectString = args.getString();
@@ -23,6 +22,7 @@ namespace lab_04
             if (this.connector == null || this.connector.State != ConnectionState.Open)
                 throw new DataBaseConnectException();
             string sql = SqlStr.getStrAddStudent(student);
+            Console.WriteLine(sql);
             NpgsqlCommand cmd = new NpgsqlCommand(sql, this.connector);
             cmd.ExecuteNonQuery();
         }
@@ -30,15 +30,17 @@ namespace lab_04
         {
             if (this.connector == null || this.connector.State != ConnectionState.Open)
                 throw new DataBaseConnectException();
-            int id_student = -1;
             string sql = SqlStr.getStrGetIdStudent(code);
+            int id = -1;
             NpgsqlCommand cmd = new NpgsqlCommand(sql, this.connector);
             NpgsqlDataReader reader = cmd.ExecuteReader();
-            if(reader.FieldCount != 1)
-                throw new DataBaseConnectException();
-            reader.Read();
-            id_student = reader.GetInt32(0);            
-            return id_student;
+            if (reader.HasRows)
+            {
+                reader.Read();
+                id = reader.GetInt32(0);
+            }
+            reader.Close();
+            return id;
         }
         public void changeStudent(int id_student, Student newStudent)
         {
@@ -53,26 +55,45 @@ namespace lab_04
             if (this.connector == null || this.connector.State != ConnectionState.Open)
                 throw new DataBaseConnectException();
             string sql = SqlStr.getStrGetStudent(id_student);
+            Student student = new Student(-1, string.Empty, string.Empty, string.Empty, -1, DateTime.Parse("Jan 01 1000"));
             NpgsqlCommand cmd = new NpgsqlCommand(sql, this.connector);
             NpgsqlDataReader reader = cmd.ExecuteReader();
-            if (reader.FieldCount != 1)
-                throw new DataBaseConnectException();
-            reader.Read();
-            return new Student(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3),
+            if (reader.HasRows)
+            {
+                reader.Read();
+                student = new Student(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3),
                   reader.GetInt32(4), DateTime.Parse(reader.GetString(5)));
+            }
+            reader.Close();
+            return student;
         }
         public List<Student> getAllStudent()
         {
+            if (this.connector == null || this.connector.State != ConnectionState.Open)
+                throw new DataBaseConnectException();
             List<Student> allStudent = new List<Student>();
             string sql = SqlStr.getStrGetAllStudent();
             NpgsqlCommand cmd = new NpgsqlCommand(sql, this.connector);
             NpgsqlDataReader reader = cmd.ExecuteReader();
-            while (reader.Read()) 
+            if (reader.HasRows)
             {
-                Student student = new Student(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), 
-                  reader.GetInt32(4), DateTime.Parse(reader.GetString(5)));
+                while (reader.Read())
+                {
+                    Student student = new Student(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3),
+                      reader.GetInt32(4), DateTime.Parse(reader.GetString(5)));
+                    allStudent.Add(student);
+                }
             }
+            reader.Close();
             return allStudent;
+        }
+        public void transferStudent(int id_student, int id_room)
+        {
+            if (this.connector == null || this.connector.State != ConnectionState.Open)
+                throw new DataBaseConnectException();
+            string sql = SqlStr.getStrTransferStudent(id_student, id_room);
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, this.connector);
+            cmd.ExecuteNonQuery();
         }
     }
 }

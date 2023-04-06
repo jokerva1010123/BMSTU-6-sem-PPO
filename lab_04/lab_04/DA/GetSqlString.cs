@@ -4,8 +4,8 @@
     {
         public static string getStrAddRoom(Room room)
         {
-            return "insert into Rooms(id_room, number, roomtype) values ('" +
-                room.Id_room.ToString() + "', '" + room.Number.ToString() + "', " + room.RoomTypes + ");";
+            return "insert into Rooms(number, roomtype) values ('" +
+                room.Number.ToString() + "', " + ((int)room.RoomTypes).ToString() + ");";
         }
         public static string getStrGetRoom(int id_room)
         {
@@ -21,9 +21,9 @@
         }
         public static string getStrAddStudent(Student student)
         {
-            return "insert into Students(id_student, name, group, studentCode, id_room, date) values (" +
-                student.Id_student.ToString() + ", '" + student.Name + "', '" + student.Group + "', '" + student.StudentCode + "', " +
-                student.Id_room.ToString() + ", " + student.DataIn.ToString() + ");";
+            return "insert into Students(name, groupStudent, studentCode, id_room, date) values ('" 
+                + student.Name + "', '" + student.Group + "', '" + student.StudentCode + "', " +
+                student.Id_room.ToString() + ", '" + student.DataIn.ToString() + "');";
         }
         public static string getStrGetAllStudent()
         {
@@ -39,14 +39,18 @@
         }
         public static string getStrChangeStudent(int id_student, Student newStudent)
         {
-            return "update Students set name = '" + newStudent.Name + "', group = '" + newStudent.Group + "', studentCode = '" + 
+            return "update Students set name = '" + newStudent.Name + "', groupStudent = '" + newStudent.Group + "', studentCode = '" + 
                 newStudent.StudentCode + "', id_room = " + newStudent.Id_room.ToString() + ", date = " + 
                 newStudent.DataIn.ToString() + " where id_student = " + id_student.ToString() + ";";
         }
+        public static string getStrTransferStudent(int id_student, int id_room)
+        {
+            return "update Students set id_room = " + id_room.ToString() + " where id_stdudent = " + id_student + ";";
+        }
         public static string getStrAddThing(Thing thing)
         {
-            return "insert into Things(id_thing, code, type, id_room, id_student) valuses (" + thing.Id_thing.ToString() 
-                + ", " + thing.Code.ToString() + ", '" + thing.Type.ToString() + "', " + thing.Id_room.ToString() + ", " + 
+            return "insert into Things(code, type, id_room, id_student) values ("  
+                + thing.Code.ToString() + ", '" + thing.Type.ToString() + "', " + thing.Id_room.ToString() + ", " + 
                 thing.Id_student.ToString() + ");";
         }
         public static string getStrGetThing(int id_thing) 
@@ -67,20 +71,19 @@
         }
         public static string getStrChangeRoomThing(int id_thing, int id_from, int id_to)
         {
-            return "insert into ThingRoomHistory (room_from, room_to, id_thing) values (" + 
-                id_from.ToString() + ", " + id_to.ToString() + ", " + id_thing.ToString() + ";";
+            return "update Things set id_room = " + id_to.ToString() + " where id_thing = " + id_thing.ToString() + ";";
         }
         public static string getStrGetIdUser(string login)
         {
-            return "select id_thing from Users where login = '" + login + "';";
+            return "select id from Users where login = '" + login + "';";
         }
         public static string getStrGetUser(int id)
         {
             return "select * from Users where id = " + id.ToString() + ";";
         }
         public static string getStrAddUser(string login, string password, Levels userLevel)
-        {
-            return "insert into Users(login, password, level) values ('" + login + "', " + password + "', " + userLevel.ToString() + ");"; 
+        { 
+            return "insert into Users(login, password, level) values ('" + login + "', '" + password + "', " + ((int)userLevel).ToString() + ");"; 
         }
     }
 }

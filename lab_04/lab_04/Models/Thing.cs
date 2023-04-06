@@ -18,14 +18,6 @@ namespace lab_04
         public string Type { get => type; set => type = value; }
         public int Id_room { get => id_room; set => id_room = value; }
         public int? Id_student { get => id_student; set => id_student = value; }
-        public Thing()
-        {
-            this.id_thing = -1;
-            this.code = -1;
-            this.type = String.Empty;
-            this.id_room = -1;
-            this.id_student = null;
-        }
         public Thing(int code, string type, int id_room, int? id_student)
         {
             this.code = code;
