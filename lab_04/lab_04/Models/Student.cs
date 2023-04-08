@@ -22,6 +22,7 @@ namespace lab_04
         public string StudentCode { get => studentCode; set => studentCode = value; }
         public Student(string name, string group, string studentCode, int id_room, DateTime dataIn)
         {
+            this.id_student = -1;
             this.name = name;
             this.group = group;
             this.studentCode = studentCode;

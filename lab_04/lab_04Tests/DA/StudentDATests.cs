@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Npgsql;
 
 namespace lab_04.Tests
 {
@@ -36,7 +37,14 @@ namespace lab_04.Tests
             StudentServices studentServices = new StudentServices(studentDA, roomDA);
 
             studentServices.addStudent("Bob", "IU7-63", "123321", 2, DateTime.Parse("Jan 04 2022"));
-            Student student = studentDA.getStudent(2);
+
+            NpgsqlCommand command = new NpgsqlCommand(studentDA.getStrGetStudent(2), studentDA.Connector);
+            NpgsqlDataReader reader = command.ExecuteReader();
+            reader.Read();
+            Student student = new Student(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3),
+                  reader.GetInt32(4), DateTime.Parse(reader.GetString(5)));
+            reader.Close();
+
             Assert.AreEqual(student.Name, "Bob");
             Assert.AreEqual(student.Group, "IU7-63");
         }

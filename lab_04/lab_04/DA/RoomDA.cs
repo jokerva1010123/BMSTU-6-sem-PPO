@@ -1,6 +1,5 @@
 ﻿using Npgsql;
 using System.Data;
-using System.Data.SqlTypes;
 
 namespace lab_04
 {
@@ -8,31 +7,32 @@ namespace lab_04
     {
         private string connectString;
         private NpgsqlConnection connector;
+
+        public NpgsqlConnection Connector { get => connector; set => connector = value; }
+
         public RoomDA(ConnectionArgs Args)
         {
             this.connectString = Args.getString();
-            this.connector = new NpgsqlConnection(this.connectString);
-            if (this.connector == null)
+            this.Connector = new NpgsqlConnection(this.connectString);
+            if (this.Connector == null)
                 throw new DataBaseConnectException();
-            this.connector.Open();
-            if (this.connector.State != ConnectionState.Open)
+            this.Connector.Open();
+            if (this.Connector.State != ConnectionState.Open)
                 throw new DataBaseConnectException();
         }
         public void addRoom(Room room)
         {
-            if (this.connector == null || this.connector.State != ConnectionState.Open)
-                throw new DataBaseConnectException();
-            string sql = SqlStr.getStrAddRoom(room);
-            NpgsqlCommand command = new NpgsqlCommand(sql, this.connector);
+            ConnectionCheck.checkConnection(this.Connector);
+            string sql = getStrAddRoom(room);
+            NpgsqlCommand command = new NpgsqlCommand(sql, this.Connector);
             command.ExecuteNonQuery();
         }
-        public Room getRoom(int id_room)
+        public Room? getRoom(int id_room)
         {
-            Room room = new Room(null, -1, RoomType.None);
-            if (this.connector == null || this.connector.State != ConnectionState.Open)
-                throw new DataBaseConnectException();
-            string sql = SqlStr.getStrGetRoom(id_room);
-            NpgsqlCommand command = new NpgsqlCommand(sql, this.connector);
+            ConnectionCheck.checkConnection(this.Connector);
+            Room? room = null;
+            string sql = getStrGetRoom(id_room);
+            NpgsqlCommand command = new NpgsqlCommand(sql, this.Connector);
             NpgsqlDataReader reader = command.ExecuteReader();
             if (reader.HasRows)
             {
@@ -44,25 +44,40 @@ namespace lab_04
         }
         public void deleteRoom(int id_room)
         {
-            if (this.connector == null || this.connector.State != ConnectionState.Open)
-                throw new DataBaseConnectException();
-            string sql = SqlStr.getStrDeleteRoom(id_room);
-            NpgsqlCommand command = new NpgsqlCommand(sql, this.connector);
+            ConnectionCheck.checkConnection(this.Connector);
+            string sql = getStrDeleteRoom(id_room);
+            NpgsqlCommand command = new NpgsqlCommand(sql, this.Connector);
             command.ExecuteNonQuery();
         }
         public List<Room> getAllRoom()
         {
-            if (this.connector == null || this.connector.State != ConnectionState.Open)
-                throw new DataBaseConnectException();
+            ConnectionCheck.checkConnection(this.Connector);
             List<Room> allRoom = new List<Room>();
-            string sql = SqlStr.getStrGetAllRoom();
-            NpgsqlCommand command = new NpgsqlCommand(sql, this.connector);
+            string sql = getStrGetAllRoom();
+            NpgsqlCommand command = new NpgsqlCommand(sql, this.Connector);
             NpgsqlDataReader reader = command.ExecuteReader();
             if (reader.HasRows)
                 while (reader.Read()) 
                     allRoom.Add(new Room(reader.GetInt32(0), reader.GetInt32(1), (RoomType)reader.GetInt32(2)));
             reader.Close();
             return allRoom;
+        }
+        public string getStrAddRoom(Room room)
+        {
+            return "insert into Rooms(number, roomtype) values ('" +
+                room.Number.ToString() + "', " + ((int)room.RoomTypes).ToString() + ");";
+        }
+        public string getStrGetRoom(int id_room)
+        {
+            return "select * from Rooms where id_room = " + id_room.ToString() + ";";
+        }
+        public string getStrGetAllRoom()
+        {
+            return "select * from Rooms;";
+        }
+        public string getStrDeleteRoom(int id_room)
+        {
+            return "delete from Rooms where id_room = " + id_room.ToString() + ";";
         }
     }
 }

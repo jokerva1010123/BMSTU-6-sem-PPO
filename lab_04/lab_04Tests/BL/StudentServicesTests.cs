@@ -14,12 +14,12 @@ namespace lab_04.Tests
             int N = this.students.Count;
             this.students.Add(new Student(N + 1, student.Name, student.Group, student.StudentCode, student.Id_room, student.DataIn));
         }
-        public Student getStudent(int id_student)
+        public Student? getStudent(int id_student)
         {
             foreach (Student student in this.students)
                 if (student.Id_student == id_student)
                     return student;
-            return new Student(-1, String.Empty, string.Empty, string.Empty, -1, DateTime.Parse("01-01-1000"));
+            return null;
         }
         public List<Student> getAllStudent()
         {

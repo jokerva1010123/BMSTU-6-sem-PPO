@@ -6947,11 +6947,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\BMSTU\\BMSTU-6-sem-PPO\\lab_04\\lab_04Tests\\lab_04Tests.csproj",
+      "projectUniqueName": "E:\\BMSTU\\BMSTU-6-sem-PPO\\lab_04\\lab_04Tests\\lab_04Tests.csproj",
       "projectName": "lab_04Tests",
-      "projectPath": "D:\\BMSTU\\BMSTU-6-sem-PPO\\lab_04\\lab_04Tests\\lab_04Tests.csproj",
+      "projectPath": "E:\\BMSTU\\BMSTU-6-sem-PPO\\lab_04\\lab_04Tests\\lab_04Tests.csproj",
       "packagesPath": "C:\\Users\\joker\\.nuget\\packages\\",
-      "outputPath": "D:\\BMSTU\\BMSTU-6-sem-PPO\\lab_04\\lab_04Tests\\obj\\",
+      "outputPath": "E:\\BMSTU\\BMSTU-6-sem-PPO\\lab_04\\lab_04Tests\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\joker\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -6968,8 +6968,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "D:\\BMSTU\\BMSTU-6-sem-PPO\\lab_04\\lab_04\\lab_04.csproj": {
-              "projectPath": "D:\\BMSTU\\BMSTU-6-sem-PPO\\lab_04\\lab_04\\lab_04.csproj"
+            "E:\\BMSTU\\BMSTU-6-sem-PPO\\lab_04\\lab_04\\lab_04.csproj": {
+              "projectPath": "E:\\BMSTU\\BMSTU-6-sem-PPO\\lab_04\\lab_04\\lab_04.csproj"
             }
           }
         }

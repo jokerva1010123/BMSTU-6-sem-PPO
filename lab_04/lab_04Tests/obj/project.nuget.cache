@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "vMv6E6coI5Eeuu2UO6UTFRf/Yxdq5bxE3rqn29LZG3r3fkwFtKPy8vaz7F9jUTSnYHVcDjJT6tyG24o7nApcKQ==",
+  "dgSpecHash": "1X0wWf2dhRmbQDVdnK+LiQFal5rHSGV7kRGCeViiIU5wH014KCCztqquFIhMVePuw+OjPjl/wUt9z9zMHGFNpg==",
   "success": true,
-  "projectFilePath": "D:\\BMSTU\\BMSTU-6-sem-PPO\\lab_04\\lab_04Tests\\lab_04Tests.csproj",
+  "projectFilePath": "E:\\BMSTU\\BMSTU-6-sem-PPO\\lab_04\\lab_04Tests\\lab_04Tests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\joker\\.nuget\\packages\\coverlet.collector\\3.1.2\\coverlet.collector.3.1.2.nupkg.sha512",
     "C:\\Users\\joker\\.nuget\\packages\\microsoft.codecoverage\\17.3.2\\microsoft.codecoverage.17.3.2.nupkg.sha512",

@@ -1,6 +1,5 @@
 ﻿using Npgsql;
 using System.Data;
-using System.Reflection.PortableExecutable;
 
 namespace lab_04
 {
@@ -8,22 +7,24 @@ namespace lab_04
     {
         private string connectString;
         private NpgsqlConnection connector;
+
+        public NpgsqlConnection Connector { get => connector; set => connector = value; }
+
         public UserDA(ConnectionArgs args)
         {
             this.connectString = args.getString();
-            this.connector = new NpgsqlConnection(this.connectString);
-            if (this.connector == null)
+            this.Connector = new NpgsqlConnection(this.connectString);
+            if (this.Connector == null)
                 throw new DataBaseConnectException();
-            this.connector.Open();
-            if (this.connector.State != ConnectionState.Open)
+            this.Connector.Open();
+            if (this.Connector.State != ConnectionState.Open)
                 throw new DataBaseConnectException();
         }
         public int getIdUser(string login)
         {
-            if (this.connector == null || this.connector.State != ConnectionState.Open)
-                throw new DataBaseConnectException();
-            string sql = SqlStr.getStrGetIdUser(login);
-            NpgsqlCommand cmd = new NpgsqlCommand(sql, this.connector);
+            ConnectionCheck.checkConnection(this.Connector);
+            string sql = getStrGetIdUser(login);
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, this.Connector);
             NpgsqlDataReader reader = cmd.ExecuteReader();
             int id = -1;
             if (reader.HasRows)
@@ -34,13 +35,12 @@ namespace lab_04
             reader.Close();
             return id;
         }
-        public User getUser(int id)
+        public User? getUser(int id)
         {
-            if (this.connector == null || this.connector.State != ConnectionState.Open)
-                throw new DataBaseConnectException();
-            string sql = SqlStr.getStrGetUser(id);
-            User user = new User(-1, string.Empty, string.Empty, Levels.NONE);
-            NpgsqlCommand cmd = new NpgsqlCommand(sql, this.connector);
+            ConnectionCheck.checkConnection(this.Connector);
+            string sql = getStrGetUser(id);
+            User? user = null;
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, this.Connector);
             NpgsqlDataReader reader = cmd.ExecuteReader();
             if (reader.HasRows)
             {
@@ -52,11 +52,22 @@ namespace lab_04
         }
         public void addUser(string login, string password, Levels userLevel)
         {
-            if (this.connector == null || this.connector.State != ConnectionState.Open)
-                throw new DataBaseConnectException();
-            string sql = SqlStr.getStrAddUser(login, password, userLevel);
-            NpgsqlCommand cmd = new NpgsqlCommand(sql, this.connector);
+            ConnectionCheck.checkConnection(this.Connector);
+            string sql = getStrAddUser(login, password, userLevel);
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, this.Connector);
             cmd.ExecuteNonQuery();
+        }
+        public string getStrGetIdUser(string login)
+        {
+            return "select id from Users where login = '" + login + "';";
+        }
+        public string getStrGetUser(int id)
+        {
+            return "select * from Users where id = " + id.ToString() + ";";
+        }
+        public string getStrAddUser(string login, string password, Levels userLevel)
+        {
+            return "insert into Users(login, password, level) values ('" + login + "', '" + password + "', " + ((int)userLevel).ToString() + ");";
         }
     }
 }

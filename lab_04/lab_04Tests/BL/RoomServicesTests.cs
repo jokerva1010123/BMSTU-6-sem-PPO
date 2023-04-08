@@ -22,12 +22,12 @@ namespace lab_04.Tests
                     newRoom.Add(tmpRoom);
             this.rooms = newRoom;
         }
-        public Room getRoom(int id_room)
+        public Room? getRoom(int id_room)
         {
             foreach (Room tmpRoom in this.rooms)
                 if (tmpRoom.Id_room == id_room)
                     return tmpRoom;
-            return new Room(null, -1, RoomType.None);
+            return null;
         }
         public List<Room> getAllRoom()
         {
@@ -49,7 +49,7 @@ namespace lab_04.Tests
             TestRoomServices testRoom = new TestRoomServices(rooms);
             RoomServices roomServices = new RoomServices(testRoom);
 
-            Room room = roomServices.getRoom(1);
+            Room? room = roomServices.getRoom(1);
             Assert.AreEqual(room.Id_room, 1);
             Assert.AreEqual(room.Number, 528);
             Assert.AreEqual(room.RoomTypes, RoomType.StudentRoom);
@@ -81,7 +81,7 @@ namespace lab_04.Tests
             RoomServices roomServices = new RoomServices(testRoom);
 
             roomServices.addRoom(new Room(312, RoomType.StudentRoom));
-            Room room = testRoom.getRoom(4);
+            Room? room = testRoom.getRoom(4);
             Assert.AreEqual(room.Id_room, 4);
             Assert.AreEqual(room.Number, 312);
             Assert.AreEqual(room.RoomTypes, RoomType.StudentRoom);
@@ -113,9 +113,9 @@ namespace lab_04.Tests
             RoomServices roomServices = new RoomServices(testRoom);
 
             roomServices.deleteRoom(2);
-            Room room = testRoom.getRoom(2);
+            Room? room = testRoom.getRoom(2);
 
-            Assert.AreEqual(room.Id_room, null);
+            Assert.AreEqual(room, null);
         }
         [TestMethod()]
         public void deleteRoomFailTest()

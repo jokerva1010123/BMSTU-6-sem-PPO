@@ -14,12 +14,12 @@ namespace lab_04.Tests
             int N = this.users.Count;
             this.users.Add(new User(N + 1, login, password, userLevel));
         }
-        public User getUser(int id)
+        public User? getUser(int id)
         {
             foreach (User user in this.users)
                 if (user.Id == id)
                     return user;
-            return new User(-1, string.Empty, string.Empty, Levels.NONE);
+            return null;
         }
         public int getIdUser(string login)
         {

@@ -20,6 +20,7 @@ namespace lab_04
         public int? Id_student { get => id_student; set => id_student = value; }
         public Thing(int code, string type, int id_room, int? id_student)
         {
+            this.id_thing = -1;
             this.code = code;
             this.type = type;
             this.id_student = id_student;

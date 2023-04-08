@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Npgsql;
 
 namespace lab_04.Tests
 {
@@ -52,7 +53,13 @@ namespace lab_04.Tests
             UserServices userServices = new UserServices(userDA);
 
             userServices.addUser("student", "student", Levels.STUDENT);
-            int id = userServices.getIdUser("student");
+
+            NpgsqlCommand command = new NpgsqlCommand(userDA.getStrGetUser(2), userDA.Connector);
+            NpgsqlDataReader reader = command.ExecuteReader();
+            reader.Read();
+            int id = reader.GetInt32(0);
+            reader.Close();
+
             Assert.AreEqual(id, 2);
         }
     }

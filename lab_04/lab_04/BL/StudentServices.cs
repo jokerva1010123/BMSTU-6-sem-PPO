@@ -41,44 +41,44 @@ namespace lab_04
         {
             if (id_student < 0)
                 throw new StudentNotFoundException();
-            Student student = this.istudentDB.getStudent(id_student);
-            if (student.Id_student == -1)
+            Student? student = this.istudentDB.getStudent(id_student);
+            if (student == null)
                 throw new StudentNotFoundException();
             return student.Id_room;
         }
         public void changeStudentGroup(int id_student, string newGroup)
         {
-            Student student = this.istudentDB.getStudent(id_student);
-            if(student.Id_student == -1)
+            Student? student = this.istudentDB.getStudent(id_student);
+            if(student == null)
                 throw new StudentNotFoundException();
-            Student newStudent = new Student(id_student, student.Name, newGroup, student.StudentCode, student.Id_room, student.DataIn);
+            Student? newStudent = new Student(id_student, student.Name, newGroup, student.StudentCode, student.Id_room, student.DataIn);
             this.istudentDB.changeStudent(id_student, newStudent);
             student = this.istudentDB.getStudent(id_student);
-            if(student.Id_student == -1)
+            if(student == null)
                 throw new StudentNotFoundException();
             if (student.Group != newGroup)
                 throw new ChangeStudentGroupErrorException();
         }
         public void changeStudentName(int id_student, string newName)
         {
-            Student student = this.istudentDB.getStudent(id_student);
-            if (student.Id_student == -1)
+            Student? student = this.istudentDB.getStudent(id_student);
+            if (student == null)
                 throw new StudentNotFoundException();
-            Student newStudent = new Student(id_student, newName, student.Group, student.StudentCode, student.Id_room, student.DataIn);
+            Student? newStudent = new Student(id_student, newName, student.Group, student.StudentCode, student.Id_room, student.DataIn);
             this.istudentDB.changeStudent(id_student, newStudent);
             student = this.istudentDB.getStudent(id_student);
-            if (student.Id_student == -1)
+            if (student == null)
                 throw new StudentNotFoundException();
             if (student.Name != newName)
                 throw new ChangeStudentNameErrorException();
         }
         public void setRoomStudent(int id_student, int id_room)
         {
-            Student student = this.istudentDB.getStudent(id_student);
-            if(student.Id_student == -1)
+            Student? student = this.istudentDB.getStudent(id_student);
+            if(student == null)
                 throw new StudentNotFoundException();
-            Room room = this.iroomDB.getRoom(id_room);
-            if (room.Id_room == -1)
+            Room? room = this.iroomDB.getRoom(id_room);
+            if (room == null)
                 throw new RoomNotFoundException();
             this.istudentDB.transferStudent(id_student, id_room);
         }
@@ -86,8 +86,8 @@ namespace lab_04
         {
             if (id_student < 1)
                 throw new StudentNotFoundException();
-            Student student = this.istudentDB.getStudent(id_student);
-            if (student.Id_student != -1)
+            Student? student = this.istudentDB.getStudent(id_student);
+            if (student != null)
                 return student;
             else 
                 throw new StudentNotFoundException();

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\BMSTU\\BMSTU-6-sem-PPO\\lab_04\\lab_04\\lab_04.csproj": {}
+    "E:\\BMSTU\\BMSTU-6-sem-PPO\\lab_04\\lab_04\\lab_04.csproj": {}
   },
   "projects": {
-    "D:\\BMSTU\\BMSTU-6-sem-PPO\\lab_04\\lab_04\\lab_04.csproj": {
+    "E:\\BMSTU\\BMSTU-6-sem-PPO\\lab_04\\lab_04\\lab_04.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\BMSTU\\BMSTU-6-sem-PPO\\lab_04\\lab_04\\lab_04.csproj",
+        "projectUniqueName": "E:\\BMSTU\\BMSTU-6-sem-PPO\\lab_04\\lab_04\\lab_04.csproj",
         "projectName": "lab_04",
-        "projectPath": "D:\\BMSTU\\BMSTU-6-sem-PPO\\lab_04\\lab_04\\lab_04.csproj",
+        "projectPath": "E:\\BMSTU\\BMSTU-6-sem-PPO\\lab_04\\lab_04\\lab_04.csproj",
         "packagesPath": "C:\\Users\\joker\\.nuget\\packages\\",
-        "outputPath": "D:\\BMSTU\\BMSTU-6-sem-PPO\\lab_04\\lab_04\\obj\\",
+        "outputPath": "E:\\BMSTU\\BMSTU-6-sem-PPO\\lab_04\\lab_04\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\joker\\AppData\\Roaming\\NuGet\\NuGet.Config",

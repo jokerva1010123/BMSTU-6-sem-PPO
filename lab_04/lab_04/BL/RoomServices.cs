@@ -25,22 +25,22 @@ namespace lab_04
         }
         public Room getRoom(int id_room)
         {
-            Room room = this.IroomDB.getRoom(id_room);
-            if (room.Id_room == null)
+            Room? room = this.IroomDB.getRoom(id_room);
+            if (room == null)
                 throw new RoomNotFoundException();
             else
                 return room;
         }
         public void deleteRoom(int id_room)
         {
-            Room room = this.IroomDB.getRoom(id_room);
-            if (room.Id_room == null)
+            Room? room = this.IroomDB.getRoom(id_room);
+            if (room == null)
                 throw new RoomNotFoundException();
             else
             {
                 this.IroomDB.deleteRoom(id_room);
                 room = this.iroomDB.getRoom(id_room);
-                if (room.Id_room != null)
+                if (room != null)
                     throw new DeleteRoomErrorException();
             }
         }

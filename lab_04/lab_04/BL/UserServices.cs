@@ -30,8 +30,8 @@ namespace lab_04
         }
         public User getUser(int id)
         {
-            User user = this.iuserDB.getUser(id);
-            if(user.Id == -1)
+            User? user = this.iuserDB.getUser(id);
+            if(user == null)
                 throw new UserNotFoundException();
             else 
                 return user;

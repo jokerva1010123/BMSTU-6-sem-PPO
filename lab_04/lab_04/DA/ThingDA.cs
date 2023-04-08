@@ -6,39 +6,39 @@ namespace lab_04
     {
         private string connectString;
         private NpgsqlConnection connector;
+
+        public NpgsqlConnection Connector { get => connector; set => connector = value; }
+
         public ThingDA(ConnectionArgs Args)
         {
             this.connectString = Args.getString();
-            this.connector = new NpgsqlConnection(this.connectString);
-            if (this.connector == null)
+            this.Connector = new NpgsqlConnection(this.connectString);
+            if (this.Connector == null)
                 throw new DataBaseConnectException();
-            this.connector.Open();
-            if (this.connector.State != ConnectionState.Open)
+            this.Connector.Open();
+            if (this.Connector.State != ConnectionState.Open)
                 throw new DataBaseConnectException();
         }
         public void addThing(Thing thing)
         {
-            if (this.connector == null || this.connector.State != ConnectionState.Open)
-                throw new DataBaseConnectException();
-            string sql = SqlStr.getStrAddThing(thing);
-            NpgsqlCommand cmd = new NpgsqlCommand(sql, this.connector);
+            ConnectionCheck.checkConnection(this.Connector);
+            string sql = getStrAddThing(thing);
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, this.Connector);
             cmd.ExecuteNonQuery();
         }
         public void deleteThing(int id_thing)
         {
-            if (this.connector == null || this.connector.State != ConnectionState.Open)
-                throw new DataBaseConnectException();
-            string sql = SqlStr.getStrDeleteThing(id_thing);
-            NpgsqlCommand cmd = new NpgsqlCommand(sql, this.connector);
+            ConnectionCheck.checkConnection(this.Connector);
+            string sql = getStrDeleteThing(id_thing);
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, this.Connector);
             cmd.ExecuteNonQuery();
         }
-        public Thing getThing(int id_thing)
+        public Thing? getThing(int id_thing)
         {
-            if (this.connector == null || this.connector.State != ConnectionState.Open)
-                throw new DataBaseConnectException();
-            string sql = SqlStr.getStrGetThing(id_thing);
-            Thing thing = new Thing(-1, -1, string.Empty, -1, null);
-            NpgsqlCommand cmd = new NpgsqlCommand(sql, this.connector);
+            ConnectionCheck.checkConnection(this.Connector);
+            string sql = getStrGetThing(id_thing);
+            Thing? thing = null;
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, this.Connector);
             NpgsqlDataReader reader = cmd.ExecuteReader();
             if (reader.HasRows)
             {
@@ -51,10 +51,9 @@ namespace lab_04
         }
         public List<Thing> getAllThing()
         {
-            if (this.connector == null || this.connector.State != ConnectionState.Open)
-                throw new DataBaseConnectException();
-            string sql = SqlStr.getStrGetAllThing();
-            NpgsqlCommand cmd = new NpgsqlCommand(sql, this.connector);
+            ConnectionCheck.checkConnection(this.Connector);
+            string sql = getStrGetAllThing();
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, this.Connector);
             NpgsqlDataReader reader = cmd.ExecuteReader();
             List<Thing> allThing = new List<Thing>();
             if(reader.HasRows) 
@@ -69,21 +68,51 @@ namespace lab_04
         }
         public void changeRoomThing(int id_thing, int id_from, int id_to)
         {
-            if (this.connector == null || this.connector.State != ConnectionState.Open)
-                throw new DataBaseConnectException();
-            string sql = SqlStr.getStrChangeRoomThing(id_thing, id_from, id_to);
-            NpgsqlCommand cmd = new NpgsqlCommand(sql, this.connector);
+            ConnectionCheck.checkConnection(this.Connector);
+            string sql = getStrChangeRoomThing(id_thing, id_from, id_to);
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, this.Connector);
             cmd.ExecuteNonQuery();
         }
         public int getIdThingFromCode(int code)
         {            
-            if (this.connector == null || this.connector.State != ConnectionState.Open)
-                throw new DataBaseConnectException();
-            string sql = SqlStr.getStrGetIdThing(code);
-            NpgsqlCommand cmd = new NpgsqlCommand(sql, this.connector);
+            ConnectionCheck.checkConnection(this.Connector);
+            string sql = getStrGetIdThing(code);
+            int id = -1;
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, this.Connector);
             NpgsqlDataReader reader = cmd.ExecuteReader();
-            reader.Read();
-            return reader.GetInt32(0);
+            if (reader.HasRows)
+            {
+                reader.Read();
+                id = reader.GetInt32(0);
+            }
+            reader.Close();
+            return id;
+        }
+        public string getStrAddThing(Thing thing)
+        {
+            return "insert into Things(code, type, id_room, id_student) values ("
+                + thing.Code.ToString() + ", '" + thing.Type.ToString() + "', " + thing.Id_room.ToString() + ", " +
+                thing.Id_student.ToString() + ");";
+        }
+        public string getStrGetThing(int id_thing)
+        {
+            return "select * from Things where id_thing = " + id_thing.ToString() + ";";
+        }
+        public string getStrGetAllThing()
+        {
+            return "select * from Things";
+        }
+        public string getStrDeleteThing(int id_thing)
+        {
+            return "delete from Things where id_thing = " + id_thing.ToString() + ";";
+        }
+        public string getStrGetIdThing(int code)
+        {
+            return "select id_thing from Things where code = " + code.ToString() + ";";
+        }
+        public string getStrChangeRoomThing(int id_thing, int id_from, int id_to)
+        {
+            return "update Things set id_room = " + id_to.ToString() + " where id_thing = " + id_thing.ToString() + ";";
         }
     }
 }

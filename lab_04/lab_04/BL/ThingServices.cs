@@ -20,11 +20,11 @@ namespace lab_04
         }
         public void addThing(int code, string name, int id_room, int id_student)
         {
-            if (istudentDB.getStudent(id_student).Id_student == -1)
+            if (istudentDB.getStudent(id_student) == null)
                 throw new StudentNotFoundException();
             else
             {
-                if (iroomDB.getRoom(id_room).Id_room == null)
+                if (iroomDB.getRoom(id_room) == null)
                     throw new RoomNotFoundException();
                 else
                 {
@@ -38,16 +38,16 @@ namespace lab_04
         }
         public void deleteThing(int id_thing)
         {
-            Thing thing = this.getThing(id_thing);
-            if (thing.Id_thing != -1)
+            Thing? thing = this.getThing(id_thing);
+            if (thing != null)
                 this.ithingDB.deleteThing(id_thing);
             else
                 throw new ThingNotFoundException();
         }
         public Thing getThing(int id_thing)
         {
-            Thing thing = this.ithingDB.getThing(id_thing);
-            if (thing.Id_thing != -1)
+            Thing? thing = this.ithingDB.getThing(id_thing);
+            if (thing != null)
                 return thing;
             else
                 throw new ThingNotFoundException();
@@ -58,16 +58,16 @@ namespace lab_04
         }
         public void changeRoomThing(int id_thing, int id_from, int id_to)
         {
-            Thing thing = this.ithingDB.getThing(id_thing);
-            if (thing.Id_thing == -1)
+            Thing? thing = this.ithingDB.getThing(id_thing);
+            if (thing == null)
                 throw new ThingNotFoundException();
             else
                 if (thing.Id_room != id_from)
                     throw new ThingNotInRoomException();
                 else
                 {
-                    Room room = this.iroomDB.getRoom(id_to);
-                    if (room.Id_room == -1)
+                    Room? room = this.iroomDB.getRoom(id_to);
+                    if (room == null)
                         throw new RoomNotFoundException();
                     else
                     {
