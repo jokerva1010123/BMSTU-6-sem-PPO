@@ -69,7 +69,7 @@ namespace lab_04
         public void changeRoomThing(int id_thing, int id_from, int id_to)
         {
             ConnectionCheck.checkConnection(this.Connector);
-            string sql = getStrChangeRoomThing(id_thing, id_from, id_to);
+            string sql = getStrChangeRoomThing(id_thing, id_to);
             NpgsqlCommand cmd = new NpgsqlCommand(sql, this.Connector);
             cmd.ExecuteNonQuery();
         }
@@ -88,7 +88,7 @@ namespace lab_04
             reader.Close();
             return id;
         }
-        public string getStrAddThing(Thing thing)
+        string getStrAddThing(Thing thing)
         {
             return "insert into Things(code, type, id_room, id_student) values ("
                 + thing.Code.ToString() + ", '" + thing.Type.ToString() + "', " + thing.Id_room.ToString() + ", " +
@@ -98,19 +98,19 @@ namespace lab_04
         {
             return "select * from Things where id_thing = " + id_thing.ToString() + ";";
         }
-        public string getStrGetAllThing()
+        string getStrGetAllThing()
         {
             return "select * from Things";
         }
-        public string getStrDeleteThing(int id_thing)
+        string getStrDeleteThing(int id_thing)
         {
             return "delete from Things where id_thing = " + id_thing.ToString() + ";";
         }
-        public string getStrGetIdThing(int code)
+        string getStrGetIdThing(int code)
         {
             return "select id_thing from Things where code = " + code.ToString() + ";";
         }
-        public string getStrChangeRoomThing(int id_thing, int id_from, int id_to)
+        string getStrChangeRoomThing(int id_thing, int id_to)
         {
             return "update Things set id_room = " + id_to.ToString() + " where id_thing = " + id_thing.ToString() + ";";
         }

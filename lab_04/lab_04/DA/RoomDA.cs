@@ -62,7 +62,7 @@ namespace lab_04
             reader.Close();
             return allRoom;
         }
-        public string getStrAddRoom(Room room)
+        string getStrAddRoom(Room room)
         {
             return "insert into Rooms(number, roomtype) values ('" +
                 room.Number.ToString() + "', " + ((int)room.RoomTypes).ToString() + ");";
@@ -71,11 +71,11 @@ namespace lab_04
         {
             return "select * from Rooms where id_room = " + id_room.ToString() + ";";
         }
-        public string getStrGetAllRoom()
+        string getStrGetAllRoom()
         {
             return "select * from Rooms;";
         }
-        public string getStrDeleteRoom(int id_room)
+        string getStrDeleteRoom(int id_room)
         {
             return "delete from Rooms where id_room = " + id_room.ToString() + ";";
         }

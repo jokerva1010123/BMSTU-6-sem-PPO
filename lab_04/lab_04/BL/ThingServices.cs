@@ -70,12 +70,7 @@ namespace lab_04
                     if (room == null)
                         throw new RoomNotFoundException();
                     else
-                    {
                         this.IthingDB.changeRoomThing(id_thing, id_from, id_to);
-                        thing = this.ithingDB.getThing(id_thing);
-                        if (thing.Id_room != id_to)
-                            throw new ChangeRoomThingErrorException();
-                    }
                 }
         }
         public int getIdThingFromCode(int code)

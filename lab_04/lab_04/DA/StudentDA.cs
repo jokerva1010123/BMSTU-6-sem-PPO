@@ -98,11 +98,11 @@ namespace lab_04
                 + student.Name + "', '" + student.Group + "', '" + student.StudentCode + "', " +
                 student.Id_room.ToString() + ", '" + student.DataIn.ToString() + "');";
         }
-        public string getStrGetAllStudent()
+        string getStrGetAllStudent()
         {
             return "select * from Students";
         }
-        public string getStrGetIdStudent(string code)
+        string getStrGetIdStudent(string code)
         {
             return "select id_student from Students where studentCode = '" + code + "';";
         }
@@ -110,13 +110,13 @@ namespace lab_04
         {
             return "select * from Students where id_student = " + id_student.ToString() + ";";
         }
-        public string getStrChangeStudent(int id_student, Student newStudent)
+        string getStrChangeStudent(int id_student, Student newStudent)
         {
             return "update Students set name = '" + newStudent.Name + "', groupStudent = '" + newStudent.Group + "', studentCode = '" +
                 newStudent.StudentCode + "', id_room = " + newStudent.Id_room.ToString() + ", date = " +
                 newStudent.DataIn.ToString() + " where id_student = " + id_student.ToString() + ";";
         }
-        public string getStrTransferStudent(int id_student, int id_room)
+        string getStrTransferStudent(int id_student, int id_room)
         {
             return "update Students set id_room = " + id_room.ToString() + " where id_stdudent = " + id_student + ";";
         }
