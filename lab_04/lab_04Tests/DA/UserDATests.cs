@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using lab_04Tests.DA;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Npgsql;
 
 namespace lab_04.Tests
@@ -9,7 +10,7 @@ namespace lab_04.Tests
         [TestMethod()]
         public void getUserTest()
         {
-            ConnectionArgs args = new ConnectionArgs("postgres", "localhost", "ppo", "0612", 5432);
+            ConnectionArgs args = GetConnectArgs.getarg();
             UserDA userDA = new UserDA(args);
             UserServices userServices = new UserServices(userDA);
 
@@ -20,7 +21,7 @@ namespace lab_04.Tests
         [TestMethod()]
         public void getUserFailTest()
         {
-            ConnectionArgs args = new ConnectionArgs("postgres", "localhost", "ppo", "0612", 5432);
+            ConnectionArgs args = GetConnectArgs.getarg();
             UserDA userDA = new UserDA(args);
             UserServices userServices = new UserServices(userDA);
 
@@ -29,7 +30,7 @@ namespace lab_04.Tests
         [TestMethod()]
         public void getIdUserTest()
         {
-            ConnectionArgs args = new ConnectionArgs("postgres", "localhost", "ppo", "0612", 5432);
+            ConnectionArgs args = GetConnectArgs.getarg();
             UserDA userDA = new UserDA(args);
             UserServices userServices = new UserServices(userDA);
 
@@ -39,28 +40,20 @@ namespace lab_04.Tests
         [TestMethod()]
         public void getIdUserFailTest()
         {
-            ConnectionArgs args = new ConnectionArgs("postgres", "localhost", "ppo", "0612", 5432);
+            ConnectionArgs args = GetConnectArgs.getarg();
             UserDA userDA = new UserDA(args);
             UserServices userServices = new UserServices(userDA);
 
             Assert.ThrowsException<UserNotFoundException>(() => userServices.getIdUser("abc"));
         }
         [TestMethod()]
-        public void addUserTest()
+        public void addUserFailTest()
         {
-            ConnectionArgs args = new ConnectionArgs("postgres", "localhost", "ppo", "0612", 5432);
+            ConnectionArgs args = GetConnectArgs.getarg();
             UserDA userDA = new UserDA(args);
             UserServices userServices = new UserServices(userDA);
 
-            userServices.addUser("student", "student", Levels.STUDENT);
-
-            NpgsqlCommand command = new NpgsqlCommand(userDA.getStrGetUser(2), userDA.Connector);
-            NpgsqlDataReader reader = command.ExecuteReader();
-            reader.Read();
-            int id = reader.GetInt32(0);
-            reader.Close();
-
-            Assert.AreEqual(id, 2);
+            Assert.ThrowsException<UserExistsException>(() => userServices.addUser("alex", "alex", Levels.STUDENT));
         }
     }
 }

@@ -23,6 +23,7 @@ namespace lab_04
         public void addRoom(Room room)
         {
             ConnectionCheck.checkConnection(this.Connector);
+            room.Id_room = this.getAllRoom().Count + 1;
             string sql = getStrAddRoom(room);
             NpgsqlCommand command = new NpgsqlCommand(sql, this.Connector);
             command.ExecuteNonQuery();
@@ -64,8 +65,8 @@ namespace lab_04
         }
         string getStrAddRoom(Room room)
         {
-            return "insert into Rooms(number, roomtype) values ('" +
-                room.Number.ToString() + "', " + ((int)room.RoomTypes).ToString() + ");";
+            return "insert into Rooms(id_room, number, roomtype) values (" + room.Id_room.ToString() + ", "
+                + room.Number.ToString() + ", " + ((int)room.RoomTypes).ToString() + ");";
         }
         public string getStrGetRoom(int id_room)
         {

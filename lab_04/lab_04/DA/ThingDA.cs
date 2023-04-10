@@ -22,6 +22,7 @@ namespace lab_04
         public void addThing(Thing thing)
         {
             ConnectionCheck.checkConnection(this.Connector);
+            thing.Id_thing = this.getAllThing().Count + 1;
             string sql = getStrAddThing(thing);
             NpgsqlCommand cmd = new NpgsqlCommand(sql, this.Connector);
             cmd.ExecuteNonQuery();
@@ -90,7 +91,7 @@ namespace lab_04
         }
         string getStrAddThing(Thing thing)
         {
-            return "insert into Things(code, type, id_room, id_student) values ("
+            return "insert into Things(id_thing, code, type, id_room, id_student) values (" + thing.Id_thing.ToString() + ", "
                 + thing.Code.ToString() + ", '" + thing.Type.ToString() + "', " + thing.Id_room.ToString() + ", " +
                 thing.Id_student.ToString() + ");";
         }

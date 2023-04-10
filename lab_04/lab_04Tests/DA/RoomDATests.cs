@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using lab_04Tests.DA;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Npgsql;
 
 namespace lab_04.Tests
@@ -9,7 +10,7 @@ namespace lab_04.Tests
         [TestMethod()]
         public void getRoomTest()
         {
-            ConnectionArgs args = new ConnectionArgs("postgres", "localhost", "ppo", "0612", 5432);
+            ConnectionArgs args = GetConnectArgs.getarg();
             RoomDA roomDA = new RoomDA(args);
             RoomServices roomServices = new RoomServices(roomDA);
 
@@ -20,7 +21,7 @@ namespace lab_04.Tests
         [TestMethod()]
         public void getRoomFailTest()
         {
-            ConnectionArgs args = new ConnectionArgs("postgres", "localhost", "ppo", "0612", 5432);
+            ConnectionArgs args = GetConnectArgs.getarg();
             RoomDA roomDA = new RoomDA(args);
             RoomServices roomServices = new RoomServices(roomDA);
 
@@ -29,7 +30,7 @@ namespace lab_04.Tests
         [TestMethod()]
         public void addRoomTest()
         {
-            ConnectionArgs args = new ConnectionArgs("postgres", "localhost", "ppo", "0612", 5432);
+            ConnectionArgs args = GetConnectArgs.getarg();
             RoomDA roomDA = new RoomDA(args);
             RoomServices roomServices = new RoomServices(roomDA);
 
@@ -47,7 +48,7 @@ namespace lab_04.Tests
         [TestMethod()]
         public void deleteRoomTest()
         {
-            ConnectionArgs args = new ConnectionArgs("postgres", "localhost", "ppo", "0612", 5432);
+            ConnectionArgs args = GetConnectArgs.getarg();
             RoomDA roomDA = new RoomDA(args);
             RoomServices roomServices = new RoomServices(roomDA);
 
@@ -62,7 +63,7 @@ namespace lab_04.Tests
         [TestMethod()]
         public void getAllRoomTest()
         {
-            ConnectionArgs args = new ConnectionArgs("postgres", "localhost", "ppo", "0612", 5432);
+            ConnectionArgs args = GetConnectArgs.getarg();
             RoomDA roomDA = new RoomDA(args);
             RoomServices roomServices = new RoomServices(roomDA);
 

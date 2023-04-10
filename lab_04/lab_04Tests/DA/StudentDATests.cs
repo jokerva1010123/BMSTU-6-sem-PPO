@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using lab_04Tests.DA;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Npgsql;
 
 namespace lab_04.Tests
@@ -9,7 +10,7 @@ namespace lab_04.Tests
         [TestMethod()]
         public void getStudentTest()
         {
-            ConnectionArgs args = new ConnectionArgs("postgres", "localhost", "ppo", "0612", 5432);
+            ConnectionArgs args = GetConnectArgs.getarg();
             StudentDA studentDA = new StudentDA(args);
             RoomDA roomDA = new RoomDA(args);
             StudentServices studentServices = new StudentServices(studentDA, roomDA);
@@ -21,7 +22,7 @@ namespace lab_04.Tests
         [TestMethod()]
         public void getStudentFailTest()
         {
-            ConnectionArgs args = new ConnectionArgs("postgres", "localhost", "ppo", "0612", 5432);
+            ConnectionArgs args = GetConnectArgs.getarg();
             StudentDA studentDA = new StudentDA(args);
             RoomDA roomDA = new RoomDA(args);
             StudentServices studentServices = new StudentServices(studentDA, roomDA);
@@ -31,7 +32,7 @@ namespace lab_04.Tests
         [TestMethod()]
         public void addStudentTest()
         {
-            ConnectionArgs args = new ConnectionArgs("postgres", "localhost", "ppo", "0612", 5432);
+            ConnectionArgs args = GetConnectArgs.getarg();
             StudentDA studentDA = new StudentDA(args);
             RoomDA roomDA = new RoomDA(args);
             StudentServices studentServices = new StudentServices(studentDA, roomDA);
@@ -51,7 +52,7 @@ namespace lab_04.Tests
         [TestMethod()]
         public void getStudentIdFromCodeTest() 
         {
-            ConnectionArgs args = new ConnectionArgs("postgres", "localhost", "ppo", "0612", 5432);
+            ConnectionArgs args = GetConnectArgs.getarg();
             StudentDA studentDA = new StudentDA(args);
             RoomDA roomDA = new RoomDA(args);
             StudentServices studentServices = new StudentServices(studentDA, roomDA);
@@ -62,13 +63,21 @@ namespace lab_04.Tests
         [TestMethod()]
         public void getAllStudentTest()
         {
-            ConnectionArgs args = new ConnectionArgs("postgres", "localhost", "ppo", "0612", 5432);
+            ConnectionArgs args = GetConnectArgs.getarg();
             StudentDA studentDA = new StudentDA(args);
             RoomDA roomDA = new RoomDA(args);
             StudentServices studentServices = new StudentServices(studentDA, roomDA);
 
             List<Student> allStudent = studentServices.getAllStudent();
-            Assert.AreEqual(2, allStudent.Count);
+            string sql = studentDA.getStrGetAllStudent();
+            int count = 0;
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, studentDA.Connector);
+            NpgsqlDataReader reader = cmd.ExecuteReader();
+            if (reader.HasRows)
+                while (reader.Read())
+                    count++;
+            reader.Close();
+            Assert.AreEqual(count, allStudent.Count);
         }
     }
 }

@@ -23,6 +23,7 @@ namespace lab_04
         public void addStudent(Student student)
         {
             ConnectionCheck.checkConnection(this.Connector);
+            student.Id_student = this.getAllStudent().Count + 1;
             string sql = getStrAddStudent(student);
             Console.WriteLine(sql);
             NpgsqlCommand cmd = new NpgsqlCommand(sql, this.Connector);
@@ -94,11 +95,11 @@ namespace lab_04
         }
         public string getStrAddStudent(Student student)
         {
-            return "insert into Students(name, groupStudent, studentCode, id_room, date) values ('"
+            return "insert into Students(id_student, name, groupStudent, studentCode, id_room, date) values (" + student.Id_student.ToString() + ", '"
                 + student.Name + "', '" + student.Group + "', '" + student.StudentCode + "', " +
                 student.Id_room.ToString() + ", '" + student.DataIn.ToString() + "');";
         }
-        string getStrGetAllStudent()
+        public string getStrGetAllStudent()
         {
             return "select * from Students";
         }
