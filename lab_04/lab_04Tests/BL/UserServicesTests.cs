@@ -1,6 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using InterfaceDB;
+using Models;
+using BL;
 
-namespace lab_04.Tests
+namespace Tests.BL
 {
     public class TestUserServices : IUserDB
     {

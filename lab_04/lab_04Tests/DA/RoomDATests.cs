@@ -1,8 +1,11 @@
-﻿using lab_04Tests.DA;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Npgsql;
+using Error;
+using Models;
+using DA;
+using BL;
 
-namespace lab_04.Tests
+namespace Tests.DA
 {
     [TestClass()]
     public class RoomDATests
@@ -44,6 +47,7 @@ namespace lab_04.Tests
 
             Assert.AreEqual(room.Number, 413);
             Assert.AreEqual(room.RoomTypes, RoomType.StudentRoom);
+            roomServices.deleteRoom(3);
         }
         [TestMethod()]
         public void deleteRoomTest()
@@ -51,7 +55,7 @@ namespace lab_04.Tests
             ConnectionArgs args = GetConnectArgs.getarg();
             RoomDA roomDA = new RoomDA(args);
             RoomServices roomServices = new RoomServices(roomDA);
-
+            roomServices.addRoom(new Room(413, RoomType.StudentRoom));
             roomServices.deleteRoom(3);
             NpgsqlCommand command = new NpgsqlCommand(roomDA.getStrGetRoom(3), roomDA.Connector);
             NpgsqlDataReader reader = command.ExecuteReader();

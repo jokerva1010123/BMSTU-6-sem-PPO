@@ -1,8 +1,11 @@
-﻿using lab_04Tests.DA;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Npgsql;
+using Error;
+using Models;
+using DA;
+using BL;
 
-namespace lab_04.Tests
+namespace Tests.DA
 {
     [TestClass()]
     public class StudentDATests
@@ -48,6 +51,23 @@ namespace lab_04.Tests
 
             Assert.AreEqual(student.Name, "Bob");
             Assert.AreEqual(student.Group, "IU7-63");
+            studentServices.deleteStudent(2);
+        }
+        [TestMethod()]
+        public void deleteStudentTest()
+        {
+            ConnectionArgs args = GetConnectArgs.getarg();
+            StudentDA studentDA = new StudentDA(args);
+            RoomDA roomDA = new RoomDA(args);
+            StudentServices studentServices = new StudentServices(studentDA, roomDA);
+
+            studentServices.addStudent("Bob", "IU7-63", "123321", 2, DateTime.Parse("Jan 04 2022"));
+            studentServices.deleteStudent(2);
+            NpgsqlCommand command = new NpgsqlCommand(studentDA.getStrGetStudent(2), studentDA.Connector);
+            NpgsqlDataReader reader = command.ExecuteReader();
+            Assert.AreEqual(reader.HasRows, false);
+            reader.Close();
+            
         }
         [TestMethod()]
         public void getStudentIdFromCodeTest() 
@@ -57,7 +77,7 @@ namespace lab_04.Tests
             RoomDA roomDA = new RoomDA(args);
             StudentServices studentServices = new StudentServices(studentDA, roomDA);
 
-            int id_student = studentServices.getIdStudentFromCode("1234321");
+            int id_student = studentServices.getIdStudentFromCode("1234321"); 
             Assert.AreEqual(id_student, 1);
         }
         [TestMethod()]

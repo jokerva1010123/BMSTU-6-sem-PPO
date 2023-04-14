@@ -1,4 +1,4 @@
-﻿namespace lab_03
+﻿namespace Models
 {
     public class Thing
     {
@@ -14,11 +14,13 @@
         public int? Id_student { get => id_student; set => id_student = value; }
         public Thing(int code, string type, int id_room, int? id_student)
         {
+            this.id_thing = -1;
             this.code = code;
             this.type = type;
-            this.id_room = id_room;
             this.id_student = id_student;
+            this.id_room = id_room;
         }
+
         public Thing(int id_thing, int code, string type, int id_room, int? id_student)
         {
             this.id_thing = id_thing;

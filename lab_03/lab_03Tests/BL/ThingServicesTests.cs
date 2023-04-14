@@ -1,13 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using lab_03;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Collections.Specialized;
+using InterfaceDB;
+using Error;
+using Models;
+using BL;
 
-namespace lab_03.Tests
+namespace Tests.BL
 {
     public class TestThingServices : IThingDB
     {
@@ -34,12 +31,12 @@ namespace lab_03.Tests
                     newThings.Add(thing);
             this.things = newThings;
         }
-        public Thing getThing(int id_thing)
+        public Thing? getThing(int id_thing)
         {
             foreach (Thing thing in this.things)
                 if (thing.Id_thing == id_thing)
                     return thing;
-            return new Thing(-1, -1, string.Empty, -1, null);
+            return null;
         }
         public void changeRoomThing(int id_thing, int id_from, int id_to)
         {
@@ -149,7 +146,7 @@ namespace lab_03.Tests
             thingServices.deleteThing(1);
             Thing thing = testThing.getThing(1);
 
-            Assert.AreEqual(thing.Id_thing, -1);        
+            Assert.AreEqual(thing, null);        
         }
         [TestMethod()]
         public void deleteThingFailTest()

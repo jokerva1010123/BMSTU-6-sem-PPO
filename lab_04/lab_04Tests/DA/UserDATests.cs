@@ -1,8 +1,10 @@
-﻿using lab_04Tests.DA;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Npgsql;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Error;
+using Models;
+using DA;
+using BL;
 
-namespace lab_04.Tests
+namespace Tests.DA
 {
     [TestClass()]
     public class UserDATests

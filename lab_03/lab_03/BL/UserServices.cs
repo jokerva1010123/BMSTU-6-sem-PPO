@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using InterfaceDB;
+using Error;
+using Models;
 
-namespace lab_03
+namespace BL
 {
     public class UserServices
     {
@@ -14,17 +12,31 @@ namespace lab_03
         {
             this.iuserDB = iuserDB;
         }
-        public void addUser(string login, string password)
+        public void addUser(string login, string password, Levels levels)
         {
-            this.iuserDB.addUser(login, password);
+            if (this.iuserDB.getIdUser(login) != -1)
+                throw new UserExistsException();
+            this.iuserDB.addUser(login, password, levels);
         }
         public int getIdUser(string login)
         {
-            return this.iuserDB.getIdUser(login);
+            int id = this.iuserDB.getIdUser(login);
+            if (id == -1)
+                throw new UserNotFoundException();
+            else
+                return id;
         }
         public User getUser(int id)
         {
-            return this.iuserDB.getUser(id);
+            User? user = this.iuserDB.getUser(id);
+            if (user == null)
+                throw new UserNotFoundException();
+            else
+                return user;
+        }
+        public Boolean userExists(string login)
+        {
+            return this.iuserDB.getIdUser(login) != -1;
         }
     }
 }

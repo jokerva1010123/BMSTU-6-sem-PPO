@@ -1,0 +1,15 @@
+E:\BMSTU\BMSTU-6-sem-PPO\lab_04\lab_04\bin\Debug\net6.0\DA.deps.json
+E:\BMSTU\BMSTU-6-sem-PPO\lab_04\lab_04\bin\Debug\net6.0\DA.dll
+E:\BMSTU\BMSTU-6-sem-PPO\lab_04\lab_04\bin\Debug\net6.0\DA.pdb
+E:\BMSTU\BMSTU-6-sem-PPO\lab_04\lab_04\bin\Debug\net6.0\BL.dll
+E:\BMSTU\BMSTU-6-sem-PPO\lab_04\lab_04\bin\Debug\net6.0\BL.pdb
+E:\BMSTU\BMSTU-6-sem-PPO\lab_04\lab_04\obj\Debug\net6.0\DA.csproj.AssemblyReference.cache
+E:\BMSTU\BMSTU-6-sem-PPO\lab_04\lab_04\obj\Debug\net6.0\DA.GeneratedMSBuildEditorConfig.editorconfig
+E:\BMSTU\BMSTU-6-sem-PPO\lab_04\lab_04\obj\Debug\net6.0\DA.AssemblyInfoInputs.cache
+E:\BMSTU\BMSTU-6-sem-PPO\lab_04\lab_04\obj\Debug\net6.0\DA.AssemblyInfo.cs
+E:\BMSTU\BMSTU-6-sem-PPO\lab_04\lab_04\obj\Debug\net6.0\DA.csproj.CoreCompileInputs.cache
+E:\BMSTU\BMSTU-6-sem-PPO\lab_04\lab_04\obj\Debug\net6.0\DA.csproj.CopyComplete
+E:\BMSTU\BMSTU-6-sem-PPO\lab_04\lab_04\obj\Debug\net6.0\DA.dll
+E:\BMSTU\BMSTU-6-sem-PPO\lab_04\lab_04\obj\Debug\net6.0\refint\DA.dll
+E:\BMSTU\BMSTU-6-sem-PPO\lab_04\lab_04\obj\Debug\net6.0\DA.pdb
+E:\BMSTU\BMSTU-6-sem-PPO\lab_04\lab_04\obj\Debug\net6.0\ref\DA.dll

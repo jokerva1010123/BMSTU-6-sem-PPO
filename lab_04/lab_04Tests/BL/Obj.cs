@@ -1,4 +1,6 @@
-﻿namespace lab_04.Tests
+﻿using Models;
+
+namespace Tests.BL
 {
     static public class Obj
     {

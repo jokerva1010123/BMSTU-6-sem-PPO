@@ -8,11 +8,12 @@
     ".NETCoreApp,Version=v6.0": {
       "lab_04Tests/1.0.0": {
         "dependencies": {
+          "BL": "1.0.0",
+          "DA": "1.0.0",
           "MSTest.TestAdapter": "2.2.10",
           "MSTest.TestFramework": "2.2.10",
           "Microsoft.NET.Test.Sdk": "17.3.2",
           "coverlet.collector": "3.1.2",
-          "lab_04": "1.0.0",
           "Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions": "14.0.0.0"
         },
         "runtime": {
@@ -1149,12 +1150,18 @@
           "System.Xml.ReaderWriter": "4.3.0"
         }
       },
-      "lab_04/1.0.0": {
+      "BL/1.0.0": {
+        "runtime": {
+          "BL.dll": {}
+        }
+      },
+      "DA/1.0.0": {
         "dependencies": {
+          "BL": "1.0.0",
           "Npgsql": "7.0.2"
         },
         "runtime": {
-          "lab_04.dll": {}
+          "DA.dll": {}
         }
       },
       "Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions/14.0.0.0": {
@@ -1859,7 +1866,12 @@
       "path": "system.xml.xmldocument/4.3.0",
       "hashPath": "system.xml.xmldocument.4.3.0.nupkg.sha512"
     },
-    "lab_04/1.0.0": {
+    "BL/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DA/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

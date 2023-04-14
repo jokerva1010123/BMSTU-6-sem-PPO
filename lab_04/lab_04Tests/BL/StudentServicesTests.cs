@@ -1,6 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using InterfaceDB;
+using Error;
+using Models;
+using BL;
 
-namespace lab_04.Tests
+namespace Tests.BL
 {
     public class TestStudentServices : IStudentDB
     {
@@ -52,6 +56,16 @@ namespace lab_04.Tests
                 if(student.Id_student == id_student)
                     student.Id_room = id_room;
                 newAllStudent.Add(student);
+            }
+            this.students = newAllStudent;
+        }
+        public void deleteStudent(int id_student)
+        {
+            List<Student> newAllStudent = new List<Student>();
+            foreach (Student student in this.students)
+            {
+                if (student.Id_student != id_student)                    
+                    newAllStudent.Add(student);
             }
             this.students = newAllStudent;
         }

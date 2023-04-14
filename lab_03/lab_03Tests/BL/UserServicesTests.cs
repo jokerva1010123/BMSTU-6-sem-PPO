@@ -1,12 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using lab_03;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using InterfaceDB;
+using Error;
+using Models;
+using BL;
 
-namespace lab_03.Tests
+namespace Tests.BL
 {
     public class TestUserServices:IUserDB
     {
@@ -15,17 +13,17 @@ namespace lab_03.Tests
         {
             this.users = users;
         }
-        public void addUser(string login, string password)
+        public void addUser(string login, string password, Levels levels)
         {
             int N = this.users.Count;
-            this.users.Add(new User(N+1, login, password));
+            this.users.Add(new User(N+1, login, password, levels));
         }
         public User getUser(int id)
         {
             foreach(User user in this.users)
                 if(user.Id == id)
                     return user;
-            return new User(-1, string.Empty, string.Empty);
+            return new User(-1, string.Empty, string.Empty, Levels.NONE);
         }
         public int getIdUser(string login)
         {
@@ -42,7 +40,7 @@ namespace lab_03.Tests
         public void getUserTest()
         {
             List<User> users = new List<User>();
-            users.Add(new User(1, "abc", "abc"));
+            users.Add(new User(1, "abc", "abc", Levels.STUDENT));
 
             TestUserServices testUser = new TestUserServices(users);
             UserServices userServices = new UserServices(testUser);
@@ -54,12 +52,12 @@ namespace lab_03.Tests
         public void addUserTest()
         {
             List <User> users = new List<User>();
-            users.Add(new User(1, "abc", "abc"));
+            users.Add(new User(1, "abc", "abc", Levels.STUDENT));
 
             TestUserServices testUser = new TestUserServices(users);
             UserServices userServices = new UserServices(testUser);
 
-            userServices.addUser("alex", "alex0612");
+            userServices.addUser("alex", "alex0612", Levels.STUDENT);
 
             User user = userServices.getUser(2);
             Assert.AreEqual(2, user.Id);
@@ -68,7 +66,7 @@ namespace lab_03.Tests
         public void getIdUserTest()
         {
             List<User> users = new List<User>();
-            users.Add(new User(1, "abc", "abc"));
+            users.Add(new User(1, "abc", "abc", Levels.STUDENT));
 
             TestUserServices testUser = new TestUserServices(users);
             UserServices userServices = new UserServices(testUser);

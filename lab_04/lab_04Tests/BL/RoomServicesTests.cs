@@ -1,6 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using InterfaceDB;
+using Error;
+using Models;
+using BL;
 
-namespace lab_04.Tests
+namespace Tests.BL
 {
     public class TestRoomServices : IRoomDB
     {

@@ -1,6 +1,10 @@
 ﻿using Npgsql;
 using System.Data;
-namespace lab_04
+using InterfaceDB;
+using Error;
+using Models;
+
+namespace DA
 {
     public class ThingDA : IThingDB
     {

@@ -1902,14 +1902,14 @@
           "lib/netstandard1.3/System.Xml.XmlDocument.dll": {}
         }
       },
-      "lab_03/1.0.0": {
+      "BL/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "compile": {
-          "bin/placeholder/lab_03.dll": {}
+          "bin/placeholder/BL.dll": {}
         },
         "runtime": {
-          "bin/placeholder/lab_03.dll": {}
+          "bin/placeholder/BL.dll": {}
         }
       }
     }
@@ -6772,19 +6772,19 @@
         "system.xml.xmldocument.nuspec"
       ]
     },
-    "lab_03/1.0.0": {
+    "BL/1.0.0": {
       "type": "project",
-      "path": "../lab_03/lab_03.csproj",
-      "msbuildProject": "../lab_03/lab_03.csproj"
+      "path": "../lab_03/BL.csproj",
+      "msbuildProject": "../lab_03/BL.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "BL >= 1.0.0",
       "MSTest.TestAdapter >= 2.2.10",
       "MSTest.TestFramework >= 2.2.10",
       "Microsoft.NET.Test.Sdk >= 17.3.2",
-      "coverlet.collector >= 3.1.2",
-      "lab_03 >= 1.0.0"
+      "coverlet.collector >= 3.1.2"
     ]
   },
   "packageFolders": {
@@ -6793,11 +6793,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\BMSTU\\BMSTU-6-sem-PPO\\lab_03\\lab_03Tests\\lab_03Tests.csproj",
-      "projectName": "lab_03Tests",
-      "projectPath": "D:\\BMSTU\\BMSTU-6-sem-PPO\\lab_03\\lab_03Tests\\lab_03Tests.csproj",
+      "projectUniqueName": "E:\\BMSTU\\BMSTU-6-sem-PPO\\lab_03\\lab_03Tests\\UnitTest.csproj",
+      "projectName": "UnitTest",
+      "projectPath": "E:\\BMSTU\\BMSTU-6-sem-PPO\\lab_03\\lab_03Tests\\UnitTest.csproj",
       "packagesPath": "C:\\Users\\joker\\.nuget\\packages\\",
-      "outputPath": "D:\\BMSTU\\BMSTU-6-sem-PPO\\lab_03\\lab_03Tests\\obj\\",
+      "outputPath": "E:\\BMSTU\\BMSTU-6-sem-PPO\\lab_03\\lab_03Tests\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\joker\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -6814,8 +6814,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "D:\\BMSTU\\BMSTU-6-sem-PPO\\lab_03\\lab_03\\lab_03.csproj": {
-              "projectPath": "D:\\BMSTU\\BMSTU-6-sem-PPO\\lab_03\\lab_03\\lab_03.csproj"
+            "E:\\BMSTU\\BMSTU-6-sem-PPO\\lab_03\\lab_03\\BL.csproj": {
+              "projectPath": "E:\\BMSTU\\BMSTU-6-sem-PPO\\lab_03\\lab_03\\BL.csproj"
             }
           }
         }

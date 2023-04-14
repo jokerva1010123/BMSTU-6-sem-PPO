@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "NEGpbdODe3A1SD403VZ4rPHkagZOK6s50/vn5ydVbvDc21tzoGOYNobiz3aNDbdfly67ccxu584Y0UjlqziFvw==",
+  "dgSpecHash": "hGZFMiLhOc3cr1K5l62AK0bXI5qBar1uUELpgWeIZWgV5SmDoM4rpBlQ3H660gHV0oKdetzwXV6Ui2N2ls4+fg==",
   "success": true,
-  "projectFilePath": "E:\\BMSTU\\BMSTU-6-sem-PPO\\lab_04\\lab_04\\lab_04.csproj",
+  "projectFilePath": "E:\\BMSTU\\BMSTU-6-sem-PPO\\lab_04\\lab_04\\DA.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\joker\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\6.0.0\\microsoft.extensions.logging.abstractions.6.0.0.nupkg.sha512",
     "C:\\Users\\joker\\.nuget\\packages\\npgsql\\7.0.2\\npgsql.7.0.2.nupkg.sha512",

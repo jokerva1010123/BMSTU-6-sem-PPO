@@ -1,7 +1,10 @@
 ﻿using Npgsql;
 using System.Data;
+using InterfaceDB;
+using Error;
+using Models;
 
-namespace lab_04
+namespace DA
 {
     public class StudentDA : IStudentDB
     {
@@ -92,6 +95,17 @@ namespace lab_04
             string sql = getStrTransferStudent(id_student, id_room);
             NpgsqlCommand cmd = new NpgsqlCommand(sql, this.Connector);
             cmd.ExecuteNonQuery();
+        }
+        public void deleteStudent(int id_student)
+        {
+            ConnectionCheck.checkConnection(this.Connector);
+            string sql = getStrDeleteStudent(id_student);
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, this.Connector);
+            cmd.ExecuteNonQuery();
+        }
+        string getStrDeleteStudent(int id_student)
+        {
+            return "delete from Students where id_student = " + id_student.ToString() + ";";
         }
         public string getStrAddStudent(Student student)
         {

@@ -27,12 +27,11 @@ create table students(
 	groupStudent varchar,
 	studentCode varchar,
 	id_room integer,
-	date varchar
+	date varchar,
+	id_user integer
 );
 insert into Students(name, groupStudent, studentCode, id_room, date)
-values ('Alex', 'IU7-64', '1234321', 1, 'Jan 01 2023');
-insert into Students(name, groupStudent, studentCode, id_room, date)
-values ('Bob', 'IU7-63', '123321', 1, 'Jan 20 2022');
+values ('Alex', 'IU7-64', '1234321', 1, 'Jan 01 2023', 1);
 select * from students;
 
 drop table things;

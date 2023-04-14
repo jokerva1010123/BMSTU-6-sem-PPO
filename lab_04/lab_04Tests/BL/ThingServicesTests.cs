@@ -1,6 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using InterfaceDB;
+using Error;
+using Models;
+using BL;
 
-namespace lab_04.Tests
+namespace Tests.BL
 {
     public class TestThingServices : IThingDB
     {
@@ -131,7 +135,7 @@ namespace lab_04.Tests
             TestStudentServices testStudent = new TestStudentServices(Obj.students);
             ThingServices thingServices = new ThingServices(testThing, testRoom, testStudent);
 
-            Assert.ThrowsException<RoomNotFoundException>(() => thingServices.addThing(1234, "Table", 4, 1));
+            Assert.ThrowsException<CodeThingExistsException>(() => thingServices.addThing(1234, "Table", 4, 1));
 
         }
         [TestMethod()]

@@ -1951,17 +1951,28 @@
           "lib/netstandard1.3/System.Xml.XmlDocument.dll": {}
         }
       },
-      "lab_04/1.0.0": {
+      "BL/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/BL.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BL.dll": {}
+        }
+      },
+      "DA/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
+          "BL": "1.0.0",
           "Npgsql": "7.0.2"
         },
         "compile": {
-          "bin/placeholder/lab_04.dll": {}
+          "bin/placeholder/DA.dll": {}
         },
         "runtime": {
-          "bin/placeholder/lab_04.dll": {}
+          "bin/placeholder/DA.dll": {}
         }
       }
     }
@@ -6926,19 +6937,25 @@
         "system.xml.xmldocument.nuspec"
       ]
     },
-    "lab_04/1.0.0": {
+    "BL/1.0.0": {
       "type": "project",
-      "path": "../lab_04/lab_04.csproj",
-      "msbuildProject": "../lab_04/lab_04.csproj"
+      "path": "../BL/BL.csproj",
+      "msbuildProject": "../BL/BL.csproj"
+    },
+    "DA/1.0.0": {
+      "type": "project",
+      "path": "../lab_04/DA.csproj",
+      "msbuildProject": "../lab_04/DA.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "BL >= 1.0.0",
+      "DA >= 1.0.0",
       "MSTest.TestAdapter >= 2.2.10",
       "MSTest.TestFramework >= 2.2.10",
       "Microsoft.NET.Test.Sdk >= 17.3.2",
-      "coverlet.collector >= 3.1.2",
-      "lab_04 >= 1.0.0"
+      "coverlet.collector >= 3.1.2"
     ]
   },
   "packageFolders": {
@@ -6947,9 +6964,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\BMSTU\\BMSTU-6-sem-PPO\\lab_04\\lab_04Tests\\lab_04Tests.csproj",
-      "projectName": "lab_04Tests",
-      "projectPath": "E:\\BMSTU\\BMSTU-6-sem-PPO\\lab_04\\lab_04Tests\\lab_04Tests.csproj",
+      "projectUniqueName": "E:\\BMSTU\\BMSTU-6-sem-PPO\\lab_04\\lab_04Tests\\UnitTests.csproj",
+      "projectName": "UnitTests",
+      "projectPath": "E:\\BMSTU\\BMSTU-6-sem-PPO\\lab_04\\lab_04Tests\\UnitTests.csproj",
       "packagesPath": "C:\\Users\\joker\\.nuget\\packages\\",
       "outputPath": "E:\\BMSTU\\BMSTU-6-sem-PPO\\lab_04\\lab_04Tests\\obj\\",
       "projectStyle": "PackageReference",
@@ -6968,8 +6985,11 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "E:\\BMSTU\\BMSTU-6-sem-PPO\\lab_04\\lab_04\\lab_04.csproj": {
-              "projectPath": "E:\\BMSTU\\BMSTU-6-sem-PPO\\lab_04\\lab_04\\lab_04.csproj"
+            "E:\\BMSTU\\BMSTU-6-sem-PPO\\lab_04\\BL\\BL.csproj": {
+              "projectPath": "E:\\BMSTU\\BMSTU-6-sem-PPO\\lab_04\\BL\\BL.csproj"
+            },
+            "E:\\BMSTU\\BMSTU-6-sem-PPO\\lab_04\\lab_04\\DA.csproj": {
+              "projectPath": "E:\\BMSTU\\BMSTU-6-sem-PPO\\lab_04\\lab_04\\DA.csproj"
             }
           }
         }

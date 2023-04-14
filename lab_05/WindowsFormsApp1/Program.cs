@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Windows.Forms;
+using BL;
+using DA;
+using GUIManage;
+using WindowsFormsApp1;
 
-namespace lab_05
+namespace Main
 {
     internal static class Program
     {
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
         [STAThread]
         static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
+                
             ConnectionArgs connectionArgs = new ConnectionArgs("postgres", "localhost", "ppo", "0612", 5432);
 
             UserDA userDA = new UserDA(connectionArgs);
@@ -26,12 +27,12 @@ namespace lab_05
             StudentServices studentServices = new StudentServices(studentDA, roomDA);
             ThingServices thingServices = new ThingServices(thingDA, roomDA, studentDA);
 
-            GUIAuthManager authManager = new GUIAuthManager(userServices);
+            GUILoginManager authManager = new GUILoginManager(userServices);
             GUIRoomManager roomManager = new GUIRoomManager(roomServices);
-            GUIStudentManager studentManager = new GUIStudentManager(studentServices, userServices, roomServices, thingServices);
+            GUIStudentManager studentManager = new GUIStudentManager(studentServices, userServices);
             GUIThingManager thingManager = new GUIThingManager(thingServices, studentServices, roomServices);
 
-            Application.Run(new AuthWindow(authManager, roomManager, thingManager, studentManager));
+            Application.Run(new LoginWindow(authManager, roomManager, thingManager, studentManager));
         }
     }
 }

@@ -1,12 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using lab_03;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using InterfaceDB;
+using Error;
+using Models;
+using BL;
 
-namespace lab_03.Tests
+namespace Tests.BL
 {
     public class TestStudentServices : IStudentDB
     {
@@ -18,7 +16,7 @@ namespace lab_03.Tests
         public void addStudent(Student student)
         {
             int N = this.students.Count;
-            this.students.Add(new Student(N + 1, student.Name, student.Group, student.Id_room, student.DataIn));
+            this.students.Add(new Student(N + 1, student.Name, student.Group, student.StudentCode, student.Id_room, student.DataIn));
         }
         public void changeStudentGroup(int id_student, string newGroup)
         {
@@ -31,7 +29,7 @@ namespace lab_03.Tests
             }
             this.students = newStudent;
         }
-        public void changeStudetName(int id_student, string newName)
+        public void changeStudentName(int id_student, string newName)
         {
             List<Student> newStudent = new List<Student>();
             foreach (Student student in this.students)
@@ -53,12 +51,12 @@ namespace lab_03.Tests
             }
             this.students = newStudent;
         }
-        public Student getStudent(int id_student)
+        public Student? getStudent(int id_student)
         {
             foreach (Student student in this.students)
                 if(student.Id_student == id_student)
                     return student;
-            return new Student(-1, String.Empty, string.Empty, -1, DateTime.Parse("01-01-1000"));
+            return null;
         }
         public List<Student> getAllStudent()
         {
@@ -75,6 +73,13 @@ namespace lab_03.Tests
             }
             this.students = newStudent;
         }
+        public int getIdStudentFromCode(string code)
+        {
+            foreach (Student student in this.students)
+                if (student.StudentCode == code)
+                    return student.Id_student;
+            return -1;
+        }
     }
     [TestClass()]
     public class StudentServicesTests
@@ -84,9 +89,9 @@ namespace lab_03.Tests
         {
             List<Student> students = new List<Student>
             {
-                new Student(1, "Alex", "IU7-64", 1, DateTime.Parse("06-02-2023")),
-                new Student(2, "Anton", "IU7-63", 2, DateTime.Parse("07-02-2023")),
-                new Student(3, "Makxim", "IU7-62", 2, DateTime.Parse("05-02-2023"))
+                new Student(1, "Alex", "IU7-64", "1234321", 1, DateTime.Parse("06-02-2023")),
+            new Student(2, "Anton", "IU7-63", "123321", 2, DateTime.Parse("07-02-2023")),
+            new Student(3, "Makxim", "IU7-62", "1233321", 2, DateTime.Parse("05-02-2023"))
             };
             TestStudentServices testStudent = new TestStudentServices(students);
             TestRoomServices testRoom = new TestRoomServices(Obj.rooms);
@@ -103,9 +108,9 @@ namespace lab_03.Tests
         {
             List<Student> students = new List<Student>
             {
-                new Student(1, "Alex", "IU7-64", 1, DateTime.Parse("06-02-2023")),
-                new Student(2, "Anton", "IU7-63", 2, DateTime.Parse("07-02-2023")),
-                new Student(3, "Makxim", "IU7-62", 2, DateTime.Parse("05-02-2023"))
+                new Student(1, "Alex", "IU7-64", "1234321", 1, DateTime.Parse("06-02-2023")),
+            new Student(2, "Anton", "IU7-63", "123321", 2, DateTime.Parse("07-02-2023")),
+            new Student(3, "Makxim", "IU7-62", "1233321", 2, DateTime.Parse("05-02-2023"))
             };
             TestStudentServices testStudent = new TestStudentServices(students);
             TestRoomServices testRoom = new TestRoomServices(Obj.rooms);
@@ -118,15 +123,15 @@ namespace lab_03.Tests
         {
             List<Student> students = new List<Student>
             {
-                new Student(1, "Alex", "IU7-64", 1, DateTime.Parse("06-02-2023")),
-                new Student(2, "Anton", "IU7-63", 2, DateTime.Parse("07-02-2023")),
-                new Student(3, "Makxim", "IU7-62", 2, DateTime.Parse("05-02-2023"))
+                new Student(1, "Alex", "IU7-64", "1234321", 1, DateTime.Parse("06-02-2023")),
+            new Student(2, "Anton", "IU7-63", "123321", 2, DateTime.Parse("07-02-2023")),
+            new Student(3, "Makxim", "IU7-62", "1233321", 2, DateTime.Parse("05-02-2023"))
             };
             TestStudentServices testStudent = new TestStudentServices(students);
             TestRoomServices testRoom = new TestRoomServices(Obj.rooms);
             StudentServices studentServices = new StudentServices(testStudent, testRoom);
 
-            studentServices.addStudent("Sasha", "IU7-61", 1, DateTime.Parse("10-02-2023"));
+            studentServices.addStudent("Sasha", "IU7-61", "54321234", 1, DateTime.Parse("10-02-2023"));
             Student student = testStudent.getStudent(4);
 
             Assert.AreEqual(student.Name, "Sasha");
@@ -138,9 +143,9 @@ namespace lab_03.Tests
         {
             List<Student> students = new List<Student>
             {
-                new Student(1, "Alex", "IU7-64", 1, DateTime.Parse("06-02-2023")),
-                new Student(2, "Anton", "IU7-63", 2, DateTime.Parse("07-02-2023")),
-                new Student(3, "Makxim", "IU7-62", 2, DateTime.Parse("05-02-2023"))
+                new Student(1, "Alex", "IU7-64", "1234321", 1, DateTime.Parse("06-02-2023")),
+                new Student(2, "Anton", "IU7-63", "123321", 2, DateTime.Parse("07-02-2023")),
+                new Student(3, "Makxim", "IU7-62", "1233321", 2, DateTime.Parse("05-02-2023"))
             };
             TestStudentServices testStudent = new TestStudentServices(students);
             TestRoomServices testRoom = new TestRoomServices(Obj.rooms);
@@ -155,9 +160,9 @@ namespace lab_03.Tests
         {
             List<Student> students = new List<Student>
             {
-                new Student(1, "Alex", "IU7-64", 1, DateTime.Parse("06-02-2023")),
-                new Student(2, "Anton", "IU7-63", 2, DateTime.Parse("07-02-2023")),
-                new Student(3, "Makxim", "IU7-62", 2, DateTime.Parse("05-02-2023"))
+                new Student(1, "Alex", "IU7-64", "1234321", 1, DateTime.Parse("06-02-2023")),
+                new Student(2, "Anton", "IU7-63", "123321", 2, DateTime.Parse("07-02-2023")),
+                new Student(3, "Makxim", "IU7-62", "1233321", 2, DateTime.Parse("05-02-2023"))
             };
             TestStudentServices testStudent = new TestStudentServices(students);
             TestRoomServices testRoom = new TestRoomServices(Obj.rooms);
@@ -173,9 +178,9 @@ namespace lab_03.Tests
         {
             List<Student> students = new List<Student>
             {
-                new Student(1, "Alex", "IU7-64", 1, DateTime.Parse("06-02-2023")),
-                new Student(2, "Anton", "IU7-63", 2, DateTime.Parse("07-02-2023")),
-                new Student(3, "Makxim", "IU7-62", 2, DateTime.Parse("05-02-2023"))
+                new Student(1, "Alex", "IU7-64", "1234321", 1, DateTime.Parse("06-02-2023")),
+                new Student(2, "Anton", "IU7-63", "123321", 2, DateTime.Parse("07-02-2023")),
+                new Student(3, "Makxim", "IU7-62", "1233321", 2, DateTime.Parse("05-02-2023"))
             };
             TestStudentServices testStudent = new TestStudentServices(students);
             TestRoomServices testRoom = new TestRoomServices(Obj.rooms);
@@ -184,31 +189,13 @@ namespace lab_03.Tests
             Assert.ThrowsException<StudentNotFoundException>(() => studentServices.deleteStudent(4));
         }
         [TestMethod()]
-        public void setRoomStudentTest()
-        {
-            List<Student> students = new List<Student>
-            {
-                new Student(1, "Alex", "IU7-64", 1, DateTime.Parse("06-02-2023")),
-                new Student(2, "Anton", "IU7-63", 2, DateTime.Parse("07-02-2023")),
-                new Student(3, "Makxim", "IU7-62", 2, DateTime.Parse("05-02-2023"))
-            };
-            TestStudentServices testStudent = new TestStudentServices(students);
-            TestRoomServices testRoom = new TestRoomServices(Obj.rooms);
-            StudentServices studentServices = new StudentServices(testStudent, testRoom);
-
-            studentServices.setRoomStudent(1, 2);
-            Student student = testStudent.getStudent(1);
-
-            Assert.AreEqual(student.Id_room, 2);
-        }
-        [TestMethod()]
         public void  changeStudentNameTest()
         {
             List<Student> students = new List<Student>
             {
-                new Student(1, "Alex", "IU7-64", 1, DateTime.Parse("06-02-2023")),
-                new Student(2, "Anton", "IU7-63", 2, DateTime.Parse("07-02-2023")),
-                new Student(3, "Makxim", "IU7-62", 2, DateTime.Parse("05-02-2023"))
+                new Student(1, "Alex", "IU7-64", "1234321", 1, DateTime.Parse("06-02-2023")),
+                new Student(2, "Anton", "IU7-63", "123321", 2, DateTime.Parse("07-02-2023")),
+                new Student(3, "Makxim", "IU7-62", "1233321", 2, DateTime.Parse("05-02-2023"))
             };
             TestStudentServices testStudent = new TestStudentServices(students);
             TestRoomServices testRoom = new TestRoomServices(Obj.rooms);
@@ -224,9 +211,9 @@ namespace lab_03.Tests
         {
             List<Student> students = new List<Student>
             {
-                new Student(1, "Alex", "IU7-64", 1, DateTime.Parse("06-02-2023")),
-                new Student(2, "Anton", "IU7-63", 2, DateTime.Parse("07-02-2023")),
-                new Student(3, "Makxim", "IU7-62", 2, DateTime.Parse("05-02-2023"))
+                new Student(1, "Alex", "IU7-64", "1234321", 1, DateTime.Parse("06-02-2023")),
+                new Student(2, "Anton", "IU7-63", "123321", 2, DateTime.Parse("07-02-2023")),
+                new Student(3, "Makxim", "IU7-62", "1233321", 2, DateTime.Parse("05-02-2023"))
             };
             TestStudentServices testStudent = new TestStudentServices(students);
             TestRoomServices testRoom = new TestRoomServices(Obj.rooms);
@@ -240,9 +227,9 @@ namespace lab_03.Tests
         {
             List<Student> students = new List<Student>
             {
-                new Student(1, "Alex", "IU7-64", 1, DateTime.Parse("06-02-2023")),
-                new Student(2, "Anton", "IU7-63", 2, DateTime.Parse("07-02-2023")),
-                new Student(3, "Makxim", "IU7-62", 2, DateTime.Parse("05-02-2023"))
+                new Student(1, "Alex", "IU7-64", "1234321", 1, DateTime.Parse("06-02-2023")),
+                new Student(2, "Anton", "IU7-63", "123321", 2, DateTime.Parse("07-02-2023")),
+                new Student(3, "Makxim", "IU7-62", "1233321", 2, DateTime.Parse("05-02-2023"))
             };
             TestStudentServices testStudent = new TestStudentServices(students);
             TestRoomServices testRoom = new TestRoomServices(Obj.rooms);
@@ -258,9 +245,9 @@ namespace lab_03.Tests
         {
             List<Student> students = new List<Student>
             {
-                new Student(1, "Alex", "IU7-64", 1, DateTime.Parse("06-02-2023")),
-                new Student(2, "Anton", "IU7-63", 2, DateTime.Parse("07-02-2023")),
-                new Student(3, "Makxim", "IU7-62", 2, DateTime.Parse("05-02-2023"))
+                new Student(1, "Alex", "IU7-64", "1234321", 1, DateTime.Parse("06-02-2023")),
+                new Student(2, "Anton", "IU7-63", "123321", 2, DateTime.Parse("07-02-2023")),
+                new Student(3, "Makxim", "IU7-62", "1233321", 2, DateTime.Parse("05-02-2023"))
             };
             TestStudentServices testStudent = new TestStudentServices(students);
             TestRoomServices testRoom = new TestRoomServices(Obj.rooms);

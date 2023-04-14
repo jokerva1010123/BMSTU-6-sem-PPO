@@ -1,11 +1,6 @@
-﻿using lab_03;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Models;
 
-namespace lab_03.Tests
+namespace Tests.BL
 {
     static public class Obj
     {
@@ -23,9 +18,9 @@ namespace lab_03.Tests
         };
         public static List<Student> students = new List<Student>
         {
-            new Student(1, "Alex", "IU7-64", 1, DateTime.Parse("06-02-2023")),
-            new Student(2, "Anton", "IU7-63", 2, DateTime.Parse("07-02-2023")),
-            new Student(3, "Makxim", "IU7-62", 2, DateTime.Parse("05-02-2023"))
+            new Student(1, "Alex", "IU7-64", "1234321", 1, DateTime.Parse("06-02-2023")),
+            new Student(2, "Anton", "IU7-63", "123321", 2, DateTime.Parse("07-02-2023")),
+            new Student(3, "Makxim", "IU7-62", "1233321", 2, DateTime.Parse("05-02-2023"))
         };
     }
 }

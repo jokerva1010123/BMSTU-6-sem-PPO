@@ -41,3 +41,5 @@ E:\BMSTU\BMSTU-6-sem-PPO\lab_05\WindowsFormsApp1\bin\Debug\System.ValueTuple.xml
 E:\BMSTU\BMSTU-6-sem-PPO\lab_05\WindowsFormsApp1\obj\Debug\lab_05.csproj.CopyComplete
 E:\BMSTU\BMSTU-6-sem-PPO\lab_05\WindowsFormsApp1\obj\Debug\lab_05.AuthWindow.resources
 E:\BMSTU\BMSTU-6-sem-PPO\lab_05\WindowsFormsApp1\obj\Debug\lab_05.ManageWindow.resources
+E:\BMSTU\BMSTU-6-sem-PPO\lab_05\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.GUI.Window.KamedenWindow.resources
+E:\BMSTU\BMSTU-6-sem-PPO\lab_05\WindowsFormsApp1\obj\Debug\lab_05.StudentWindow.resources

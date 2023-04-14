@@ -50,6 +50,16 @@
         "build": {
           "buildTransitive/netcoreapp3.1/_._": {}
         }
+      },
+      "BL/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/BL.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BL.dll": {}
+        }
       }
     }
   },
@@ -155,10 +165,16 @@
         "system.runtime.compilerservices.unsafe.nuspec",
         "useSharedDesignerContext.txt"
       ]
+    },
+    "BL/1.0.0": {
+      "type": "project",
+      "path": "../BL/BL.csproj",
+      "msbuildProject": "../BL/BL.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "BL >= 1.0.0",
       "Npgsql >= 7.0.2"
     ]
   },
@@ -168,9 +184,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\BMSTU\\BMSTU-6-sem-PPO\\lab_04\\lab_04\\lab_04.csproj",
-      "projectName": "lab_04",
-      "projectPath": "E:\\BMSTU\\BMSTU-6-sem-PPO\\lab_04\\lab_04\\lab_04.csproj",
+      "projectUniqueName": "E:\\BMSTU\\BMSTU-6-sem-PPO\\lab_04\\lab_04\\DA.csproj",
+      "projectName": "DA",
+      "projectPath": "E:\\BMSTU\\BMSTU-6-sem-PPO\\lab_04\\lab_04\\DA.csproj",
       "packagesPath": "C:\\Users\\joker\\.nuget\\packages\\",
       "outputPath": "E:\\BMSTU\\BMSTU-6-sem-PPO\\lab_04\\lab_04\\obj\\",
       "projectStyle": "PackageReference",
@@ -188,7 +204,11 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "E:\\BMSTU\\BMSTU-6-sem-PPO\\lab_04\\BL\\BL.csproj": {
+              "projectPath": "E:\\BMSTU\\BMSTU-6-sem-PPO\\lab_04\\BL\\BL.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

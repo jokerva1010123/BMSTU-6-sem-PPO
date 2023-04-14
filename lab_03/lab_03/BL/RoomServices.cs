@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.ExceptionServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using InterfaceDB;
+using Error;
+using Models;
 
-namespace lab_03
+namespace BL
 {
     public class RoomServices
     {
@@ -25,22 +22,22 @@ namespace lab_03
         }
         public Room getRoom(int id_room)
         {
-            Room room = this.IroomDB.getRoom(id_room);
-            if (room.Id_room == null)
+            Room? room = this.IroomDB.getRoom(id_room);
+            if (room == null)
                 throw new RoomNotFoundException();
             else
                 return room;
         }
         public void deleteRoom(int id_room)
         {
-            Room room = this.IroomDB.getRoom(id_room);
-            if (room.Id_room == null)
+            Room? room = this.IroomDB.getRoom(id_room);
+            if (room == null)
                 throw new RoomNotFoundException();
             else
             {
                 this.IroomDB.deleteRoom(id_room);
                 room = this.iroomDB.getRoom(id_room);
-                if (room.Id_room != null)
+                if (room != null)
                     throw new DeleteRoomErrorException();
             }
         }

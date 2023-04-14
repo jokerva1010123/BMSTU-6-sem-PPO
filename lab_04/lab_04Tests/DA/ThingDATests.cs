@@ -1,8 +1,11 @@
-﻿using lab_04Tests.DA;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Npgsql;
+using Error;
+using Models;
+using DA;
+using BL;
 
-namespace lab_04.Tests
+namespace Tests.DA
 {
     [TestClass()]
     public class ThingDATests
@@ -53,6 +56,7 @@ namespace lab_04.Tests
             Assert.AreEqual(thing.Id_thing, id_thing);
             Assert.AreEqual(thing.Code, 1237321);
             Assert.AreEqual(thing.Type, "Bed");
+            thingServices.deleteThing(2);
         }
         [TestMethod]
         public void deleteThingTest()
@@ -62,7 +66,7 @@ namespace lab_04.Tests
             StudentDA studentDA = new StudentDA(args);
             RoomDA roomDA = new RoomDA(args);
             ThingServices thingServices = new ThingServices(thingDA, roomDA, studentDA);
-
+            thingServices.addThing(1237321, "Bed", 1, 1);
             thingServices.deleteThing(2);
             NpgsqlCommand command = new NpgsqlCommand(thingDA.getStrGetThing(2), thingDA.Connector);
             NpgsqlDataReader reader = command.ExecuteReader();
@@ -80,7 +84,7 @@ namespace lab_04.Tests
             RoomDA roomDA = new RoomDA(args);
             ThingServices thingServices = new ThingServices(thingDA, roomDA, studentDA);
 
-            thingServices.changeRoomThing(1, 2, 2);
+            thingServices.changeRoomThing(1, 1, 2);
             NpgsqlCommand command = new NpgsqlCommand(thingDA.getStrGetThing(1), thingDA.Connector);
             NpgsqlDataReader reader = command.ExecuteReader();
             reader.Read();
@@ -89,6 +93,8 @@ namespace lab_04.Tests
             reader.Close();
 
             Assert.AreEqual(thing.Id_room, 2);
+            thingServices.changeRoomThing(1, 2, 1);
+
         }
     }
 }

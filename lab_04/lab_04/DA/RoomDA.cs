@@ -1,7 +1,10 @@
 ﻿using Npgsql;
 using System.Data;
+using InterfaceDB;
+using Error;
+using Models;
 
-namespace lab_04
+namespace DA
 {
     public class RoomDA : IRoomDB
     {

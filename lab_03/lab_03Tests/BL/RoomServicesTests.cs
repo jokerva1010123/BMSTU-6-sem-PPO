@@ -1,12 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using lab_03;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using InterfaceDB;
+using Error;
+using Models;
+using BL;
 
-namespace lab_03.Tests
+namespace Tests.BL
 {
     public class TestRoomServices : IRoomDB
     {
@@ -28,12 +26,12 @@ namespace lab_03.Tests
                     newRoom.Add(tmpRoom);
             this.rooms = newRoom;
         }
-        public Room getRoom(int id_room)
+        public Room? getRoom(int id_room)
         {
             foreach (Room tmpRoom in this.rooms)
                 if (tmpRoom.Id_room == id_room)
                     return tmpRoom;
-            return new Room(null, -1, RoomType.None);
+            return null;
         }
         public List<Room> getAllRoom()
         {
@@ -121,7 +119,7 @@ namespace lab_03.Tests
             roomServices.deleteRoom(2);
             Room room = testRoom.getRoom(2);
 
-            Assert.AreEqual(room.Id_room, null);
+            Assert.AreEqual(room, null);
         }
         [TestMethod()]
         public void deleteRoomFailTest()
@@ -135,7 +133,7 @@ namespace lab_03.Tests
             TestRoomServices testRoom = new TestRoomServices(rooms);
             RoomServices roomServices = new RoomServices(testRoom);
 
-            Assert.ThrowsException<RoomNotFoundException> (() =>roomServices.deleteRoom(4));
+            Assert.ThrowsException<RoomNotFoundException> (() => roomServices.deleteRoom(4));
         }
         [TestMethod()]
         public void getAllRoomTest()
