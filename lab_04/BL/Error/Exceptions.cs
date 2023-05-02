@@ -31,6 +31,18 @@
         public AddStudentErrorException(Exception inner, string information = "\nСтудента не удалось добавить!\n") : base(information, inner) { }
     }
     [Serializable]
+    public class StudentInRoomException : Exception
+    {
+        public StudentInRoomException(string information = "\nСтудент уже живет в общежитии!\n") : base(information) { }
+        public StudentInRoomException(Exception inner, string information = "\nСтудент уже живет в общежитии!\n") : base(information, inner) { }
+    }
+    [Serializable]
+    public class StudentNotInRoomException : Exception
+    {
+        public StudentNotInRoomException(string information = "\nСтудент не живет в общежитии!\n") : base(information) { }
+        public StudentNotInRoomException(Exception inner, string information = "\nСтудент не живет в общежитии!\n") : base(information, inner) { }
+    }
+    [Serializable]
     public class ChangeStudentGroupErrorException : Exception
     {
         public ChangeStudentGroupErrorException(string information = "\nСтудента не удалось добавить!\n") : base(information) { }
@@ -47,6 +59,18 @@
     {
         public ThingNotFoundException(string information = "\nВещь не найдена!\n") : base(information) { }
         public ThingNotFoundException(Exception inner, string information = "\nВещь не найдена!\n") : base(information, inner) { }
+    }
+    [Serializable]
+    public class ThingNotFreeException : Exception
+    {
+        public ThingNotFreeException(string information = "\nВещь не свободна!\n") : base(information) { }
+        public ThingNotFreeException(Exception inner, string information = "\nВещь не свободна!\n") : base(information, inner) { }
+    }
+    [Serializable]
+    public class WrongOwnerThingException : Exception
+    {
+        public WrongOwnerThingException(string information = "\nЭтот студент не владеет вещей!\n") : base(information) { }
+        public WrongOwnerThingException(Exception inner, string information = "\nЭтот студент не владеет вещей!\n") : base(information, inner) { }
     }
     [Serializable]
     public class CodeThingExistsException : Exception
@@ -89,6 +113,18 @@
     {
         public UserExistsException(string information = "Пользователя уже существует\n") : base(information) { }
         public UserExistsException(Exception inner, string information = "Пользователя уже существует\n") : base(information, inner) { }
+    }
+    [Serializable]
+    public class IncorrectPasswordExcept : Exception
+    {
+        public IncorrectPasswordExcept(string information = "Пароль не правильна\n") : base(information) { }
+        public IncorrectPasswordExcept(Exception inner, string information = "Пароль не правильна\n") : base(information, inner) { }
+    }
+    [Serializable]
+    public class LoginNotFoundException : Exception
+    {
+        public LoginNotFoundException(string information = "\nЛогин не найден!\n") : base(information) { }
+        public LoginNotFoundException(Exception inner, string information = "\nЛогин не найден!\n") : base(information, inner) { }
     }
     [Serializable]
     public class DataBaseConnectException : Exception

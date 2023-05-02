@@ -10,6 +10,8 @@ namespace InterfaceDB
         List<Thing> getAllThing();
         void changeRoomThing(int id_thing, int id_from, int id_to);
         int getIdThingFromCode(int code);
+        void transferStudentThing(int id_student, int id_thing, int id_room);
+        void returnThing(int id_thing);
     }
 }
 

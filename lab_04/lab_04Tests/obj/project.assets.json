@@ -1953,7 +1953,10 @@
       },
       "BL/1.0.0": {
         "type": "project",
-        "framework": ".NETCoreApp,Version=v6.0",
+        "framework": ".NETFramework,Version=v4.8",
+        "dependencies": {
+          "Npgsql": "7.0.2"
+        },
         "compile": {
           "bin/placeholder/BL.dll": {}
         },
@@ -1963,7 +1966,7 @@
       },
       "DA/1.0.0": {
         "type": "project",
-        "framework": ".NETCoreApp,Version=v6.0",
+        "framework": ".NETFramework,Version=v4.8",
         "dependencies": {
           "BL": "1.0.0",
           "Npgsql": "7.0.2"

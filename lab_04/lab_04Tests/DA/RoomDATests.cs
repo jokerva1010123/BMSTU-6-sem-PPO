@@ -19,7 +19,7 @@ namespace Tests.DA
 
             Room? room = roomServices.getRoom(1);
             Assert.AreEqual(room.Id_room, 1);
-            Assert.AreEqual(room.Number, 312);
+            Assert.AreEqual(room.Number, 101);
         }
         [TestMethod()]
         public void getRoomFailTest()
@@ -38,16 +38,17 @@ namespace Tests.DA
             RoomServices roomServices = new RoomServices(roomDA);
 
             roomServices.addRoom(new Room(413, RoomType.StudentRoom));
-
-            NpgsqlCommand command = new NpgsqlCommand(roomDA.getStrGetRoom(3), roomDA.Connector);
+            List<Room> allRoom = roomServices.getAllRoom();
+            Room room = allRoom[allRoom.Count - 1];
+            NpgsqlCommand command = new NpgsqlCommand(roomDA.getStrGetRoom((int)room.Id_room), roomDA.Connector);
             NpgsqlDataReader reader = command.ExecuteReader();
             reader.Read();
-            Room room = new Room(reader.GetInt32(0), reader.GetInt32(1), (RoomType)reader.GetInt32(2));
+            Room tmproom = new Room(reader.GetInt32(0), reader.GetInt32(1), (RoomType)reader.GetInt32(2));
             reader.Close();
 
-            Assert.AreEqual(room.Number, 413);
-            Assert.AreEqual(room.RoomTypes, RoomType.StudentRoom);
-            roomServices.deleteRoom(3);
+            Assert.AreEqual(tmproom.Number, 413);
+            Assert.AreEqual(tmproom.RoomTypes, RoomType.StudentRoom);
+            roomServices.deleteRoom((int)room.Id_room);
         }
         [TestMethod()]
         public void deleteRoomTest()
@@ -56,8 +57,10 @@ namespace Tests.DA
             RoomDA roomDA = new RoomDA(args);
             RoomServices roomServices = new RoomServices(roomDA);
             roomServices.addRoom(new Room(413, RoomType.StudentRoom));
-            roomServices.deleteRoom(3);
-            NpgsqlCommand command = new NpgsqlCommand(roomDA.getStrGetRoom(3), roomDA.Connector);
+            List<Room> allRoom = roomServices.getAllRoom();
+            Room room = allRoom[allRoom.Count - 1];
+            roomServices.deleteRoom((int)room.Id_room);
+            NpgsqlCommand command = new NpgsqlCommand(roomDA.getStrGetRoom((int)room.Id_room), roomDA.Connector);
             NpgsqlDataReader reader = command.ExecuteReader();
             reader.Read();
 
@@ -72,7 +75,7 @@ namespace Tests.DA
             RoomServices roomServices = new RoomServices(roomDA);
 
             List<Room> allRoom = roomServices.getAllRoom();
-            Assert.AreEqual(allRoom.Count, 2);
+            Assert.AreEqual(allRoom.Count, 11);
         }
     }
 }

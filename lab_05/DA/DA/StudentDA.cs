@@ -49,7 +49,6 @@ namespace DA
         {
             ConnectionCheck.checkConnection(this.Connector);
             string sql = getStrChangeStudent(id_student, newStudent);
-            Console.WriteLine(sql);
             NpgsqlCommand cmd = new NpgsqlCommand(sql, this.Connector);
             cmd.ExecuteNonQuery();
         }
@@ -106,7 +105,7 @@ namespace DA
         {
             return "insert into Students(name, groupStudent, studentCode, id_room, date, id_user) values ('"
                 + student.Name + "', '" + student.Group + "', '" + student.StudentCode + "', " +
-                student.Id_room.ToString() + ", '" + student.DataIn.ToString() + ", " + student.Id_user.ToString() + "');";
+                student.Id_room.ToString() + ", '" + student.DataIn.ToString() + "', " + student.Id_user.ToString() + ");";
         }
         public string getStrGetAllStudent()
         {

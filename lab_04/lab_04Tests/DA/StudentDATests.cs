@@ -33,43 +33,6 @@ namespace Tests.DA
             Assert.ThrowsException<StudentNotFoundException>(() => studentServices.getStudent(999));
         }
         [TestMethod()]
-        public void addStudentTest()
-        {
-            ConnectionArgs args = GetConnectArgs.getarg();
-            StudentDA studentDA = new StudentDA(args);
-            RoomDA roomDA = new RoomDA(args);
-            StudentServices studentServices = new StudentServices(studentDA, roomDA);
-
-            studentServices.addStudent("Bob", "IU7-63", "123321", 2, DateTime.Parse("Jan 04 2022"));
-
-            NpgsqlCommand command = new NpgsqlCommand(studentDA.getStrGetStudent(2), studentDA.Connector);
-            NpgsqlDataReader reader = command.ExecuteReader();
-            reader.Read();
-            Student student = new Student(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3),
-                  reader.GetInt32(4), DateTime.Parse(reader.GetString(5)));
-            reader.Close();
-
-            Assert.AreEqual(student.Name, "Bob");
-            Assert.AreEqual(student.Group, "IU7-63");
-            studentServices.deleteStudent(2);
-        }
-        [TestMethod()]
-        public void deleteStudentTest()
-        {
-            ConnectionArgs args = GetConnectArgs.getarg();
-            StudentDA studentDA = new StudentDA(args);
-            RoomDA roomDA = new RoomDA(args);
-            StudentServices studentServices = new StudentServices(studentDA, roomDA);
-
-            studentServices.addStudent("Bob", "IU7-63", "123321", 2, DateTime.Parse("Jan 04 2022"));
-            studentServices.deleteStudent(2);
-            NpgsqlCommand command = new NpgsqlCommand(studentDA.getStrGetStudent(2), studentDA.Connector);
-            NpgsqlDataReader reader = command.ExecuteReader();
-            Assert.AreEqual(reader.HasRows, false);
-            reader.Close();
-            
-        }
-        [TestMethod()]
         public void getStudentIdFromCodeTest() 
         {
             ConnectionArgs args = GetConnectArgs.getarg();

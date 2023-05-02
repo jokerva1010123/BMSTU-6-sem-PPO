@@ -26,7 +26,6 @@ namespace DA
         public void addStudent(Student student)
         {
             ConnectionCheck.checkConnection(this.Connector);
-            student.Id_student = this.getAllStudent().Count + 1;
             string sql = getStrAddStudent(student);
             Console.WriteLine(sql);
             NpgsqlCommand cmd = new NpgsqlCommand(sql, this.Connector);
@@ -51,6 +50,7 @@ namespace DA
         {
             ConnectionCheck.checkConnection(this.Connector);
             string sql = getStrChangeStudent(id_student, newStudent);
+            Console.WriteLine(sql);
             NpgsqlCommand cmd = new NpgsqlCommand(sql, this.Connector);
             cmd.ExecuteNonQuery();
         }
@@ -65,7 +65,7 @@ namespace DA
             {
                 reader.Read();
                 student = new Student(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3),
-                  reader.GetInt32(4), DateTime.Parse(reader.GetString(5)));
+                  reader.GetInt32(4), DateTime.Parse(reader.GetString(5)), reader.GetInt32(6));
             }
             reader.Close();
             return student;
@@ -82,12 +82,19 @@ namespace DA
                 while (reader.Read())
                 {
                     Student student = new Student(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3),
-                      reader.GetInt32(4), DateTime.Parse(reader.GetString(5)));
+                      reader.GetInt32(4), DateTime.Parse(reader.GetString(5)), reader.GetInt32(6));
                     allStudent.Add(student);
                 }
             }
             reader.Close();
             return allStudent;
+        }
+        public void returnRoom(int id_student)
+        {
+            ConnectionCheck.checkConnection(this.Connector);
+            string sql = getStrReturnRoom(id_student);
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, this.Connector);
+            cmd.ExecuteNonQuery();
         }
         public void transferStudent(int id_student, int id_room)
         {
@@ -96,28 +103,17 @@ namespace DA
             NpgsqlCommand cmd = new NpgsqlCommand(sql, this.Connector);
             cmd.ExecuteNonQuery();
         }
-        public void deleteStudent(int id_student)
-        {
-            ConnectionCheck.checkConnection(this.Connector);
-            string sql = getStrDeleteStudent(id_student);
-            NpgsqlCommand cmd = new NpgsqlCommand(sql, this.Connector);
-            cmd.ExecuteNonQuery();
-        }
-        string getStrDeleteStudent(int id_student)
-        {
-            return "delete from Students where id_student = " + id_student.ToString() + ";";
-        }
         public string getStrAddStudent(Student student)
         {
-            return "insert into Students(id_student, name, groupStudent, studentCode, id_room, date) values (" + student.Id_student.ToString() + ", '"
+            return "insert into Students(name, groupStudent, studentCode, id_room, date, id_user) values ('"
                 + student.Name + "', '" + student.Group + "', '" + student.StudentCode + "', " +
-                student.Id_room.ToString() + ", '" + student.DataIn.ToString() + "');";
+                student.Id_room.ToString() + ", '" + student.DataIn.ToString() + "', " + student.Id_user.ToString() + ");";
         }
         public string getStrGetAllStudent()
         {
             return "select * from Students";
         }
-        string getStrGetIdStudent(string code)
+        public string getStrGetIdStudent(string code)
         {
             return "select id_student from Students where studentCode = '" + code + "';";
         }
@@ -125,15 +121,19 @@ namespace DA
         {
             return "select * from Students where id_student = " + id_student.ToString() + ";";
         }
-        string getStrChangeStudent(int id_student, Student newStudent)
+        public string getStrChangeStudent(int id_student, Student newStudent)
         {
             return "update Students set name = '" + newStudent.Name + "', groupStudent = '" + newStudent.Group + "', studentCode = '" +
-                newStudent.StudentCode + "', id_room = " + newStudent.Id_room.ToString() + ", date = " +
-                newStudent.DataIn.ToString() + " where id_student = " + id_student.ToString() + ";";
+                newStudent.StudentCode + "', id_room = " + newStudent.Id_room.ToString() + ", date = '" +
+                newStudent.DataIn.ToString() + "', id_user = " + newStudent.Id_user.ToString() + " where id_student = " + id_student.ToString() + ";";
         }
-        string getStrTransferStudent(int id_student, int id_room)
+        public string getStrTransferStudent(int id_student, int id_room)
         {
-            return "update Students set id_room = " + id_room.ToString() + " where id_stdudent = " + id_student + ";";
+            return "update Students set id_room = " + id_room.ToString() + " where id_student = " + id_student + ";";
+        }
+        public string getStrReturnRoom(int id_student)
+        {
+            return "update Students set id_room = -1 where id_student = " + id_student + ";";
         }
     }
 }

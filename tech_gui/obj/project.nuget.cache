@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "f05MKeVQHZxnpcMIvIyiZDe7gu1kDzIz9Mt9esz3FBXRAzyORuSf50K2J8pTyMRxeCHY37pWpaD0+2atNuHQWQ==",
+  "success": true,
+  "projectFilePath": "E:\\BMSTU\\BMSTU-6-sem-PPO\\tech_gui\\tech_gui.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\joker\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\6.0.0\\microsoft.extensions.logging.abstractions.6.0.0.nupkg.sha512",
+    "C:\\Users\\joker\\.nuget\\packages\\npgsql\\7.0.2\\npgsql.7.0.2.nupkg.sha512",
+    "C:\\Users\\joker\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

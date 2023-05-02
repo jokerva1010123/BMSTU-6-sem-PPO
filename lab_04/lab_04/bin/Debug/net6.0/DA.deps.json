@@ -37,6 +37,9 @@
       },
       "System.Runtime.CompilerServices.Unsafe/6.0.0": {},
       "BL/1.0.0": {
+        "dependencies": {
+          "Npgsql": "7.0.2"
+        },
         "runtime": {
           "BL.dll": {}
         }

@@ -53,24 +53,10 @@ namespace DA
             reader.Close();
             return user;
         }
-        public List<User> getAllUsers() 
-        {
-            ConnectionCheck.checkConnection(this.Connector);
-            List<User> allUser = new List<User>();
-            string sql = this.getStrGetAllUser();
-            NpgsqlCommand cmd = new NpgsqlCommand(sql, this.Connector);
-            NpgsqlDataReader reader = cmd.ExecuteReader();
-            if (reader.HasRows)
-                while (reader.Read())
-                    allUser.Add(new User(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), (Levels)reader.GetInt32(3)));
-            reader.Close();
-            return allUser;
-        }
         public void addUser(string login, string password, Levels userLevel)
         {
             ConnectionCheck.checkConnection(this.Connector);
-            int id = this.getAllUsers().Count + 1;
-            string sql = getStrAddUser(id, login, password, userLevel);
+            string sql = getStrAddUser(login, password, userLevel);
             NpgsqlCommand cmd = new NpgsqlCommand(sql, this.Connector);
             cmd.ExecuteNonQuery();
         }
@@ -78,17 +64,13 @@ namespace DA
         {
             return "select id from Users where login = '" + login + "';";
         }
-        public string getStrGetAllUser()
-        {
-            return "select * from Users;";
-        }
         public string getStrGetUser(int id)
         {
             return "select * from Users where id = " + id.ToString() + ";";
         }
-        public string getStrAddUser(int id, string login, string password, Levels userLevel)
+        public string getStrAddUser(string login, string password, Levels userLevel)
         {
-            return "insert into Users(id, login, password, level) values (" + id.ToString() + ", '" + login + "', '" + password + "', " + ((int)userLevel).ToString() + ");";
+            return "insert into Users(login, password, level) values ('" + login + "', '" + password + "', " + ((int)userLevel).ToString() + ");";
         }
     }
 }

@@ -10,7 +10,6 @@ namespace InterfaceDB
         Student? getStudent(int id_student);
         void transferStudent(int id_student, int id_room);
         void changeStudent(int id_student, Student newStudent);
-
-        void deleteStudent(int id_student);
+        void returnRoom(int id_studnt);
     }
 }

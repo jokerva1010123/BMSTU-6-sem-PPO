@@ -24,7 +24,7 @@ namespace WindowsFormsApp1
             {
                 try
                 {
-                    if(LoginEdit.Text.Length < 1 || PasswordEdit.Text.Length < 1) 
+                    if (LoginEdit.Text.Length < 1 || PasswordEdit.Text.Length < 1)
                     {
                         MessageBox.Show("Нужно добавить логин и пароль для нового студента", "Ошибка!");
                         return;
@@ -36,6 +36,11 @@ namespace WindowsFormsApp1
                     string password = PasswordEdit.Text;
                     string id_roomStr = IdRoomEdit.Text;
                     int id_room = (id_roomStr.Length == 0) ? -1 : Convert.ToInt32(id_roomStr);
+                    if (id_room != -1 && roomManager.GetRoom(id_room).RoomTypes != RoomType.StudentRoom)
+                    {
+                        MessageBox.Show("Это не комната для студента", "Ошибка!");
+                        return;
+                    }
                     this.studentManager.addNewStudent(name, group, studentCode, id_room, login, password);
                     MessageBox.Show("Удалось успешно добавить студента!", "Успех!");
                 }

@@ -1,6 +1,6 @@
-﻿using InterfaceDB;
-using Models;
+﻿using Models;
 using Error;
+using InterfaceDB;
 
 namespace BL
 {
@@ -23,16 +23,20 @@ namespace BL
             int id = this.iuserDB.getIdUser(login);
             if (id == -1)
                 throw new UserNotFoundException();
-            else 
+            else
                 return id;
         }
         public User getUser(int id)
         {
             User? user = this.iuserDB.getUser(id);
-            if(user == null)
+            if (user == null)
                 throw new UserNotFoundException();
-            else 
+            else
                 return user;
+        }
+        public Boolean userExists(string login)
+        {
+            return this.iuserDB.getIdUser(login) != -1;
         }
     }
 }

@@ -26,7 +26,6 @@ namespace DA
         public void addRoom(Room room)
         {
             ConnectionCheck.checkConnection(this.Connector);
-            room.Id_room = this.getAllRoom().Count + 1;
             string sql = getStrAddRoom(room);
             NpgsqlCommand command = new NpgsqlCommand(sql, this.Connector);
             command.ExecuteNonQuery();
@@ -61,28 +60,27 @@ namespace DA
             NpgsqlCommand command = new NpgsqlCommand(sql, this.Connector);
             NpgsqlDataReader reader = command.ExecuteReader();
             if (reader.HasRows)
-                while (reader.Read()) 
+                while (reader.Read())
                     allRoom.Add(new Room(reader.GetInt32(0), reader.GetInt32(1), (RoomType)reader.GetInt32(2)));
             reader.Close();
             return allRoom;
         }
-        string getStrAddRoom(Room room)
+        public string getStrAddRoom(Room room)
         {
-            return "insert into Rooms(id_room, number, roomtype) values (" + room.Id_room.ToString() + ", "
-                + room.Number.ToString() + ", " + ((int)room.RoomTypes).ToString() + ");";
+            return "insert into Rooms(number, roomtype) values ('" +
+                room.Number.ToString() + "', " + ((int)room.RoomTypes).ToString() + ");";
         }
         public string getStrGetRoom(int id_room)
         {
             return "select * from Rooms where id_room = " + id_room.ToString() + ";";
         }
-        string getStrGetAllRoom()
+        public string getStrGetAllRoom()
         {
             return "select * from Rooms;";
         }
-        string getStrDeleteRoom(int id_room)
+        public string getStrDeleteRoom(int id_room)
         {
             return "delete from Rooms where id_room = " + id_room.ToString() + ";";
         }
     }
 }
-    

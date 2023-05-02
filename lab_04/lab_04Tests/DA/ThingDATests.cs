@@ -43,7 +43,7 @@ namespace Tests.DA
             RoomDA roomDA = new RoomDA(args);
             ThingServices thingServices = new ThingServices(thingDA, roomDA, studentDA);
 
-            thingServices.addThing(1237321, "Bed", 1, 1);
+            thingServices.addThing(1237321, "Bed");
 
             int id_thing = thingServices.getIdThingFromCode(1237321);
             NpgsqlCommand command = new NpgsqlCommand(thingDA.getStrGetThing(id_thing), thingDA.Connector);
@@ -56,7 +56,7 @@ namespace Tests.DA
             Assert.AreEqual(thing.Id_thing, id_thing);
             Assert.AreEqual(thing.Code, 1237321);
             Assert.AreEqual(thing.Type, "Bed");
-            thingServices.deleteThing(2);
+            thingServices.deleteThing(thing.Id_thing);
         }
         [TestMethod]
         public void deleteThingTest()
@@ -66,9 +66,11 @@ namespace Tests.DA
             StudentDA studentDA = new StudentDA(args);
             RoomDA roomDA = new RoomDA(args);
             ThingServices thingServices = new ThingServices(thingDA, roomDA, studentDA);
-            thingServices.addThing(1237321, "Bed", 1, 1);
-            thingServices.deleteThing(2);
-            NpgsqlCommand command = new NpgsqlCommand(thingDA.getStrGetThing(2), thingDA.Connector);
+            thingServices.addThing(1237321, "Bed");
+            List<Thing> thingList = thingServices.getAllThing();
+            Thing thing = thingList[thingList.Count - 1];
+            thingServices.deleteThing(thing.Id_thing);
+            NpgsqlCommand command = new NpgsqlCommand(thingDA.getStrGetThing(thing.Id_thing), thingDA.Connector);
             NpgsqlDataReader reader = command.ExecuteReader();
             reader.Read();
             

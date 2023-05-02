@@ -18,7 +18,7 @@ namespace GUIManage
         {
             this.userServices.addUser(login, password, Levels.STUDENT);
             int id = this.userServices.getIdUser(login);
-            DateTime now = DateTime.Now;
+            DateTime now = DateTime.Today;
             this.studentServices.addStudent(name, group, studentCode, id_room, now, id);
         }
         public List<Student> getAllStudent()

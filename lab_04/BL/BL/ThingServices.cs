@@ -1,6 +1,6 @@
-﻿using InterfaceDB;
-using Models;
+﻿using Models;
 using Error;
+using InterfaceDB;
 
 namespace BL
 {
@@ -16,13 +16,13 @@ namespace BL
             this.istudentDB = istudentDB;
             this.iroomDB = iroomDB;
         }
-        public void addThing(int code, string name, int id_room, int id_student)
+        public void addThing(int code, string name)
         {
             List<Thing> allThing = this.ithingDB.getAllThing();
             foreach (Thing thing in allThing)
                 if (thing.Code == code)
                     throw new CodeThingExistsException();
-            this.ithingDB.addThing(new Thing(code, name, id_room, id_student));
+            this.ithingDB.addThing(new Thing(code, name));
         }
         public void deleteThing(int id_thing)
         {
@@ -51,15 +51,15 @@ namespace BL
                 throw new ThingNotFoundException();
             else
                 if (thing.Id_room != id_from)
-                    throw new ThingNotInRoomException();
+                throw new ThingNotInRoomException();
+            else
+            {
+                Room? room = this.iroomDB.getRoom(id_to);
+                if (room == null)
+                    throw new RoomNotFoundException();
                 else
-                {
-                    Room? room = this.iroomDB.getRoom(id_to);
-                    if (room == null)
-                        throw new RoomNotFoundException();
-                    else
-                        this.IthingDB.changeRoomThing(id_thing, id_from, id_to);
-                }
+                    this.IthingDB.changeRoomThing(id_thing, id_from, id_to);
+            }
         }
         public int getIdThingFromCode(int code)
         {
@@ -69,6 +69,42 @@ namespace BL
             else
                 return id_thing;
         }
-        public List<Thing> getFreeThing() => ithingDB.getAllThing().Where(x => !x.Id_student.HasValue).ToList();
+        public void transferStudentThing(int id_student, int id_thing)
+        {
+            Student? student = this.istudentDB.getStudent(id_student);
+            if (student == null)
+                throw new StudentNotFoundException();
+            Thing? thing = this.ithingDB.getThing(id_thing);
+            if (thing == null)
+                throw new ThingNotFoundException();
+            if (thing.Id_student == null || thing.Id_room == 1)
+                this.ithingDB.transferStudentThing(id_student, id_thing, student.Id_room);
+            else throw new ThingNotFreeException();
+        }
+        public void returnThing(int id_student, int id_thing)
+        {
+            Student? student = this.istudentDB.getStudent(id_student);
+            if (student == null)
+                throw new StudentNotFoundException();
+            Thing? thing = this.ithingDB.getThing(id_thing);
+            if (thing == null)
+                throw new ThingNotFoundException();
+            if (thing.Id_student == id_student)
+                this.ithingDB.returnThing(id_thing);
+            else throw new WrongOwnerThingException();
+        }
+        public List<Thing> getStudentThing(int id_student)
+        {
+            Student? student = this.istudentDB.getStudent(id_student);
+            if (student == null)
+                throw new StudentNotFoundException();
+            List<Thing> allThing = this.ithingDB.getAllThing();
+            List<Thing> result = new List<Thing>();
+            foreach (Thing thing in allThing)
+                if (thing.Id_student == id_student)
+                    result.Add(thing);
+            return result;
+        }
+        public List<Thing> getFreeThing() => ithingDB.getAllThing().Where(x => (x.Id_student == -1 || x.Id_student == null)).ToList();
     }
 }
