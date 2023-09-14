@@ -26,10 +26,10 @@ namespace Main
             Levels levelUser = Levels.NONE;
             Console.Write("Введите логин: ");
             this.login = Console.ReadLine();
+            Console.Write("Введите пароль: ");
+            this.password = Console.ReadLine();
             if (this.userServices.userExists(this.login))
             {
-                Console.Write("Введите пароль: ");
-                this.password = Console.ReadLine();
                 int id = this.userServices.getIdUser(this.login);
                 User user = this.userServices.getUser(id);
                 if (user.Password == this.password)

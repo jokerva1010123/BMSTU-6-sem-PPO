@@ -1,6 +1,7 @@
 ﻿using InterfaceDB;
 using Models;
 using Error;
+using NLog;
 
 namespace BL
 {
@@ -43,6 +44,8 @@ namespace BL
         }
         public List<Room> getAllRoom()
         {
+            Logger log = LogManager.GetLogger("myAppLoggerRules");
+            log.Info("User views all rooms.");
             return this.IroomDB.getAllRoom();
         }
     }

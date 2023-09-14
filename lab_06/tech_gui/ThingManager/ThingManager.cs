@@ -1,6 +1,8 @@
 ﻿using BL;
 using Models;
 using Error;
+using NLog;
+using NLog.Fluent;
 
 namespace Main
 {
@@ -17,15 +19,19 @@ namespace Main
         }
         public void viewAllThing()
         {
+            Logger log = LogManager.GetLogger("myAppLoggerRules");
             List<Thing> allThing = this.thingServices.getAllThing();
             foreach (Thing thing in allThing)
                 Console.WriteLine("ID: " + thing.Id_thing.ToString() + ", " + thing.Type + ", код: " + thing.Code);
+            log.Info("User views all things.");
         }
         public void viewFreeThing()
         {
+            Logger log = LogManager.GetLogger("myAppLoggerRules");
             List<Thing> allThing = this.thingServices.getFreeThing();
             foreach (Thing thing in allThing)
                 Console.WriteLine("ID: " + thing.Id_thing.ToString() + ", " + thing.Type + ", код: " + thing.Code);
+            log.Info("User views all free things.");
         }
         public void viewStudentThing()
         {
@@ -100,13 +106,15 @@ namespace Main
                         else
                             throw new ThingNotFreeException();
                     }
-                    else throw new ThingNotFoundException();
+                    else
+                        throw new ThingNotFoundException();
                 }
-                else throw new StudentNotFoundException();
+                else
+                    throw new StudentNotFoundException();
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                Console.WriteLine(e.Message);                
             }
         }
         public void returnStudentThing()
@@ -135,7 +143,7 @@ namespace Main
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                Console.WriteLine(e.Message);   
             }
         }
     }

@@ -1,6 +1,7 @@
 ﻿using InterfaceDB;
 using Models;
 using Error;
+using NLog;
 
 namespace BL
 {
@@ -18,11 +19,16 @@ namespace BL
         }
         public void addThing(int code, string name)
         {
+            Logger log = LogManager.GetLogger("myAppLoggerRules");
             List<Thing> allThing = this.ithingDB.getAllThing();
             foreach (Thing thing in allThing)
                 if (thing.Code == code)
+                {
+                    log.Info("User adds new thing unsuccessfully.");
                     throw new CodeThingExistsException();
+                }
             this.ithingDB.addThing(new Thing(code, name));
+            log.Info("User adds new thing successfully.");
         }
         public void deleteThing(int id_thing)
         {
@@ -72,38 +78,71 @@ namespace BL
         public List<Thing> getFreeThing() => ithingDB.getAllThing().Where(x => !x.Id_student.HasValue).ToList();
         public void transferStudentThing(int id_student, int id_thing)
         {
+            Logger log = LogManager.GetLogger("myAppLoggerRules");
             Student? student = this.istudentDB.getStudent(id_student);
             if (student == null)
+            {
+                log.Info("User gives thing to student unsuccessfully.");
                 throw new StudentNotFoundException();
+            }
             Thing? thing = this.ithingDB.getThing(id_thing);
             if (thing == null)
+            {
+                log.Info("User gives thing to student unsuccessfully.");
                 throw new ThingNotFoundException();
+            }
             if (thing.Id_student == null || thing.Id_room == 1)
+            {
+                log.Info("User gives thing to student successfully.");
                 this.ithingDB.transferStudentThing(id_student, id_thing, student.Id_room);
-            else throw new ThingNotFreeException();
+            }
+            else
+            {
+                log.Info("User gives thing to student unsuccessfully.");
+                throw new ThingNotFreeException();
+            }
         }
         public void returnThing(int id_student, int id_thing)
         {
+            Logger log = LogManager.GetLogger("myAppLoggerRules");
             Student? student = this.istudentDB.getStudent(id_student);
             if (student == null)
+            {
+                log.Info("User returns thing from student unsuccessfully.");
                 throw new StudentNotFoundException();
+            }
             Thing? thing = this.ithingDB.getThing(id_thing);
             if (thing == null)
+            {
+                log.Info("User returns thing from student unsuccessfully."); 
                 throw new ThingNotFoundException();
+            }
             if (thing.Id_student == id_student)
+            {
                 this.ithingDB.returnThing(id_thing);
-            else throw new WrongOwnerThingException();
+                log.Info("User returns thing from student successfully.");
+            }
+            else
+            {
+                log.Info("User returns thing from student unsuccessfully.");
+                throw new WrongOwnerThingException();
+            }
         }
         public List<Thing> getStudentThing(int id_student)
         {
+            Logger log = LogManager.GetLogger("myAppLoggerRules");
             Student? student = this.istudentDB.getStudent(id_student);
             if (student == null)
+            {
+                log.Info("User views student's things succesfully.");
                 throw new StudentNotFoundException();
+            }
             List<Thing> allThing = this.ithingDB.getAllThing();
             List<Thing> result = new List<Thing>();
             foreach (Thing thing in allThing)
                 if (thing.Id_student == id_student)
                     result.Add(thing);
+            log.Info("User views student's things succesfully.");
             return result;
         }
     }

@@ -3,6 +3,7 @@ using System.Data;
 using InterfaceDB;
 using Error;
 using Models;
+using NLog;
 
 namespace DA
 {
@@ -15,13 +16,23 @@ namespace DA
 
         public StudentDA(ConnectionArgs args)
         {
+            Logger log = LogManager.GetLogger("myAppLoggerRules");
             this.connectString = args.getString();
             this.Connector = new NpgsqlConnection(this.connectString);
             if (this.Connector == null)
+            {
+                log.Error("No database error!");
                 throw new DataBaseConnectException();
-            this.Connector.Open();
-            if (this.Connector.State != ConnectionState.Open)
-                throw new DataBaseConnectException();
+            }
+            try
+            {
+                this.Connector.Open();
+            }
+            catch (Exception ex)
+            {
+                log.Error("Can't access database!");
+
+            }
         }
         public void addStudent(Student student)
         {

@@ -1,21 +1,20 @@
 ﻿using BL;
 using Models;
+using NLog;
 
 namespace Main
 {
     internal class StudentManager
     {
         private StudentServices studentServices;
-        private RoomServices roomServices;
         private UserServices userServices;
-        public StudentManager(UserServices userServices, StudentServices studentServices, RoomServices roomServices)
+        public StudentManager(UserServices userServices, StudentServices studentServices)
         {
             this.studentServices = studentServices;
-            this.roomServices = roomServices;
             this.userServices = userServices;
         }
         public void addStudent()
-        {
+        {            
             Console.Write("Введите имя студента: ");
             string name = Console.ReadLine();
 
@@ -33,17 +32,17 @@ namespace Main
             DateTime now = DateTime.Now;
             try
             {
-                this.userServices.addUser(login, password, Models.Levels.STUDENT);
+                this.userServices.addUser(login, password, Levels.STUDENT);
                 int id = this.userServices.getIdUser(login);
                 this.studentServices.addStudent(name, group, code, -1, now, id);
             }
             catch(Exception e)
             {
-                Console.WriteLine(e.Message);
+                Console.WriteLine(e.Message); 
             }
         }
         public void viewStudent()
-        {
+        {            
             Console.Write("Введите код студента: ");
             string code = Console.ReadLine();
             try
@@ -57,11 +56,11 @@ namespace Main
                         Console.WriteLine(", живет в общежитии.");
                     else
                         Console.WriteLine(", не живет в общежитии.");
-                }
+                }                
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                Console.WriteLine(e.Message);                
             }
         }
         public void viewAllStudent()
@@ -88,15 +87,16 @@ namespace Main
             try
             {
                 int id_student = this.studentServices.getIdStudentFromCode(code);
-                this.studentServices.changeStudentGroup(id_student, group);
+                this.studentServices.changeStudentGroup(id_student, group);                
             }
             catch ( Exception e )
             {
-                Console.WriteLine(e.Message);
+                Console.WriteLine(e.Message);                
             }
         }
         public void changeStudentName()
         {
+            Logger log = LogManager.GetLogger("myAppLoggerRules");
             Console.Write("Введите код студента: ");
             string code = Console.ReadLine();
 
@@ -107,10 +107,12 @@ namespace Main
             {
                 int id_student = this.studentServices.getIdStudentFromCode(code);
                 this.studentServices.changeStudentName(id_student, name);
+                log.Info("User changes student's name successfully.");
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
+                log.Info("User changes student's name unsuccessfully.");
             }
         }
 
@@ -129,7 +131,7 @@ namespace Main
             }
             catch(Exception e)
             {
-                Console.WriteLine(e.Message);
+                Console.WriteLine(e.Message);                
             }
         }
 

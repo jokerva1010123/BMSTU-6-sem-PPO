@@ -1,4 +1,5 @@
-﻿using Models;
+﻿using Error;
+using Models;
 using NLog;
 
 namespace Main
@@ -38,113 +39,142 @@ namespace Main
                 case 1:
                     if (this.role != Levels.NONE)
                     {
-                        log.Info("User logout successfully.");
                         this.role = Levels.NONE;
+                        log.Info("User logout successfully.");
                     }
                     else
                     {
-                        log.Info("User logout unsuccessfully");
                         Console.WriteLine("Эту команду невозможно выполнить в текущем статусе!");
+                        log.Info("User logout unsuccessfully.");
                     }
                     break;
                 case 2:
-                    log.Info("User login.");
                     if(this.role == Levels.NONE)
                     {
-                        Levels levels = this.userManager.tryAuthorize();
-                        if(levels == Levels.STUDENT)
+                        try
                         {
-                            int id = this.userManager.getIdUser(this.userManager.Login);
-                            this.studentCode = this.studentManager.getStudentByIdUser(id);
+                            Levels levels = this.userManager.tryAuthorize();
+                            if (levels == Levels.STUDENT)
+                            {
+                                int id = this.userManager.getIdUser(this.userManager.Login);
+                                this.studentCode = this.studentManager.getStudentByIdUser(id);
+                            }
+                            this.role = levels;
+                            Console.WriteLine("Login OK.");
+                            log.Info("User login successfully.");
                         }
-                        this.role = levels;
-                        log.Info("User login successfully.");
+                        catch
+                        {
+                            log.Info("Wrong login or password.");
+                            Console.WriteLine("Wrong login or password.");
+                        }
                     }
                     else
                     {
-                        log.Info("User login failed.");
-                        Console.WriteLine("Error");
+                        Console.WriteLine("Must logout first!");
+                        log.Info("User want to login failed.");
                     }
                     break;
                 case 3:
-                    log.Info("User views all students.");
                     if (this.role != Levels.NONE)
-                        this.studentManager.viewAllStudent();
+                        this.studentManager.viewAllStudent();                        
                     else
+                    {
                         Console.WriteLine("Эту команду невозможно выполнить в текущем статусе!");
+                        log.Info("User has no right to views all students.");
+                    }                        
                     break;
                 case 4:
-                    log.Info("User views student's informations.");
                     if (this.role != Levels.NONE)
                         this.studentManager.viewStudent();
                     else
+                    {
                         Console.WriteLine("Эту команду невозможно выполнить в текущем статусе!");
+                        log.Info("User has no right to views student's informations.");
+                    }
                     break;
                 case 5:
-                    log.Info("User adds new student.");
                     if (this.role == Levels.KAMEDAN)
                         this.studentManager.addStudent();
                     else
+                    {
                         Console.WriteLine("Эту команду невозможно выполнить в текущем статусе!");
+                        log.Info("User adds new student.");
+                    }
                     break;
                 case 6:
-                    log.Info("User changes student's group.");
                     if (this.role == Levels.KAMEDAN)
                         this.studentManager.changeStudentGroup();
                     else
+                    {
                         Console.WriteLine("Эту команду невозможно выполнить в текущем статусе!");
+                        log.Info("User has no right to change student's group.");
+                    }
                     break;
                 case 7:
-                    log.Info("User sets room for student.");
                     if (this.role == Levels.KAMEDAN)
                         this.studentManager.setRoom();
                     else
+                    { 
                         Console.WriteLine("Эту команду невозможно выполнить в текущем статусе!");
+                        log.Info("User has no right to set room for student.");
+                    } 
                     break;
                 case 8:
-                    log.Info("User gets room from student.");
                     if (this.role == Levels.KAMEDAN)
                         this.studentManager.returnRoom();
                     else
+                    { 
                         Console.WriteLine("Эту команду невозможно выполнить в текущем статусе!");
+                        log.Info("User has no right to get room from student.");
+                    }
                     break;
                 case 9:
-                    log.Info("User views all things.");
                     if (this.role != Levels.NONE)
                         this.thingManager.viewAllThing();
                     else
+                    {
                         Console.WriteLine("Эту команду невозможно выполнить в текущем статусе!");
+                        log.Info("User has no right to view all things.");
+                    }
                     break;
                 case 10:
-                    log.Info("User views all free things.");
-                    if(this.role == Levels.MANAGER)
+                    if (this.role == Levels.MANAGER)
                         this.thingManager.viewFreeThing();
                     else
+                    {
                         Console.WriteLine("Эту команду невозможно выполнить в текущем статусе!");
+                        log.Info("User has no right to view all free things.");
+                    }
                     break;
                 case 11:
-                    log.Info("User adds new thing.");
                     if (this.role == Levels.MANAGER)
                         this.thingManager.addNewThing();
                     else
+                    { 
                         Console.WriteLine("Эту команду невозможно выполнить в текущем статусе!");
+                        log.Info("User has no right to add new things.");
+                    }
                     break;
                 case 12:
-                    log.Info("User gives thing to student.");
                     if (this.role == Levels.MANAGER)
                         this.thingManager.giveStudentThing();
                     else
+                    {
                         Console.WriteLine("Эту команду невозможно выполнить в текущем статусе!");
+                        log.Info("User has no right to give things to student.");
+                    }
                     break;
                 case 13:
-                    log.Info("User gets thing from student.");
                     if (this.role == Levels.MANAGER)
                         this.thingManager.returnStudentThing();
                     else
+                    {
                         Console.WriteLine("Эту команду невозможно выполнить в текущем статусе!");
+                        log.Info("User has no right to get thing from student.");
+                    }
                     break;
                 case 14:
-                    log.Info("User views student's things.");
                     if(this.role == Levels.MANAGER || this.role == Levels.KAMEDAN)
                     {
                         this.thingManager.viewStudentThing();
@@ -156,17 +186,21 @@ namespace Main
                     else
                     {
                         Console.WriteLine("Эту команду невозможно выполнить в текущем статусе!");
+                        log.Info("User has no right to view student's thing.");
                     }
                     break;
                 case 15:
-                    log.Info("User views all rooms.");
                     if (this.role != Levels.NONE)
                         this.roomManager.printAllRoom();
                     else
+                    {
                         Console.WriteLine("Эту команду невозможно выполнить в текущем статусе!");
+                        log.Info("User has no right to view all rooms.");
+                    }
                     break;
                 default:
                     Console.WriteLine("Такой команды не существует!\nВведите заново!");
+                    log.Info("User choose wrong input.");
                     break;
             }
         }

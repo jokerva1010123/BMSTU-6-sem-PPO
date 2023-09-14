@@ -11,7 +11,7 @@ namespace DA
         private string host;
         private string database;
         private int port;
-        private string connectionString;
+        private string connectionString = "";
 
         public string User { get => user; set => user = value; }
         public string Password { get => password; set => password = value; }
@@ -25,7 +25,6 @@ namespace DA
             this.host = host;
             this.database = database;
             this.port = port;
-            this.connectionString = "";
         }
         public ConnectionArgs(string connectionString)
         {
@@ -43,12 +42,11 @@ namespace DA
             host = args.Host;
             database = args.Database;
             port = args.Port;
-            connectionString = args.connectionString;
         }
         public string getString()
         {
-            if(this.connectionString == "")
-                return "Host = " + host + "; Username = " + user + "; Password = " + password + "; Database = " + database + ";";
+            if (this.connectionString == "")
+                return "Host = " + this.host + "; Username = " + this.user + "; Password = " + this.password + "; Database = " + this.database + ";";
             return this.connectionString;
         }
     }

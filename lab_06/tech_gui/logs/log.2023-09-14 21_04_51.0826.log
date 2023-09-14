@@ -1,0 +1,6 @@
+2023-09-14 21:04:51.0826|INFO|myAppLoggerRules|User login successfully.
+2023-09-14 21:04:53.4746|INFO|myAppLoggerRules|User views all students successfully.
+2023-09-14 21:04:57.7077|INFO|myAppLoggerRules|User views student's information unsuccessfully.
+2023-09-14 21:05:02.6383|INFO|myAppLoggerRules|User views student's information successfully.
+2023-09-14 21:05:03.5158|INFO|myAppLoggerRules|User logout successfully.
+2023-09-14 21:05:03.9961|INFO|myAppLoggerRules|User exit.
