@@ -63,3 +63,12 @@ insert into things(code, type, id_room, id_student) values (3233321, 'Bed', 1, -
 insert into things(code, type, id_room, id_student) values (3234321, 'Bed', 2, 1);
 insert into things(code, type, id_room, id_student) values (3235321, 'Bed', 3, 2);
 select * from things;
+
+drop table if exists Reports;
+create table Reports (
+	id_report serial,
+	code_student varchar,
+	room_number integer,
+	status integer,
+	information varchar
+);
